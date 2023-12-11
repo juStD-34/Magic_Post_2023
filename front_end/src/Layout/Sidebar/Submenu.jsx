@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { IoIosArrowDown } from "react-icons/io";
 import { NavLink, useLocation } from "react-router-dom";
+import { GiTrade } from "react-icons/gi";
 
 const SubMenu = ({ data }) => {
   const { pathname } = useLocation();
@@ -28,16 +29,17 @@ const SubMenu = ({ data }) => {
                 height: 0,
               }
         }
-        className="flex h-0 flex-col pl-14 text-[0.8rem] font-normal overflow-hidden"
+        className="flex h-0 flex-col pl-3 text-[0.8rem] font-normal overflow-hidden"
       >
         {data.menus?.map((menu) => (
           <li key={menu} className="hover:text-blue-600 hover:font-medium">
-            <NavLink 
-              to={`/${data.name}/${menu}`}
-              className="link !bg-transparent capitalize"
-            >
-              {menu}
-            </NavLink>
+              <NavLink
+                to={`/${data.name}/${menu}`}
+                className="link !bg-transparent capitalize"
+              >
+                <GiTrade size={20}></GiTrade>
+                {menu}
+              </NavLink>
           </li>
         ))}
       </motion.ul>
