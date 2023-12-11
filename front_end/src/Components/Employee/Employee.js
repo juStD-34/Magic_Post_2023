@@ -30,36 +30,41 @@ function Employee() {
         return response.json();
       })
       .then(data => {
+        console.log("data", data);
         setOutgoingMails(data.outgoingMails);
       })
       .catch(error => {
         console.error('Error fetching outgoing mails:', error);
       });
   }, [postId]);
-  console.log('incomingMails', incomingMails);
-  console.log('outgoingMails', outgoingMails);
+
+  useEffect(() => {
+    console.log('incomingMails', incomingMails);
+    console.log('outgoingMails', outgoingMails);
+  }, [incomingMails, outgoingMails]);
   return (
-    
+
     <div className='flex'>
       <div className='flex-1'>
         <h2>Incoming Mails</h2>
-        <ul>
+        {/* <ul>
+          
           {incomingMails.map(mail => (
             <li key={mail.id}>
               {mail.code} - From: {mail.fromPoId} - To: {mail.toPoId}
             </li>
           ))}
-        </ul>
+        </ul> */}
       </div>
       <div className='flex-1'>
         <h2>Outgoing Mails</h2>
-        <ul>
+        {/* <ul>
           {outgoingMails.map(mail => (
             <li key={mail.id}>
               {mail.code} - From: {mail.fromPoId} - To: {mail.toPoId}
             </li>
           ))}
-        </ul>
+        </ul> */}
       </div>
     </div>
   );
