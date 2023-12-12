@@ -59,7 +59,7 @@ function Sidebar() {
 
   useEffect(() => {
     isTab && setIsOpen(false);
-  }, [pathname]);
+  }, [pathname]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const substitute = [
     {
@@ -80,7 +80,7 @@ function Sidebar() {
     <div>
       <div
         onClick={() => setIsOpen(false)}
-        className={`md:hidden fixed inset-0 max-h-screen z-[998] bg-black/50 ${
+        className={`md:hidden fixed inset-0  z-[998] bg-black/50 ${
           isOpen ? "block" : "hidden"
         } `}
       ></div>
@@ -89,7 +89,7 @@ function Sidebar() {
         variants={Sidebar_animation}
         initial={{ x: isTab ? -250 : 0 }}
         animate={isOpen ? "open" : "closed"}
-        className="bg-white text-gray shadow-xl z-[999] w-[16rem] max-w[16rem] h-screen overflow-hidden md:relative fixed"
+        className="bg-white text-gray border-slate-300 border-r z-[999] w-[16rem] max-w[16rem] h-screen overflow-hidden md:relative fixed"
       >
         <div className="flex items-center gap-2.5 font-medium border-b border-slate-300 py-3 mx-3">
           <img
@@ -103,16 +103,16 @@ function Sidebar() {
         <div className="flex flex-col h-full">
           <ul className="whitespace-pre px-2.5 text-[0.9rem] py-5 flex flex-col gap-1 font-medium overflow-x-hidden scrollbar-thin scrollbar-track-white scrollbar-thumb-slate-100 h-[70%] max-h=[68%]">
             <li>
-              <NavLink to={"/manager"} className={"link"}>
-                <AiOutlineAppstore
+              <NavLink to={"/employee/create"} className={"link"}>
+                <TfiAgenda
                   size={23}
                   className="min-w-max"
-                ></AiOutlineAppstore>
-                manager
+                ></TfiAgenda>
+                Create
               </NavLink>
             </li>
 
-            {(isOpen || isTab) && (
+            {/* {(isOpen || isTab) && (
               <div className="border-y py-5 border-slate-300">
                 <small className="pl-3 text-slate-500 inline-block mb-2">
                   Works
@@ -124,12 +124,12 @@ function Sidebar() {
                   </div>
                 ))}
               </div>
-            )}
+            )} */}
 
             <li>
-              <NavLink to={"/employee"} className={"link"}>
-                <BsPerson size={23} className="min-w-max"></BsPerson>
-                employee
+              <NavLink to={"/employee/confirm"} className={"link"}>
+                <TfiCheckBox size={23} className="min-w-max"></TfiCheckBox>
+                Confirm
               </NavLink>
             </li>
           </ul>
@@ -170,7 +170,7 @@ function Sidebar() {
           <IoIosArrowBack size={25} />
         </motion.div>
       </motion.div>
-      <div className="m-3 md:hidden" onClick={() => setIsOpen(true)}>
+      <div className="m-3 mt-5 md:hidden" onClick={() => setIsOpen(true)}>
         <MdMenu size={25} />
       </div>
     </div>

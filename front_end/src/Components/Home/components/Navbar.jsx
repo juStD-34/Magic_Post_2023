@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 
 const Navbar = () => {
@@ -17,7 +18,7 @@ const Navbar = () => {
         <li className='link'>Resources</li>
         <li className='link'>About</li>
         <li className='link'>Contact</li>
-        <button className='bg-blue-400 w-[70px] rounded-md font-medium my-6 mx-auto py-3 text-white'>Login</button>
+        <NavLink to={"/employee/create"} className='text-center bg-blue-400 w-[70px] rounded-md font-medium my-6 mx-auto py-3 text-white'>Login</NavLink>
       </ul>
       <div onClick={handleNav} className='block md:hidden'>
           {nav ? <AiOutlineClose size={20}/> : <AiOutlineMenu size={20} />}
@@ -29,7 +30,7 @@ const Navbar = () => {
           <li className='link border-b border-gray-600'>Resources</li>
           <li className='link border-b border-gray-600'>About</li>
           <li className='link'>Contact</li>
-          <button className='bg-blue-400 w-[70px] rounded-md font-medium my-6 mx-auto py-3 text-black'>Login</button>
+          <NavLink to={"/employee/create"} className='link bg-blue-400 w-[70px] rounded-md font-medium my-6 mx-auto py-3 text-black'>Login</NavLink>
       </ul>
     </div>
   );

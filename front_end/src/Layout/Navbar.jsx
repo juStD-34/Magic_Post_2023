@@ -18,47 +18,10 @@ function Navbar() {
     <Disclosure as="nav">
       {({ open }) => (
         <>
-          <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 ">
+          <div className="mx-auto px-2 sm:px-6 lg:px-8 border-b border-slate-300">
             <div className="relative flex h-16 items-center justify-between">
-              {/* <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
-                <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
-                  <span className="absolute -inset-0.5" />
-                  <span className="sr-only">Open main menu</span>
-                  {open ? (
-                    <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
-                  ) : (
-                    <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
-                  )}
-                </Disclosure.Button>
-              </div> */}
-              <div className="flex flex-1 items-center justify-start">
-                {/* Navigation */}
-                <div className="hidden sm:ml-6 sm:block">
-                  <div className="flex space-x-4">
-                    {navigation.map((item) => (
-                      <a
-                        key={item.name}
-                        href={item.href}
-                        className={classNames(
-                          item.current ? 'bg-gray-900 text-white  active' : 'text-black hover:bg-blue-100 hover:text-blue-600',
-                          'rounded-md px-3 py-2 text-sm font-medium'
-                        )}
-                        aria-current={item.current ? 'page' : undefined}
-                      >
-                        {item.name}
-                      </a>
-                    ))}
-                  </div>
-                </div>
 
-                {/* Search */}
-                {/* <div className='hidden sm:ml-6 sm:block relative rounded-md shadow-sm ml-10'>
-                  <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                    <MagnifyingGlassIcon className="h-5 w-5 text-black" aria-hidden="true" />
-                  </div>
-                  <input type='text' placeholder='Search package' className="block rounded-md border-0 outline-none py-1.5 pl-10 pr-20 text-black ring-1 ring-inset ring-gray-300 placeholder:text-gray-600 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6">
-                  </input>
-                </div> */}
+              <div className="flex flex-1 items-center justify-start">
               </div>
 
               {/* Notification */}
@@ -94,11 +57,11 @@ function Navbar() {
                     leaveFrom="transform opacity-100 scale-100"
                     leaveTo="transform opacity-0 scale-95"
                   >
-                    {/* <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                       <Menu.Item>
                         {({ active }) => (
                           <a
-                            href=""
+                            href="/profile"
                             className={classNames(active ? 'bg-blue-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                           >
                             Your Profile
@@ -108,7 +71,7 @@ function Navbar() {
                       <Menu.Item>
                         {({ active }) => (
                           <a
-                            href=""
+                            href="/settings"
                             className={classNames(active ? 'bg-blue-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                           >
                             Settings
@@ -118,14 +81,14 @@ function Navbar() {
                       <Menu.Item>
                         {({ active }) => (
                           <a
-                            href=""
+                            href="/login"
                             className={classNames(active ? 'bg-blue-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                           >
                             Sign out
                           </a>
                         )}
                       </Menu.Item>
-                    </Menu.Items> */}
+                    </Menu.Items>
                   </Transition>
                 </Menu>
               </div>

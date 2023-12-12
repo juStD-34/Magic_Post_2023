@@ -70,8 +70,8 @@ function Login() {
                   </label>
                 </div>
                 <div class="text-sm">
-                  <a
-                    href="#"
+                  <a 
+                    href="/home"
                     class="font-medium text-blue-500 hover:text-blue-500"
                   >
                     Forgot your password?
@@ -89,8 +89,8 @@ function Login() {
               </div>
               <p class="flex flex-col items-center justify-center mt-10 text-center text-md text-gray-500">
                 <span>Don't have an account?</span>
-                <a
-                  href="#"
+                <a 
+                  href="/home"
                   class="text-blue-500 hover:text-blue-500no-underline hover:underline cursor-pointer transition ease-in duration-300"
                 >
                   Sign up
