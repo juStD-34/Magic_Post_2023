@@ -10,14 +10,14 @@ import {
 
 const TBody = ({ TABLE_HEAD, TABLE_ROWS }) => {
   return (
-    <CardBody className="overflow-x-auto mx-4 my-4 border-2 border-gray-300 rounded-lg">
-      <table className="min-w-full table-auto text-left rounded-lg">
+    <CardBody className="overflow-x-auto  rounded-lg">
+      <table className="min-w-full mx-auto my-auto  table-auto text-left border-2 border-gray-300 rounded-2xl">
         <thead>
           <tr>
             {TABLE_HEAD.map((head) => (
               <th
                 key={head}
-                className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 bg-gray-200"
+                className="border-y border-blue-gray-100 p-4 bg-gray-200"
               >
                 <Typography
                   variant="small"

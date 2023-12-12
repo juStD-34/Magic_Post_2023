@@ -81,7 +81,7 @@ const fake = [
 
 let TABLE_ROWS = res;
 
-function Employee()  {
+function Confirm()  {
   const [isTrade, setIsTrade] = useState(true);
 
   TABLE_ROWS = (isTrade ? res : fake);
@@ -89,9 +89,9 @@ function Employee()  {
     return (
       <div className="flex bg-white">
         <Sidebar />
-        <div className="h-full w-[85%] sm:w-full px-auto">
+        <div className="h-screen w-[85%] sm:w-full px-auto">
           <Navbar />
-          <main className="max-w-5xl flex-4 mx-auto py-2 border-2 border-gray-400 rounded-lg">
+          <main className="max-w-4xl flex-4 mx-auto py-2 my-4 border-2 border-gray-300 rounded-lg">
               <Card className="w-full">
                 <TableHead TABS={TABS} isTrade={isTrade} setIsTrade={setIsTrade}/>
                 <TBody TABLE_ROWS={TABLE_ROWS} TABLE_HEAD={TABLE_HEAD}/>
@@ -102,4 +102,4 @@ function Employee()  {
       </div>
     );
 }
-export default Employee;
+export default Confirm;
