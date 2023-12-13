@@ -1,12 +1,12 @@
 import React from "react";
-import Paginate from "../../../shared/Pagination/Paginate";
+import Paginate from "../Pagination/Paginate";
 
 import {
     Typography,
     CardBody,
 } from "@material-tailwind/react";
 
-const TBody = ({ TABLE_HEAD, TABLE_ROWS }) => {
+const TBody = ({ TABLE_HEAD, TABLE_ROWS, type }) => {
   return (
     <CardBody className="overflow-x-auto overflow-y-auto px-0 pb-2  rounded-lg">
       <table className="min-w-full mx-auto my-auto  table-fixed text-left border-t-2 border-gray-300 rounded-2xl">
@@ -15,7 +15,7 @@ const TBody = ({ TABLE_HEAD, TABLE_ROWS }) => {
             {TABLE_HEAD.map((head) => (
               <th
                 key={head}
-                className="border-y border-blue-gray-100 p-4 bg-gray-200"
+                className="border-y border-blue-gray-100 text-center p-4 bg-gray-200"
               >
                 <Typography
                   variant="small"
@@ -29,7 +29,7 @@ const TBody = ({ TABLE_HEAD, TABLE_ROWS }) => {
           </tr>
         </thead>
         <tbody>
-          <Paginate data={TABLE_ROWS} className="flex flex-col"/>
+          <Paginate data={TABLE_ROWS} type={type} className="flex flex-col"/>
         </tbody>
       </table>
     </CardBody>

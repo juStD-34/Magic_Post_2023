@@ -3,17 +3,16 @@ import ReactPaginate from "react-paginate";
 
 import Datarow from "./Datarow";
 
-export default function Paginate({data}) {
+export default function Paginate({data, type}) {
   // Here we use item offsets; we could also use page offsets
   // following the API or data you're working with.
   const [itemOffset, setItemOffset] = useState(0);
-  const itemsPerPage = 5;
+  const itemsPerPage = 4;
 
   // Simulate fetching items from another resources.
   // (This could be items from props; or items loaded in a local state
   // from an API endpoint with useEffect and useState)
   const endOffset = itemOffset + itemsPerPage;
-  console.log(`Loading items from ${itemOffset} to ${endOffset}`);
   const currentItems = data.slice(itemOffset, endOffset);
   const pageCount = Math.ceil(data.length / itemsPerPage);
 
@@ -25,11 +24,12 @@ export default function Paginate({data}) {
 
   return (
     <>
-      <Datarow currentItems={currentItems}/>
+      <Datarow currentItems={currentItems} type={type}/>
       <ReactPaginate
         breakLabel="..."
         nextLabel="NEXT"
         onPageChange={handlePageClick}
+        pageRangeDisplayed={4}
         pageCount={pageCount}
         previousLabel="PREVIOUS"
         renderOnZeroPageCount={null}

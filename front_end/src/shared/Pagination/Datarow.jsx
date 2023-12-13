@@ -1,20 +1,32 @@
 import {
   Typography,
-  Chip,
-  IconButton,
-  Tooltip,
 } from "@material-tailwind/react";
-import { TiTickOutline } from "react-icons/ti";
+import { action, account, deliver, confirm } from "../Pagination/components";
 
-export default function Datarow({ currentItems }) {
+export default function Datarow({ currentItems, type }) {
   return (
     <>
-      {currentItems.map(({ name, email, job, org, online, date }, index) => {
+      {currentItems.map(({ name, address, online, phone }, index) => {
         const isLast = index === currentItems.length - 1;
         const classes = isLast
           ? "p-4 border-b border-gray-300"
           : "p-4 border-b border-blue-gray-50";
 
+        var icon;
+        var icon2;
+
+        switch (type) {
+          case "ceo":
+            icon = account;
+            icon2 = action;
+            break;
+          case "employee":
+            icon = deliver(online);
+            icon2 = confirm(online);
+            break;
+          default:
+            break;
+        }
         return (
           <tr key={name}>
             <td className={classes}>
@@ -27,17 +39,9 @@ export default function Datarow({ currentItems }) {
                   >
                     {name}
                   </Typography>
-                  <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="font-normal opacity-70"
-                  >
-                    {email}
-                  </Typography>
                 </div>
               </div>
             </td>
-
 
             <td className={classes}>
               <div className="flex flex-col">
@@ -46,49 +50,26 @@ export default function Datarow({ currentItems }) {
                   color="blue-gray"
                   className="font-normal"
                 >
-                  {job}
-                </Typography>
-                <Typography
-                  variant="small"
-                  color="blue-gray"
-                  className="font-normal opacity-70"
-                >
-                  {org}
+                  {address}
                 </Typography>
               </div>
             </td>
-            <td className={classes}>
-              <div className="w-max">
-                <Chip
-                  variant="ghost"
-                  size="sm"
-                  value={online ? "arrived" : "on delivering"}
-                  className={online ? "bg-green-400" : "bg-red-300"}
-                />
-              </div>
-            </td>
+
             <td className={classes}>
               <Typography
                 variant="small"
                 color="blue-gray"
                 className="font-normal"
               >
-                {date}
+                {phone}
               </Typography>
             </td>
+
             <td className={classes}>
-              <Tooltip content="Confirm arrived">
-                <IconButton
-                  variant="text"
-                  className="items-center justify-center flex"
-                >
-                  <TiTickOutline
-                    className="h-4 w-4 "
-                    color={online ? "green" : "red"}
-                  />
-                </IconButton>
-              </Tooltip>
+              <div className="w-max">{icon}</div>
             </td>
+
+            <td className={classes}>{icon2}</td>
           </tr>
         );
       })}
