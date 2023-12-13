@@ -1,17 +1,24 @@
 import React from "react";
 import { Button } from "flowbite-react";
-import { UserPlusIcon } from "@heroicons/react/24/solid";
+import { FiPrinter } from "react-icons/fi";
+import { BsBuildingFillAdd } from "react-icons/bs";
 
-function SendPack() {
+function Modal({ type }) {
   const [showModal, setShowModal] = React.useState(false);
   return (
     <>
       <Button
         onClick={() => setShowModal(true)}
-        className="flex items-center gap-3 bg-blue-500 shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+        className="flex items-center gap-4 bg-blue-500 shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
         size="sm"
       >
-        <UserPlusIcon strokeWidth={2} className="h-4 w-4" /> Send package
+        <BsBuildingFillAdd className="h-4 w-4 mr-2"/>Add offices
+      </Button>
+      <Button
+            className="flex items-center gap-4 bg-blue-500 shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+            size="sm"
+          >
+            <FiPrinter className="h-5 w-5" />
       </Button>
       {showModal ? (
         <>
@@ -25,7 +32,7 @@ function SendPack() {
                     <div className="space-y-12">
                       <div className=" pb-4">
                         <h2 className="text-base font-semibold leading-7 text-gray-900">
-                          Send package to Centralize Office
+                          Add Offices
                         </h2>
                         
                         <div className="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
@@ -35,7 +42,7 @@ function SendPack() {
                               htmlFor="email"
                               className="block text-sm font-medium leading-6 text-gray-900"
                             >
-                              Package's ID
+                              Office's ID
                             </label>
                             <div className="mt-2">
                               <input
@@ -53,7 +60,7 @@ function SendPack() {
                               htmlFor="first-name"
                               className="block text-sm font-medium leading-6 text-gray-900"
                             >
-                              Send Office
+                              Phone
                             </label>
                             <div className="mt-2">
                               <input
@@ -89,7 +96,7 @@ function SendPack() {
                               htmlFor="country"
                               className="block text-sm font-medium leading-6 text-gray-900"
                             >
-                              To
+                              Type
                             </label>
                             <div className="mt-2">
                               <select
@@ -154,4 +161,4 @@ function SendPack() {
   );
 }
 
-export default SendPack;
+export default Modal;

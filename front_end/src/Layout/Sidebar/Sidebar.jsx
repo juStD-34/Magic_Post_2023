@@ -3,10 +3,32 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
 import { IoIosArrowBack } from "react-icons/io";
-import { TfiAgenda } from "react-icons/tfi";
-import { TfiCheckBox } from "react-icons/tfi";
+// import { TfiAgenda } from "react-icons/tfi";
+// import { TfiCheckBox } from "react-icons/tfi";
+import { ImOffice } from "react-icons/im";
 import { useMediaQuery } from "react-responsive";
 import { MdMenu } from "react-icons/md";
+
+const CEO = [
+  {
+    link: "/manager",
+    name: "Offices",
+    icon: ImOffice,
+  }
+]
+
+// const Employee = [
+//   {
+//     link : "/employee/create",
+//     name : "Create",
+//     icon : TfiAgenda,
+//   },
+//   {
+//     link : "/employee/confirm",
+//     name : "Confirm",
+//     icon : TfiCheckBox,
+//   },
+// ]
 
 function Sidebar() {
   let isTab = useMediaQuery({ query: "(max-width: 768px)" });
@@ -98,16 +120,14 @@ function Sidebar() {
 
         <div className="flex flex-col h-full">
           <ul className="whitespace-pre px-2.5 text-[0.9rem] py-5 flex flex-col gap-1 font-medium overflow-x-hidden scrollbar-thin scrollbar-track-white scrollbar-thumb-slate-100 h-[70%] max-h=[68%]">
-            <li>
-              <NavLink to={"/employee/create"} className={"link"}>
-                <TfiAgenda
-                  size={23}
-                  className="min-w-max"
-                ></TfiAgenda>
-                Create
-              </NavLink>
-            </li>
-
+            {CEO.map((menu) => (
+              <li>
+                <NavLink to={menu.link} className={"link"}>
+                  <menu.icon size={23} className="min-w-max"></menu.icon>
+                  {menu.name}
+                </NavLink>
+              </li>
+            ))}
             {/* {(isOpen || isTab) && (
               <div className="border-y py-5 border-slate-300">
                 <small className="pl-3 text-slate-500 inline-block mb-2">
@@ -121,13 +141,6 @@ function Sidebar() {
                 ))}
               </div>
             )} */}
-
-            <li>
-              <NavLink to={"/employee/confirm"} className={"link"}>
-                <TfiCheckBox size={23} className="min-w-max"></TfiCheckBox>
-                Confirm
-              </NavLink>
-            </li>
           </ul>
 
           {isOpen && (

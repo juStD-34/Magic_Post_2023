@@ -1,5 +1,5 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import SendPack from "../../../shared/Modal";
+import Modal from "../Modal";
 
 import {
   CardHeader,
@@ -9,28 +9,36 @@ import {
   TabsHeader,
 } from "@material-tailwind/react";
 
-const TableHead = ({ TABS, isTrade, setIsTrade, isCreate }) => {
+const TableHead = ({ TABS, isTrade, setIsTrade, type }) => {
+  let intro = "all sent packages", head="Packages list", add="";
+  switch(type) {
+    case "ceo":
+      head="Offices List"
+      intro="all offices"
+      add="flex shrink-0 flex-col gap-2 sm:flex-row"
+      break;
+    case "employee":
+      add="hidden"
+      break;
+    default:
+      break;
+  }
   return (
     <div>
       <CardHeader floated={false} shadow={false}>
         <div className="flex items-center mx-4 justify-between gap-8">
           <div>
             <Typography variant="h5" color="blue-gray">
-              {isCreate ? "Sent Packages" : "Packages list"}
+              {head}
             </Typography>
             <Typography color="gray" className="hidden sm:flex mt-1 font-normal">
-              See information about{" "}
-              {isCreate
-                ? "all sent packages"
-                : "all arriving and arrived packages"}
+              See information about {intro}
             </Typography>
           </div>
           <div
-            className={
-              isCreate ? "flex shrink-0 flex-col gap-2 sm:flex-row" : "hidden"
-            }
+            className={add}
           >
-            <SendPack />
+            <Modal />
           </div>
         </div>
         <div className="flex flex-col mx-4 items-center justify-between gap-4 md:flex-row">
@@ -57,7 +65,7 @@ const TableHead = ({ TABS, isTrade, setIsTrade, isCreate }) => {
             </div>
             <input
               type="text"
-              placeholder="Search package"
+              placeholder="Search"
               className="block rounded-md border-0 outline-none py-1.5 pl-10 pr-15 text-black ring-1 ring-inset ring-gray-300 placeholder:text-gray-600 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
             ></input>
           </div>
