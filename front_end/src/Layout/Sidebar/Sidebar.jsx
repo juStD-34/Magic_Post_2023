@@ -3,14 +3,10 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
 import { IoIosArrowBack } from "react-icons/io";
-import { AiOutlineAppstore } from "react-icons/ai";
-import { BsPerson } from "react-icons/bs";
 import { TfiAgenda } from "react-icons/tfi";
 import { TfiCheckBox } from "react-icons/tfi";
 import { useMediaQuery } from "react-responsive";
 import { MdMenu } from "react-icons/md";
-
-import SubMenu from "./Submenu";
 
 function Sidebar() {
   let isTab = useMediaQuery({ query: "(max-width: 768px)" });
@@ -61,20 +57,20 @@ function Sidebar() {
     isTab && setIsOpen(false);
   }, [pathname]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const substitute = [
-    {
-      name: "Tạo đơn",
-      icon: TfiAgenda,
-      menus: ["Đến điểm giao dịch", "Đến điểm tập kết"],
-    },
-    {
-      name: "Xác nhận đơn ",
-      icon: TfiCheckBox,
-      menus: ["Từ điểm giao dịch", "Từ điểm tập kết"],
-    },
-  ];
+  // const substitute = [
+  //   {
+  //     name: "Tạo đơn",
+  //     icon: TfiAgenda,
+  //     menus: ["Đến điểm giao dịch", "Đến điểm tập kết"],
+  //   },
+  //   {
+  //     name: "Xác nhận đơn ",
+  //     icon: TfiCheckBox,
+  //     menus: ["Từ điểm giao dịch", "Từ điểm tập kết"],
+  //   },
+  // ];
   
-  const res = substitute;
+  // const res = substitute;
 
   return (
     <div>

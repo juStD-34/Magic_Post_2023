@@ -13,7 +13,7 @@ const TableHead = ({ TABS, isTrade, setIsTrade, isCreate }) => {
   return (
     <div>
       <CardHeader floated={false} shadow={false}>
-        <div className="flex items-center justify-between gap-8">
+        <div className="flex items-center mx-4 justify-between gap-8">
           <div>
             <Typography variant="h5" color="blue-gray">
               {isCreate ? "Sent Packages" : "Packages list"}
@@ -33,14 +33,14 @@ const TableHead = ({ TABS, isTrade, setIsTrade, isCreate }) => {
             <SendPack />
           </div>
         </div>
-        <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
+        <div className="flex flex-col mx-4 items-center justify-between gap-4 md:flex-row">
           <Tabs value="123" className="w-full md:w-max bg-gray-200 rounded-lg">
             <TabsHeader>
               {TABS.map(({ label, value }) => (
                 <Tab
                   key={value}
                   value={value}
-                  className="whitespace-nowrap z-20"
+                  className="sm:whitespace-nowrap z-20"
                   onClick={() => setIsTrade(!isTrade)}
                 >
                   &nbsp;&nbsp;{label}&nbsp;&nbsp;
