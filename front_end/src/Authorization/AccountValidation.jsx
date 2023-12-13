@@ -28,8 +28,6 @@ function Validation(values) {
     else {
         error.password = ""
     } 
-
-    
     return error;
 }
 export default Validation;

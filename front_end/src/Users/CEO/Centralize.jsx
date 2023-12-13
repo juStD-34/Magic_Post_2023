@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Gathering() {
+function Centralize() {
   return (
     <div>
       gathering
@@ -8,4 +8,4 @@ function Gathering() {
   )
 }
 
-export default Gathering
+export default Centralize

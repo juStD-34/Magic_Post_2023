@@ -34,10 +34,10 @@ export default function Paginate({data}) {
         previousLabel="PREVIOUS"
         renderOnZeroPageCount={null}
         className="flex flex-row justify-end gap-2 mt-4"
-        breakClassName="text-sm text-black font-medium hover:text-blue-700 hover:font-semibold px-2 py-1 rounded-md  border-2 border-gray-200"
-        pageClassName="text-sm justify-between items-center h-fit text-black font-medium hover:text-blue-700 hover:font-semibold px-2 py-1 rounded-md  border-2 border-gray-200"
-        previousClassName="text-sm text-black font-medium hover:text-blue-700 hover:font-semibold px-2 py-1 rounded-md  border-2 border-gray-200"
-        nextClassName="text-sm text-black font-medium hover:text-blue-700 hover:font-semibold px-2 py-1 rounded-md  border-2 border-gray-200"
+        breakClassName="text-xs text-black font-medium hover:text-blue-700 hover:font-semibold px-2 py-1 rounded-md  border-2 border-gray-200"
+        pageClassName="text-xs justify-between items-center h-fit text-black font-medium hover:text-blue-700 hover:font-semibold px-2 py-1 rounded-md  border-2 border-gray-200"
+        previousClassName="text-xs text-black font-medium hover:text-blue-700 hover:font-semibold px-2 py-1 rounded-md  border-2 border-gray-200"
+        nextClassName="text-xs text-black font-medium hover:text-blue-700 hover:font-semibold px-2 py-1 rounded-md  border-2 border-gray-200"
         activeClassName="active"
       />
     </>

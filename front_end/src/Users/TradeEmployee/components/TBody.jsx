@@ -1,9 +1,10 @@
 import React from "react";
+import Paginate from "../../../shared/Pagination/Paginate";
+
 import {
     Typography,
     CardBody,
 } from "@material-tailwind/react";
-import Paginate from "./Pagination/Paginate";
 
 const TBody = ({ TABLE_HEAD, TABLE_ROWS }) => {
   return (

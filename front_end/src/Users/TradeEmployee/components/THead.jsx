@@ -1,5 +1,5 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import SendPack from "../Modal";
+import SendPack from "../../../shared/Modal";
 
 import {
   CardHeader,

@@ -2,7 +2,6 @@ import React from "react";
 import { Button } from "flowbite-react";
 import { UserPlusIcon } from "@heroicons/react/24/solid";
 
-
 function SendPack() {
   const [showModal, setShowModal] = React.useState(false);
   return (
