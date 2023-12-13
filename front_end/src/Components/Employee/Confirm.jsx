@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Navbar from "../../Layout/Navbar";
 import Sidebar from "../../Layout/Sidebar/Sidebar";
 import TBody from "./components/TBody";
-import TFoot from "./components/TFoot";
 import TableHead from "./components/THead";
 import { Card } from "@material-tailwind/react";
 
@@ -95,7 +94,6 @@ function Confirm()  {
               <Card className="w-full">
                 <TableHead TABS={TABS} isTrade={isTrade} setIsTrade={setIsTrade}/>
                 <TBody TABLE_ROWS={TABLE_ROWS} TABLE_HEAD={TABLE_HEAD}/>
-                <TFoot />
               </Card>
           </main>
         </div>
