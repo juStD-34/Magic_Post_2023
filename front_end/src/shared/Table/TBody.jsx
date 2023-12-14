@@ -15,7 +15,7 @@ const TBody = ({ TABLE_HEAD, TABLE_ROWS, type }) => {
             {TABLE_HEAD.map((head) => (
               <th
                 key={head}
-                className="border-y border-blue-gray-100 text-center p-4 bg-gray-200"
+                className="border-y border-blue-gray-100 text-left p-4 bg-gray-200"
               >
                 <Typography
                   variant="small"
