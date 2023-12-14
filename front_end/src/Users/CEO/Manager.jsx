@@ -17,14 +17,14 @@ const TABS = [
 ];
 
 const TABLE_HEAD = [
-  "Offices's ID",
+  "Office's ID",
   "Office's Address",
   "Phone",
   "Manager Account",
   "Action",
 ];
 
-const res = [
+let res = [
   {
     name: "[BN B SOC SON SOC]",
     address: "Manager",
@@ -69,7 +69,7 @@ const res = [
   },
 ];
 
-const fake = [
+let fake = [
   {
     name: "[BN B Mega SOC]",
     address: "Manager",

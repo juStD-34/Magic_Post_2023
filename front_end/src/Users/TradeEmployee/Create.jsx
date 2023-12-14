@@ -5,7 +5,7 @@ import TBody from "../../shared/Table/TBody";
 import TableHead from "../../shared/Table/THead";
 import { Card } from "@material-tailwind/react";
 
-const TABS = [
+let TABS = [
   {
     label: "Điểm giao dịch",
     value: "123",
@@ -16,7 +16,7 @@ const TABS = [
   },
 ];
 
-const TABLE_HEAD = [
+let TABLE_HEAD = [
   "Package's ID",
   "Send Office's ID",
   "Receive Office's",
@@ -24,7 +24,7 @@ const TABLE_HEAD = [
   "Confirm",
 ];
 
-const fake = [
+let fake = [
   {
     name: "John Michael3211111111111111",
     address: "Manager",
@@ -168,7 +168,7 @@ const fake = [
   },
 ];
 
-const res = [
+let res = [
   {
     name: "John Michael3211111111111111",
 

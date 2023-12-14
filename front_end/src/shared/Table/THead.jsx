@@ -1,5 +1,9 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import Modal from "../Modal";
+import Modal from "../Modal/Modal";
+import { Button } from "flowbite-react";
+import { FiPrinter } from "react-icons/fi";
+import { BsBuildingFillAdd } from "react-icons/bs";
+
 
 import {
   CardHeader,
@@ -10,15 +14,17 @@ import {
 } from "@material-tailwind/react";
 
 const TableHead = ({ TABS, isTrade, setIsTrade, type }) => {
-  let intro = "all sent packages", head="Packages list", add="";
-  switch(type) {
+  let intro = "all sent packages",
+    head = "Packages list",
+    add = "";
+  switch (type) {
     case "ceo":
-      head="Offices List"
-      intro="all offices"
-      add="flex shrink-0 flex-col gap-2 sm:flex-row"
+      head = "Offices List";
+      intro = "all offices";
+      add = "flex shrink-0 flex-col gap-2 sm:flex-row";
       break;
     case "employee":
-      add="hidden"
+      add = "hidden";
       break;
     default:
       break;
@@ -26,19 +32,26 @@ const TableHead = ({ TABS, isTrade, setIsTrade, type }) => {
   return (
     <div>
       <CardHeader floated={false} shadow={false}>
-        <div className="flex items-center mx-4 justify-between gap-8">
+        <div className="flex items-center mx-2 justify-between gap-8">
           <div>
             <Typography variant="h5" color="blue-gray">
               {head}
             </Typography>
-            <Typography color="gray" className="hidden sm:flex mt-1 font-normal">
+            <Typography
+              color="gray"
+              className="hidden sm:flex mt-1 font-normal"
+            >
               See information about {intro}
             </Typography>
           </div>
-          <div
-            className={add}
-          >
-            <Modal />
+          <div className={add}>
+            <Modal label="Add Offices" icon={<BsBuildingFillAdd className="h-4 w-4 mr-2"></BsBuildingFillAdd>} color="bg-blue-500"/>
+            <Button
+              className="flex items-center gap-4 bg-blue-500 shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+              size="sm"
+            >
+              <FiPrinter className="h-5 w-5" />
+            </Button>
           </div>
         </div>
         <div className="flex flex-col mx-4 items-center justify-between gap-4 md:flex-row">
