@@ -5,6 +5,9 @@ const cors = require('cors');
 const app = express();
 const port = 3001; 
 
+app.use(cors()); 
+app.use(express.json());
+
 // Kết nối đến SQLite database (đường dẫn đến SQLiteOnline)
 const dbPath = 'C:/Users/HP/Desktop/Magic_Post_2023/back_end/magic_post.db';
 const db = new sqlite3.Database(dbPath, sqlite3.OPEN_READWRITE, (err) => {
@@ -15,37 +18,25 @@ const db = new sqlite3.Database(dbPath, sqlite3.OPEN_READWRITE, (err) => {
   }
 });
 
-app.use(cors()); 
-app.use(express.json());
-
-app.get('/employee', (req, res) => {
-  const postId = req.query.postId;
+app.get('/packageInfor', (req, res) => {
+  const postId = parseInt(req.query.postId, 10);
   const type = req.query.type;
 
   let query = '';
-  let params = [];
+  let params = [postId];
 
   if (type === 'incoming') {
     query = `
-      SELECT m.*
-      FROM "Mail" m
-      
+      SELECT *
+      FROM Mail_status
+      WHERE Current_Po_ID = ? AND Status_name = "arriving"
     `;
-    params = [postId, postId];
-    console.log("Incoming")
   } else if (type === 'outgoing') {
     query = `
-      SELECT m.*
-      FROM "Mail" m
-      WHERE m."from_Po_id" = ? OR EXISTS (
-        SELECT 1
-        FROM "Mail_status" ms
-        WHERE ms."start_Po_id" = ?
-          AND ms."Mail_id" = m."id"
-      )
+      SELECT *
+      FROM Mail_status
+      WHERE Current_Po_ID = ? AND Status_name = "pending"
     `;
-    params = [postId, postId];
-    console.log("outgoing")
   } else {
     console.log('Invalid request type');
     return res.status(400).json({ error: 'Invalid request type' });
@@ -60,6 +51,34 @@ app.get('/employee', (req, res) => {
     }
   });
 });
+
+app.post('/addPackage', (req, res) => {
+  const {
+    code,
+    weight,
+    fromPoID,
+    toPoID,
+    guessPath,
+    senderName,
+    senderPhone,
+    receiverName,
+    receiverPhone,
+    currentPoId,
+    status
+  } = req.body;
+  // console.error(req.body)
+  // console.log(req.body.fromPoID, req.body.toPoID,req.body.guessPath, fromPoID, toPoID);
+  const query = 'INSERT INTO Mail (code,weight,From_Po_id,To_Po_id,Guess_path ,senderName ,senderPhone ,receiverName ,receiverPhone ,statusName ,current_po_id) VALUES (?,?,?,?,?,?,?,?,?,?,?)';
+
+  db.run(query, [code, weight, fromPoID, toPoID, guessPath, senderName, senderPhone, receiverName, receiverPhone, status, currentPoId], (err) => {
+    if (err) {
+      console.error('Error executing query:', err.message);
+      res.status(500).json({ error: 'Internal Server Error' });
+    } else {
+      res.json({ message: 'Package added successfully' });
+    }
+  })
+})
 
 process.on('exit', () => {
   db.close((err) => {

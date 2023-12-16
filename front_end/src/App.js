@@ -10,8 +10,11 @@ import Home from './Components/Home/Home';
 import Gathering from './Components/Manager/Gathering';
 import Trading from './Components/Manager/Trading';
 import RootLayout from './Layout/RootLayout';
+import EmployeeGP from './Components/Employee-GP/Employee-GP';
 
 const App = () => {
+  const userID = 1;
+  const post_officeID = 1;
   return (
     <BrowserRouter>
       <RootLayout>
@@ -19,7 +22,8 @@ const App = () => {
           <Route path='/' element={<Home />} />
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<Signup />} />
-          <Route path='/employee' element={<Employee />} />
+          <Route path='/employee' element={<Employee userID={userID} postOfficeID={post_officeID} />} />
+          <Route path='/employee-GP' element={<EmployeeGP />} />
           <Route path='/manager' element={<Manager />} />
           <Route path='/manager/gathering' element={<Gathering />} />
           <Route path='/manager/trading' element={<Trading />} />
