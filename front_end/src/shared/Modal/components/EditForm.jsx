@@ -1,6 +1,5 @@
 import React from "react";
 import Input from "../components/Input";
-import TypeInput from "../components/TypeInput";
 
 const EditForm = (props) => {
   return (

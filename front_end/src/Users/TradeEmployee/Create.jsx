@@ -52,7 +52,7 @@ let fake = [
     name: "456",
 
     address: "Programator",
-    
+
     phone: "Ha noi Hoa binh",
     online: false,
     date: "23/04/18",
@@ -69,7 +69,7 @@ let fake = [
   {
     name: "123321",
     address: "Programator",
-    
+
     phone: "Ha noi Hoa binh",
     online: true,
     date: "24/12/08",
@@ -77,7 +77,7 @@ let fake = [
   {
     name: "12312",
     address: "Manager",
-    
+
     phone: "Ha noi Hoa binh",
     online: false,
     date: "04/10/21",
@@ -94,7 +94,7 @@ let fake = [
     name: "qwe",
 
     address: "Programator",
-    
+
     online: false,
     phone: "Ha noi Hoa binh",
     date: "23/04/18",
@@ -111,7 +111,7 @@ let fake = [
   {
     name: "123321",
     address: "Programator",
-    
+
     phone: "Ha noi Hoa binh",
     online: true,
     date: "24/12/08",
@@ -119,7 +119,7 @@ let fake = [
   {
     name: "x ",
     address: "Manager",
-    
+
     online: false,
     phone: "Ha noi Hoa binh",
     date: "04/10/21",
@@ -136,7 +136,7 @@ let fake = [
     name: "sd",
 
     address: "Programator",
-    
+
     online: false,
     phone: "Ha noi Hoa binh",
     date: "23/04/18",
@@ -153,7 +153,7 @@ let fake = [
   {
     name: "as",
     address: "Programator",
-    
+
     phone: "Ha noi Hoa binh",
     online: true,
     date: "24/12/08",
@@ -161,7 +161,7 @@ let fake = [
   {
     name: "1sxx",
     address: "Manager",
-    
+
     phone: "Ha noi Hoa binh",
     online: false,
     date: "04/10/21",
@@ -170,7 +170,7 @@ let fake = [
 
 let res = [
   {
-    name: "John Michael3211111111111111",
+    name: "1",
 
     address: "Manager",
     phone: "Ha noi Hoa binh",
@@ -178,16 +178,16 @@ let res = [
     date: "23/04/18",
   },
   {
-    name: "Alexa Liras",
+    name: "2",
 
     address: "Programator",
-    
+
     phone: "Ha noi Hoa binh",
     online: false,
     date: "23/04/18",
   },
   {
-    name: "Laurent Perrier",
+    name: "3",
 
     address: "Executive",
     phone: "Ha noi Hoa binh",
@@ -196,14 +196,14 @@ let res = [
     date: "19/09/17",
   },
   {
-    name: "Richard Gran",
+    name: "4",
     address: "Manager",
     phone: "Ha noi Hoa binh",
     online: false,
     date: "04/10/21",
   },
   {
-    name: "ax",
+    name: "5",
 
     address: "Executive",
 
@@ -211,16 +211,16 @@ let res = [
     date: "19/09/17",
   },
   {
-    name: "as",
+    name: "6",
     address: "Programator",
-    
+
     online: true,
     date: "24/12/08",
   },
   {
-    name: "1sxx",
+    name: "7",
     address: "Manager",
-    
+
     online: false,
     date: "04/10/21",
   },
@@ -228,25 +228,39 @@ let res = [
 
 let TABLE_ROWS = res;
 
-function Create()  {
+function Create() {
   const [isTrade, setIsTrade] = useState(true);
-  const type="employee";
+  const [page, setPage] = React.useState(0);
 
-  TABLE_ROWS = (isTrade ? res : fake);
+  const type = "employee";
 
-    return (
-      <div className="flex bg-white">
-        <Sidebar />
-        <div className="h-full w-[85%] sm:w-full px-auto">
-          <Navbar />
-          <main className="max-w-4xl flex-4 mx-auto py-2 my-4 border-2 border-gray-300 rounded-lg">
-              <Card className="w-full">
-                <TableHead TABS={TABS} isTrade={isTrade} setIsTrade={setIsTrade} type={type}/>
-                <TBody TABLE_ROWS={TABLE_ROWS} type={type} TABLE_HEAD={TABLE_HEAD}/>
-              </Card>
-          </main>
-        </div>
+  TABLE_ROWS = isTrade ? res : fake;
+
+  return (
+    <div className="flex bg-white">
+      <Sidebar />
+      <div className="h-full w-[85%] sm:w-full px-auto">
+        <Navbar />
+        <main className="max-w-4xl flex-4 mx-auto py-2 my-4 border-2 border-gray-300 rounded-lg">
+          <Card className="w-full">
+            <TableHead
+              TABS={TABS}
+              isTrade={isTrade}
+              setIsTrade={setIsTrade}
+              setPage={setPage}
+              type={type}
+            />
+            <TBody
+              TABLE_ROWS={TABLE_ROWS}
+              type={type}
+              TABLE_HEAD={TABLE_HEAD}
+              page={page}
+              setPage={setPage}
+            />
+          </Card>
+        </main>
       </div>
-    );
+    </div>
+  );
 }
 export default Create;

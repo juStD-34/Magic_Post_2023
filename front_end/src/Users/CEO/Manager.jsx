@@ -80,24 +80,38 @@ let fake = [
 
 let TABLE_ROWS = res;
 
-export default function Manager()  {
+export default function Manager() {
   const [isTrade, setIsTrade] = useState(true);
-  const type="ceo";
+  const [page, setPage] = React.useState(0);
 
-  TABLE_ROWS = (isTrade ? res : fake);
+  const type = "ceo";
 
-    return (
-      <div className="flex bg-white">
-        <Sidebar />
-        <div className="h-screen w-[85%] sm:w-full px-auto">
-          <Navbar />
-          <main className="max-w-4xl flex-4 mx-auto py-2 my-4 border-2 border-gray-300 rounded-lg">
-              <Card className="w-full">
-                <TableHead TABS={TABS} isTrade={isTrade} type={type} setIsTrade={setIsTrade}/>
-                <TBody TABLE_ROWS={TABLE_ROWS} type={type} TABLE_HEAD={TABLE_HEAD}/>
-              </Card>
-          </main>
-        </div>
+  TABLE_ROWS = isTrade ? res : fake;
+
+  return (
+    <div className="flex bg-white">
+      <Sidebar />
+      <div className="h-screen w-[85%] sm:w-full px-auto">
+        <Navbar />
+        <main className="max-w-4xl flex-4 mx-auto py-2 my-4 border-2 border-gray-300 rounded-lg">
+          <Card className="w-full">
+            <TableHead
+              TABS={TABS}
+              isTrade={isTrade}
+              setPage={setPage}
+              type={type}
+              setIsTrade={setIsTrade}
+            />
+            <TBody
+              TABLE_ROWS={TABLE_ROWS}
+              type={type}
+              TABLE_HEAD={TABLE_HEAD}
+              page={page}
+              setPage={setPage}
+            />
+          </Card>
+        </main>
       </div>
-    );
+    </div>
+  );
 }

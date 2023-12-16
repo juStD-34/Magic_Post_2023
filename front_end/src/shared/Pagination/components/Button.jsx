@@ -48,18 +48,16 @@ export const action = (props) => {
       <Button
         className="items-center h-[30%] gap-4 bg-blue-400 shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
         size="sm"
-        
         onClick={props.toggleOpen}
       >
         <FaPlus className="h-5 w-5 transition-transform group-before:rotate-45 group-after:-rotate-45" />
       </Button>
       <Collapse open={props.open} className="flex flex-col w-10">
-        <Button
-          className="items-center gap-4 bg-blue-400 shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-          size="sm"
-        >
-          <FiPrinter className="h-5 w-5" />
-        </Button>
+        <Modal
+          label="Print"
+          icon={<FiPrinter className="h-5 w-5"></FiPrinter>}
+          color="bg-blue-500"
+        />
         <Modal
           label="Edit"
           icon={<FaRegEdit className="h-5 w-5 " />}

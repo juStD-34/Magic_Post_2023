@@ -2,31 +2,42 @@ import React, { useState } from "react";
 import OfficeForm from "./components/OfficeForm";
 import AccountForm from "./components/AccountForm";
 import EditForm from "./components/EditForm";
+import StatisticForm from "./components/StatisticForm";
 
 import { Button } from "flowbite-react";
 import ConfirmDelete from "./components/ConfirmDelete";
 
-
-function Modal( data ) {
+function Modal(data) {
   const [showModal, setShowModal] = useState(false);
   var modal;
   var labeL;
   switch (data.label) {
     case "Account":
-      modal = <AccountForm setShowModal={setShowModal}/>;
-      labeL=data.label;
+      modal = <AccountForm setShowModal={setShowModal} />;
+      labeL = data.label;
       break;
     case "Add Offices":
-      modal = <OfficeForm setShowModal={setShowModal}/> 
-      labeL=data.label;
+      modal = <OfficeForm setShowModal={setShowModal} />;
+      labeL = data.label;
       break;
     case "Edit":
-      modal = <EditForm setShowModal={setShowModal} name={data.name} address={data.address} phone={data.phone}/>
-      labeL=null;
+      modal = (
+        <EditForm
+          setShowModal={setShowModal}
+          name={data.name}
+          address={data.address}
+          phone={data.phone}
+        />
+      );
+      labeL = null;
       break;
     case "Delete":
-      modal = <ConfirmDelete setShowModal={setShowModal} />
-      labeL=null;
+      modal = <ConfirmDelete setShowModal={setShowModal} />;
+      labeL = null;
+      break;
+    case "Print":
+      modal = <StatisticForm setShowModal={setShowModal} />;
+      labeL = null;
       break;
     default:
       break;

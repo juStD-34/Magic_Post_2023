@@ -52,7 +52,7 @@ const fake = [
     name: "456",
 
     address: "Programator",
-    
+
     phone: "Ha noi Hoa binh",
     online: false,
     date: "23/04/18",
@@ -69,7 +69,7 @@ const fake = [
   {
     name: "123321",
     address: "Programator",
-    
+
     phone: "Ha noi Hoa binh",
     online: true,
     date: "24/12/08",
@@ -77,7 +77,7 @@ const fake = [
   {
     name: "12312",
     address: "Manager",
-    
+
     phone: "Ha noi Hoa binh",
     online: false,
     date: "04/10/21",
@@ -94,7 +94,7 @@ const fake = [
     name: "qwe",
 
     address: "Programator",
-    
+
     online: false,
     phone: "Ha noi Hoa binh",
     date: "23/04/18",
@@ -111,7 +111,7 @@ const fake = [
   {
     name: "123321",
     address: "Programator",
-    
+
     phone: "Ha noi Hoa binh",
     online: true,
     date: "24/12/08",
@@ -119,7 +119,7 @@ const fake = [
   {
     name: "x ",
     address: "Manager",
-    
+
     online: false,
     phone: "Ha noi Hoa binh",
     date: "04/10/21",
@@ -136,7 +136,7 @@ const fake = [
     name: "sd",
 
     address: "Programator",
-    
+
     online: false,
     phone: "Ha noi Hoa binh",
     date: "23/04/18",
@@ -153,7 +153,7 @@ const fake = [
   {
     name: "as",
     address: "Programator",
-    
+
     phone: "Ha noi Hoa binh",
     online: true,
     date: "24/12/08",
@@ -161,7 +161,7 @@ const fake = [
   {
     name: "1sxx",
     address: "Manager",
-    
+
     phone: "Ha noi Hoa binh",
     online: false,
     date: "04/10/21",
@@ -181,7 +181,7 @@ const res = [
     name: "Alexa Liras",
 
     address: "Programator",
-    
+
     phone: "Ha noi Hoa binh",
     online: false,
     date: "23/04/18",
@@ -213,14 +213,14 @@ const res = [
   {
     name: "as",
     address: "Programator",
-    
+
     online: true,
     date: "24/12/08",
   },
   {
     name: "1sxx",
     address: "Manager",
-    
+
     online: false,
     date: "04/10/21",
   },
@@ -228,26 +228,39 @@ const res = [
 
 let TABLE_ROWS = res;
 
-function Confirm()  {
+function Confirm() {
   const [isTrade, setIsTrade] = useState(true);
-  const type="employee";
+  const [page, setPage] = React.useState(0);
 
+  const type = "employee";
 
-  TABLE_ROWS = (isTrade ? res : fake);
+  TABLE_ROWS = isTrade ? res : fake;
 
-    return (
-      <div className="flex bg-white">
-        <Sidebar />
-        <div className="h-screen w-[85%] sm:w-full px-auto">
-          <Navbar />
-          <main className="max-w-4xl flex-4 mx-auto py-2 my-4 border-2 border-gray-300 rounded-lg">
-              <Card className="w-full">
-                <TableHead TABS={TABS} isTrade={isTrade} type={type} setIsTrade={setIsTrade}/>
-                <TBody TABLE_ROWS={TABLE_ROWS} type={type} TABLE_HEAD={TABLE_HEAD}/>
-              </Card>
-          </main>
-        </div>
+  return (
+    <div className="flex bg-white">
+      <Sidebar />
+      <div className="h-screen w-[85%] sm:w-full px-auto">
+        <Navbar />
+        <main className="max-w-4xl flex-4 mx-auto py-2 my-4 border-2 border-gray-300 rounded-lg">
+          <Card className="w-full">
+            <TableHead
+              TABS={TABS}
+              isTrade={isTrade}
+              type={type}
+              setPage={setPage}
+              setIsTrade={setIsTrade}
+            />
+            <TBody
+              TABLE_ROWS={TABLE_ROWS}
+              type={type}
+              TABLE_HEAD={TABLE_HEAD}
+              page={page}
+              setPage={setPage}
+            />
+          </Card>
+        </main>
       </div>
-    );
+    </div>
+  );
 }
 export default Confirm;
