@@ -107,7 +107,7 @@ function Sidebar() {
         variants={Sidebar_animation}
         initial={{ x: isTab ? -250 : 0 }}
         animate={isOpen ? "open" : "closed"}
-        className="bg-white text-gray border-slate-300 border-r z-[999] w-[16rem] max-w[16rem] h-screen overflow-hidden md:relative fixed"
+        className="bg-white text-gray border-slate-300 border-r z-[999] sm:z-[0] w-[16rem] max-w[16rem] h-screen overflow-hidden md:relative fixed"
       >
         <div className="flex items-center gap-2.5 font-medium border-b border-slate-300 py-3 mx-3">
           <img
@@ -121,7 +121,7 @@ function Sidebar() {
         <div className="flex flex-col h-full">
           <ul className="whitespace-pre px-2.5 text-[0.9rem] py-5 flex flex-col gap-1 font-medium overflow-x-hidden scrollbar-thin scrollbar-track-white scrollbar-thumb-slate-100 h-[70%] max-h=[68%]">
             {CEO.map((menu) => (
-              <li>
+              <li key={menu.name}>
                 <NavLink to={menu.link} className={"link"}>
                   <menu.icon size={23} className="min-w-max"></menu.icon>
                   {menu.name}

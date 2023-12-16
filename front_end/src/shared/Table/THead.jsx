@@ -1,9 +1,7 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import Modal from "../Modal/Modal";
-import { Button } from "flowbite-react";
 import { FiPrinter } from "react-icons/fi";
 import { BsBuildingFillAdd } from "react-icons/bs";
-
 
 import {
   CardHeader,
@@ -13,7 +11,7 @@ import {
   TabsHeader,
 } from "@material-tailwind/react";
 
-const TableHead = ({ TABS, isTrade, setIsTrade, type }) => {
+const TableHead = ({ TABS, isTrade, setIsTrade, setPage, type }) => {
   let intro = "all sent packages",
     head = "Packages list",
     add = "";
@@ -45,13 +43,18 @@ const TableHead = ({ TABS, isTrade, setIsTrade, type }) => {
             </Typography>
           </div>
           <div className={add}>
-            <Modal label="Add Offices" icon={<BsBuildingFillAdd className="h-4 w-4 mr-2"></BsBuildingFillAdd>} color="bg-blue-500"/>
-            <Button
-              className="flex items-center gap-4 bg-blue-500 shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-              size="sm"
-            >
-              <FiPrinter className="h-5 w-5" />
-            </Button>
+            <Modal
+              label="Add Offices"
+              icon={
+                <BsBuildingFillAdd className="h-4 w-4 mr-2"></BsBuildingFillAdd>
+              }
+              color="bg-blue-500"
+            />
+            <Modal
+              label="Print"
+              icon={<FiPrinter className="h-4 w-4"></FiPrinter>}
+              color="bg-blue-500"
+            />
           </div>
         </div>
         <div className="flex flex-col mx-4 items-center justify-between gap-4 md:flex-row">
@@ -62,7 +65,10 @@ const TableHead = ({ TABS, isTrade, setIsTrade, type }) => {
                   key={value}
                   value={value}
                   className="sm:whitespace-nowrap z-20"
-                  onClick={() => setIsTrade(!isTrade)}
+                  onClick={() => {
+                    setIsTrade(!isTrade);
+                    setPage(0);
+                  }}
                 >
                   &nbsp;&nbsp;{label}&nbsp;&nbsp;
                 </Tab>
