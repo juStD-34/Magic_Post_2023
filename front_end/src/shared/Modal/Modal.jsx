@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import OfficeForm from "./components/OfficeForm";
-import AccountForm from "./components/AccountForm";
-import EditForm from "./components/EditForm";
-import StatisticForm from "./components/StatisticForm";
+import OfficeForm from "./Form/OfficeForm";
+import AccountForm from "./Form/AccountForm";
+import EditForm from "./Form/EditForm";
+import StatisticForm from "./Form/StatisticForm";
 
 import { Button } from "flowbite-react";
-import ConfirmDelete from "./components/ConfirmDelete";
+import ConfirmDelete from "./Form/ConfirmDelete";
 
 function Modal(data) {
   const [showModal, setShowModal] = useState(false);

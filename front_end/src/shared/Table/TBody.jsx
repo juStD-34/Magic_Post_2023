@@ -1,5 +1,5 @@
 import React from "react";
-import Datarow from "../Pagination/Datarow";
+import Datarow from "./components/Datarow";
 import TablePagination from "@mui/material/TablePagination";
 
 import { Typography, CardBody } from "@material-tailwind/react";
@@ -26,7 +26,7 @@ const TBody = ({ TABLE_HEAD, TABLE_ROWS, type, page, setPage }) => {
 
   return (
     <CardBody className="overflow-x-auto overflow-y-auto px-0 pb-2  rounded-lg">
-      <table className="min-w-full mx-auto my-auto  table-fixed text-left border-t-2 border-gray-300 rounded-2xl">
+      <table className="min-w-full mx-auto my-auto  table-fixed text-left border-2 border-gray-300 rounded-2xl">
         <thead>
           <tr>
             {TABLE_HEAD.map((head) => (
@@ -46,16 +46,11 @@ const TBody = ({ TABLE_HEAD, TABLE_ROWS, type, page, setPage }) => {
           </tr>
         </thead>
         <tbody>
-          <Datarow currentItems={Data} type={type} />
-          {emptyRows > 0 && (
-            <tr style={{ height: 72 * emptyRows }}>
-              <td aria-hidden />
-            </tr>
-          )}
+          <Datarow currentItems={Data} type={type} emptyRows={emptyRows}/>
         </tbody>
       </table>
       <TablePagination
-        component="div"
+        component="span"
         count={TABLE_ROWS.length}
         page={page}
         rowsPerPageOptions={[4, 5]}

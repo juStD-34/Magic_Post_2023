@@ -1,8 +1,7 @@
 import Row from "./Row";
-import Received from "./components/Received";
 
-export default function Datarow({ currentItems, type }) {
-  return type !== null ? (
+export default function Datarow({ currentItems, type, emptyRows }) {
+  return (
     <>
       {currentItems.map(({ name, address, online, phone }, index) => {
         const isLast = index === currentItems.length - 1;
@@ -21,16 +20,11 @@ export default function Datarow({ currentItems, type }) {
           />
         );
       })}
+      {emptyRows > 0 && (
+        <tr style={{ height: 72 * emptyRows }}>
+          <td aria-hidden />
+        </tr>
+      )}
     </>
-  ) : (
-    <>
-      {currentItems.map(({ name, address }, index) => {
-        const isLast = index === currentItems.length - 1;
-        const classes = isLast
-          ? "p-4 border-b border-gray-300"
-          : "p-4 border-b border-blue-gray-50";
-        return <Received name={name} address={address} classes={classes} />;
-      })}
-    </>
-  );
+  )
 }
