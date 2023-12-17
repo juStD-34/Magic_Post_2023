@@ -2,6 +2,7 @@ import React from 'react';
 import Track from './Track';
 
 const Search = () => {
+  const [track, setTrack] = React.useState(false);
   return (
     <div className='w-full py-16 text-black px-4'>
       <div className='max-w-[1240px] mx-auto grid lg:grid-cols-5'>
@@ -18,7 +19,7 @@ const Search = () => {
               type='text'
               placeholder='Ex: 123456789'
             />
-            <button className='bg-blue-400 text-black rounded-md font-medium w-[200px] ml-4 my-6 px-6 py-3'>
+            <button onClick={() => setTrack(true)} className='bg-blue-400 text-black rounded-md font-medium w-[200px] ml-4 my-6 px-6 py-3'>
               Find
             </button>
           </div>
@@ -29,7 +30,7 @@ const Search = () => {
         </div>
       </div>
       {/* Info table */}
-      <Track/>
+      {track && <Track className={track}/>}
     </div>
   );
 };

@@ -4,7 +4,7 @@ import TypeInput from "../components/TypeInput";
 
 const OfficeForm = (props) => {
   return (
-    <div className="flex my-2 sm:my-16 mx-12 sm:mx-96 fixed inset-0 max-h-sm h-[60%] z-50 outline-none focus:outline-none">
+    <div className="flex my-2 sm:my-16 mx-8 sm:mx-96 fixed inset-0 max-h-sm h-[60%] z-50 outline-none focus:outline-none">
       <div className="relative w-auto mx-auto max-w-sm">
         {/*content*/}
         <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
@@ -17,7 +17,7 @@ const OfficeForm = (props) => {
                     Add Offices
                   </h2>
 
-                  <div className="sm:mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                  <div className="sm:mt-4 grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-6">
                     <Input
                       label="Office's ID"
                       size="sm:col-span-4"

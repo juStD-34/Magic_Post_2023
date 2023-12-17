@@ -5,17 +5,6 @@ import TBody from "../../shared/Table/TBody";
 import TableHead from "../../shared/Table/THead";
 import { Card } from "@material-tailwind/react";
 
-let TABS = [
-  {
-    label: "Điểm giao dịch",
-    value: "123",
-  },
-  {
-    label: "Điểm tập kết",
-    value: "456",
-  },
-];
-
 let TABLE_HEAD = [
   "Package's ID",
   "Send Office's ID",
@@ -228,7 +217,7 @@ let res = [
 
 let TABLE_ROWS = res;
 
-function Create() {
+function TradeEmployee() {
   const [isTrade, setIsTrade] = useState(true);
   const [page, setPage] = React.useState(0);
 
@@ -244,7 +233,6 @@ function Create() {
         <main className="max-w-4xl flex-4 mx-auto py-2 my-4 border-2 border-gray-300 rounded-lg">
           <Card className="w-full">
             <TableHead
-              TABS={TABS}
               isTrade={isTrade}
               setIsTrade={setIsTrade}
               setPage={setPage}
@@ -263,4 +251,4 @@ function Create() {
     </div>
   );
 }
-export default Create;
+export default TradeEmployee;

@@ -1,6 +1,6 @@
 import React from "react";
 import { Typography } from "@material-tailwind/react";
-import { action, account, deliver, confirm } from "./components/Button";
+import { action, account, deliver, confirm } from "./Button";
 
 export function Row({ name, address, online, phone, classes, type }) {
   var icon;
@@ -17,6 +17,10 @@ export function Row({ name, address, online, phone, classes, type }) {
     case "employee":
       icon = deliver(onLine);
       icon2 = confirm(onLine, setOnLine);
+      break;
+    case "statistic":
+      icon = deliver(onLine);
+      icon2 = <date>23/04/2021</date>;
       break;
     default:
       break;
