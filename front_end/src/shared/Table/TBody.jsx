@@ -4,7 +4,7 @@ import TablePagination from "@mui/material/TablePagination";
 
 import { Typography, CardBody } from "@material-tailwind/react";
 
-const TBody = ({ TABLE_HEAD, TABLE_ROWS, type, page, setPage }) => {
+const TBody = ({ TABLE_HEAD, TABLE_ROWS, type, page, setPage, isTrade }) => {
   const [rowsPerPage, setRowsPerPage] = React.useState(4);
 
   const emptyRows =
@@ -46,7 +46,7 @@ const TBody = ({ TABLE_HEAD, TABLE_ROWS, type, page, setPage }) => {
           </tr>
         </thead>
         <tbody>
-          <Datarow currentItems={Data} type={type} emptyRows={emptyRows}/>
+          <Datarow currentItems={Data} type={type} isTrade={isTrade} emptyRows={emptyRows}/>
         </tbody>
       </table>
       <TablePagination
@@ -54,12 +54,6 @@ const TBody = ({ TABLE_HEAD, TABLE_ROWS, type, page, setPage }) => {
         count={TABLE_ROWS.length}
         page={page}
         rowsPerPageOptions={[4, 5]}
-        slotProps={{
-          actions: {
-            showFirstButton: true,
-            showLastButton: true,
-          },
-        }}
         rowsPerPage={rowsPerPage}
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}

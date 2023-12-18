@@ -1,7 +1,7 @@
 import React from "react";
 import { Tab, Tabs, TabsHeader } from "@material-tailwind/react";
 
-export function Tabss({ setIsTrade, setPage }) {
+export function Tabss({ TABS, setIsTrade, setPage }) {
   return (
     <Tabs value="123" className="w-full md:w-max bg-gray-200 rounded-lg">
       <TabsHeader>
@@ -13,7 +13,7 @@ export function Tabss({ setIsTrade, setPage }) {
             setPage(0);
           }}
         >
-          &nbsp;&nbsp;Incoming&nbsp;&nbsp;
+          &nbsp;&nbsp;{TABS[0].label}&nbsp;&nbsp;
         </Tab>
         <Tab
           value="456"
@@ -23,7 +23,7 @@ export function Tabss({ setIsTrade, setPage }) {
             setPage(0);
           }}
         >
-          &nbsp;&nbsp;Outgoing&nbsp;&nbsp;
+          &nbsp;&nbsp;{TABS[1].label}&nbsp;&nbsp;
         </Tab>
       </TabsHeader>
     </Tabs>

@@ -28,12 +28,6 @@ const EditForm = (props) => {
                       type="text"
                       value={props.address}
                     />
-                    <Input
-                      label="Phone"
-                      size="sm:col-span-4"
-                      type="phone"
-                      value={props.phone}
-                    />
                   </div>
                 </div>
               </div>

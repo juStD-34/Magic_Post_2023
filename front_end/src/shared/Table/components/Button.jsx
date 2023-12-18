@@ -34,13 +34,19 @@ export const confirm = (online, setOnLine) => (
   </Tooltip>
 );
 
-export const account = (
-  <Modal
-    label="Account"
-    icon={<BsPersonCircle className="h-4 w-4 mr-2" />}
-    color="bg-green-400"
-  />
-);
+export function account(props) {
+  return (
+    <Modal
+      label="Account"
+      staffId={props.staffId}
+      usrname={props.usrname}
+      password={props.password}
+      phone={props.phone}
+      icon={<BsPersonCircle className="h-4 w-4 mr-2" />}
+      color="bg-green-400"
+    />
+  );
+}
 
 export const action = (props) => {
   return (
@@ -64,14 +70,7 @@ export const action = (props) => {
           color="bg-red-400"
           name={props.name}
           address={props.address}
-          phone={props.phone}
         />
-        {/* <Button
-          className="items-center gap-4 bg-red-400 shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-          size="sm"
-        >
-          <TiDeleteOutline className="h-5 w-5 " />
-        </Button> */}
         <Modal
           label="Delete"
           icon={<TiDeleteOutline className="h-5 w-5 " />}

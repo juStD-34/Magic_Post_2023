@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import Navbar from "../../Layout/Navbar";
-import Sidebar from "../../Layout/Sidebar/Sidebar";
+import Navbar from "../../shared/Layout/Navbar";
+import Sidebar from "../../shared/Layout/Sidebar/Sidebar";
 import TBody from "../../shared/Table/TBody";
 import TableHead from "../../shared/Table/THead";
 import { Card } from "@material-tailwind/react";
 
-let TABLE_HEAD = [
+const resHead = [
   "Package's ID",
   "Send Office's ID",
   "Receive Office's",
@@ -13,47 +13,39 @@ let TABLE_HEAD = [
   "Confirm",
 ];
 
+const fakeHead = [
+  "Package's ID",
+  "Send Office's ID",
+  "Receive Office's",
+  "Status",
+];
+
+const TABS = [
+  {
+    label: "Ongoing",
+    value: "123",
+  },
+  {
+    label: "Outgoing",
+    value: "456",
+  },
+];
+
 let fake = [
-  {
-    name: "John Michael3211111111111111",
-    address: "Manager",
-    phone: "Ha noi Hoa binh",
-    online: true,
-    date: "23/04/18",
-  },
-  {
-    name: "Alexa Liras",
-
-    address: "Programator",
-    phone: "Ha noi Hoa binh",
-    online: false,
-    date: "23/04/18",
-  },
-  {
-    name: "123",
-
-    address: "Manager",
-    phone: "Ha noi Hoa binh",
-    online: true,
-    date: "23/04/18",
-  },
   {
     name: "456",
 
     address: "Programator",
 
     phone: "Ha noi Hoa binh",
-    online: false,
-    date: "23/04/18",
+    online: true,
   },
   {
     name: "789",
+    online: false,
 
     address: "Executive",
     phone: "Ha noi Hoa binh",
-
-    online: false,
-    date: "19/09/17",
   },
   {
     name: "123321",
@@ -61,41 +53,36 @@ let fake = [
 
     phone: "Ha noi Hoa binh",
     online: true,
-    date: "24/12/08",
   },
   {
     name: "12312",
     address: "Manager",
+    online: false,
 
     phone: "Ha noi Hoa binh",
-    online: false,
-    date: "04/10/21",
   },
   {
     name: "asS",
+    online: true,
 
     address: "Manager",
     phone: "Ha noi Hoa binh",
-    online: true,
-    date: "23/04/18",
   },
   {
     name: "qwe",
 
     address: "Programator",
 
-    online: false,
     phone: "Ha noi Hoa binh",
-    date: "23/04/18",
+    online: true,
   },
   {
     name: "789",
+    online: false,
 
     address: "Executive",
 
     phone: "Ha noi Hoa binh",
-    online: false,
-    date: "19/09/17",
   },
   {
     name: "123321",
@@ -103,68 +90,37 @@ let fake = [
 
     phone: "Ha noi Hoa binh",
     online: true,
-    date: "24/12/08",
   },
   {
     name: "x ",
     address: "Manager",
-
     online: false,
+
     phone: "Ha noi Hoa binh",
-    date: "04/10/21",
   },
   {
     name: "a3",
 
     address: "Manager",
-    online: true,
-    phone: "Ha noi Hoa binh",
-    date: "23/04/18",
-  },
-  {
-    name: "sd",
-
-    address: "Programator",
-
-    online: false,
-    phone: "Ha noi Hoa binh",
-    date: "23/04/18",
-  },
-  {
-    name: "ax",
-
-    address: "Executive",
-
-    phone: "Ha noi Hoa binh",
-    online: false,
-    date: "19/09/17",
-  },
-  {
-    name: "as",
-    address: "Programator",
-
     phone: "Ha noi Hoa binh",
     online: true,
-    date: "24/12/08",
   },
   {
     name: "1sxx",
     address: "Manager",
 
+    online: true,
+
     phone: "Ha noi Hoa binh",
-    online: false,
-    date: "04/10/21",
   },
 ];
 
 let res = [
   {
     name: "1",
-
     address: "Manager",
     phone: "Ha noi Hoa binh",
     online: true,
-    date: "23/04/18",
   },
   {
     name: "2",
@@ -173,7 +129,6 @@ let res = [
 
     phone: "Ha noi Hoa binh",
     online: false,
-    date: "23/04/18",
   },
   {
     name: "3",
@@ -182,40 +137,35 @@ let res = [
     phone: "Ha noi Hoa binh",
 
     online: false,
-    date: "19/09/17",
   },
   {
     name: "4",
     address: "Manager",
     phone: "Ha noi Hoa binh",
-    online: false,
-    date: "04/10/21",
+    online: true,
   },
   {
     name: "5",
-
     address: "Executive",
-
+    phone: "Ha noi Hoa binh",
     online: false,
-    date: "19/09/17",
   },
   {
     name: "6",
     address: "Programator",
-
+    phone: "Ha noi Hoa binh",
     online: true,
-    date: "24/12/08",
   },
   {
     name: "7",
     address: "Manager",
-
+    phone: "Ha noi Hoa binh",
     online: false,
-    date: "04/10/21",
   },
 ];
 
 let TABLE_ROWS = res;
+let TABLE_HEAD = resHead;
 
 function TradeEmployee() {
   const [isTrade, setIsTrade] = useState(true);
@@ -223,7 +173,13 @@ function TradeEmployee() {
 
   const type = "employee";
 
-  TABLE_ROWS = isTrade ? res : fake;
+  if (isTrade) {
+    TABLE_ROWS = res;
+    TABLE_HEAD = resHead;
+  } else {
+    TABLE_ROWS = fake;
+    TABLE_HEAD = fakeHead;
+  }
 
   return (
     <div className="flex bg-white">
@@ -233,6 +189,7 @@ function TradeEmployee() {
         <main className="max-w-4xl flex-4 mx-auto py-2 my-4 border-2 border-gray-300 rounded-lg">
           <Card className="w-full">
             <TableHead
+              TABS={TABS}
               isTrade={isTrade}
               setIsTrade={setIsTrade}
               setPage={setPage}
@@ -244,6 +201,7 @@ function TradeEmployee() {
               TABLE_HEAD={TABLE_HEAD}
               page={page}
               setPage={setPage}
+              isTrade={isTrade}
             />
           </Card>
         </main>

@@ -1,66 +1,67 @@
 import React from "react";
 import { Typography } from "@material-tailwind/react";
 import { action, account, deliver, confirm } from "./Button";
+import Modal from "../../Modal/Modal";
+import { TiDeleteOutline } from "react-icons/ti";
 
-export function Row({ name, address, online, phone, classes, type }) {
-  var icon;
-  var icon2;
+export function Row({ type, row, isTrade }) {
+  var icons;
+  var rowData = Object.values(row);
+  const online = rowData.filter((data) => typeof data == "boolean")[0];
+  const acc = rowData.filter((data) => typeof data == "object")[0];
+
   const [onLine, setOnLine] = React.useState(online);
   const [open, setOpen] = React.useState(false);
   const toggleOpen = () => setOpen((cur) => !cur);
 
   switch (type) {
     case "ceo":
-      icon = account;
-      icon2 = action({ toggleOpen, open, name, address, phone });
+      icons = [account({ ...acc }), action({ toggleOpen, open, name: rowData[0], address: rowData[1]})];
       break;
     case "employee":
-      icon = deliver(onLine);
-      icon2 = confirm(onLine, setOnLine);
+      isTrade
+        ? (icons = [deliver(onLine), confirm(onLine, setOnLine)])
+        : (icons = [deliver(onLine)]);
       break;
     case "statistic":
-      icon = deliver(onLine);
-      icon2 = <date>23/04/2021</date>;
+      icons = [deliver(onLine)];
+      break;
+    case "TradeManager":
+      rowData.pop();
+      icons = [ 
+        account({...row}),
+        <Modal
+          label="Delete"
+          icon={<TiDeleteOutline className="h-5 w-5 " />}
+          color="bg-red-400"
+        />,
+      ];
       break;
     default:
       break;
   }
 
+  rowData = rowData.filter((data) => typeof data !== "boolean");
+  rowData = rowData.filter((data) => typeof data !== "object");
   return (
-    <tr key={name}>
-      <td className={classes}>
-        <div className="flex items-center gap-3">
-          <div className="flex flex-col">
-            <Typography
-              variant="small"
-              color="blue-gray"
-              className="font-normal"
-            >
-              {name}
-            </Typography>
-          </div>
-        </div>
-      </td>
-
-      <td className={classes}>
-        <div className="flex flex-col">
-          <Typography variant="small" color="blue-gray" className="font-normal">
-            {address}
+    <tr>
+      {rowData.map((data) => (
+        <td className="p-4 border-b border-blue-gray-50">
+          <Typography
+            variant="small"
+            color="blue-gray"
+            className="font-normal w-max"
+          >
+            {data}
           </Typography>
-        </div>
-      </td>
+        </td>
+      ))}
 
-      <td className={classes}>
-        <Typography variant="small" color="blue-gray" className="font-normal">
-          {phone}
-        </Typography>
-      </td>
-
-      <td className={classes}>
-        <div className="w-max">{icon}</div>
-      </td>
-
-      <td className={classes}>{icon2}</td>
+      {icons.map((data) => (
+        <td className="p-4 border-b border-blue-gray-50">
+          <div className="w-max">{data}</div>
+        </td>
+      ))}
     </tr>
   );
 }

@@ -5,16 +5,32 @@ import { motion } from "framer-motion";
 import { IoIosArrowBack } from "react-icons/io";
 // import { TfiAgenda } from "react-icons/tfi";
 // import { TfiCheckBox } from "react-icons/tfi";
-import { ImOffice } from "react-icons/im";
+import { IoStatsChart } from "react-icons/io5";
+import { BsFillPersonLinesFill } from "react-icons/bs";
+// import { ImOffice } from "react-icons/im";
 import { useMediaQuery } from "react-responsive";
 import { MdMenu } from "react-icons/md";
 
-const CEO = [
+// const CEO = [
+//   {
+//     link: "/manager",
+//     name: "Offices",
+//     icon: ImOffice,
+//   }
+// ]
+
+const TradeManager = [
   {
-    link: "/manager",
-    name: "Offices",
-    icon: ImOffice,
+    link: "/trade/manager/account",
+    name: "Employee",
+    icon: BsFillPersonLinesFill,
+  },
+  {
+    link: "/trade/manager/statistic",
+    name: "Statistic",
+    icon: IoStatsChart,
   }
+
 ]
 
 // const Employee = [
@@ -120,7 +136,7 @@ function Sidebar() {
 
         <div className="flex flex-col h-full">
           <ul className="whitespace-pre px-2.5 text-[0.9rem] py-5 flex flex-col gap-1 font-medium overflow-x-hidden scrollbar-thin scrollbar-track-white scrollbar-thumb-slate-100 h-[70%] max-h=[68%]">
-            {CEO.map((menu) => (
+            {TradeManager.map((menu) => (
               <li key={menu.name}>
                 <NavLink to={menu.link} className={"link"}>
                   <menu.icon size={23} className="min-w-max"></menu.icon>

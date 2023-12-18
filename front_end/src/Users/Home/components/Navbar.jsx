@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 
-const Navbar = () => {
+const Navbar = ({type}) => {
   const [nav, setNav] = useState(false);
-
+  console.log(type);
+  const loginBtn = !type ? null : <NavLink to={"/login"} className='link text-center bg-blue-400 w-[70px] rounded-md font-medium my-6 mx-auto py-3 text-black'>Login</NavLink>;
   const handleNav = () => {
     setNav(!nav);
   };
@@ -18,7 +19,7 @@ const Navbar = () => {
         <li className='link'>Resources</li>
         <li className='link'>About</li>
         <li className='link'>Contact</li>
-        <NavLink to={"/employee"} className='text-center bg-blue-400 w-[70px] rounded-md font-medium my-6 mx-auto py-3 text-white'>Login</NavLink>
+        {loginBtn}
       </ul>
       <div onClick={handleNav} className='block md:hidden'>
           {nav ? <AiOutlineClose size={20}/> : <AiOutlineMenu size={20} />}
@@ -30,7 +31,7 @@ const Navbar = () => {
           <li className='link border-b border-gray-600'>Resources</li>
           <li className='link border-b border-gray-600'>About</li>
           <li className='link'>Contact</li>
-          <NavLink to={"/employee"} className='link bg-blue-400 w-[70px] rounded-md font-medium my-6 mx-auto py-3 text-black'>Login</NavLink>
+          {loginBtn}
       </ul>
     </div>
   );

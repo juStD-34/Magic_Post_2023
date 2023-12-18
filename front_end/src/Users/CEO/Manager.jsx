@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Navbar from "../../Layout/Navbar";
-import Sidebar from "../../Layout/Sidebar/Sidebar";
+import Navbar from "../../shared/Layout/Navbar";
+import Sidebar from "../../shared/Layout/Sidebar/Sidebar";
 import TBody from "../../shared/Table/TBody";
 import TableHead from "../../shared/Table/THead";
 import { Card } from "@material-tailwind/react";
@@ -19,7 +19,6 @@ const TABS = [
 const TABLE_HEAD = [
   "Office's ID",
   "Office's Address",
-  "Phone",
   "Manager Account",
   "Action",
 ];
@@ -28,44 +27,72 @@ let res = [
   {
     name: "[BN B SOC SON SOC]",
     address: "Manager",
-    online: true,
-    phone: "0365280358",
+    account: {
+      staffId: "123AASD",
+      usrname: "",
+      password: "",
+      phone: "",
+    },
   },
   {
     name: "[BN B Mega  CAU GIAY SOC]",
     address: "Programator",
-    online: false,
-    phone: "0365280358",
+    account: {
+      staffId: "",
+      usrname: "",
+      password: "",
+      phone: "",
+    }
   },
   {
     name: "AAAAA",
     address: "Executive",
-    online: false,
-    phone: "0365280358",
+    account: {
+      staffId: "",
+      usrname: "",
+      password: "",
+      phone: "",
+    },
   },
   {
     name: "123",
     address: "Programator",
-    online: true,
-    phone: "0365280358",
+    account: {
+      staffId: "",
+      usrname: "",
+      password: "",
+      phone: "",
+    },
   },
   {
     name: "456",
     address: "Manager",
-    online: false,
-    phone: "0365280358",
+    account: {
+      staffId: "",
+      usrname: "",
+      password: "",
+      phone: "",
+    },
   },
   {
     name: "789",
     address: "Manager",
-    online: true,
-    phone: "23/04/18",
+    account: {
+      staffId: "",
+      usrname: "",
+      password: "",
+      phone: "",
+    },
   },
   {
     name: "126",
     address: "Programator",
-    online: false,
-    phone: "0365280358",
+    account: {
+      staffId: "",
+      usrname: "",
+      password: "",
+      phone: "",
+    },
   },
 ];
 
@@ -73,12 +100,16 @@ let fake = [
   {
     name: "[BN B Mega SOC]",
     address: "Manager",
-    online: false,
-    phone: "0365280358",
+    account: {
+      staffId: "",
+      usrname: "",
+      password: "",
+      phone: "",
+    },
   },
 ];
 
-let TABLE_ROWS = res;
+var TABLE_ROWS = res;
 
 export default function Manager() {
   const [isTrade, setIsTrade] = useState(true);
