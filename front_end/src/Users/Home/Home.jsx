@@ -9,7 +9,7 @@ import Search from './components/Search';
 function Home() {
   return (
     <div>
-      <Navbar />
+      <Navbar type={true}/>
       <Hero />
       <Analytics />
       <Search />

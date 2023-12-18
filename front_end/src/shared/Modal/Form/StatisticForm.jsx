@@ -195,6 +195,7 @@ const StatisticForm = (props) => {
               </tbody>
             </table>
           </div>
+          <div className="ml-4"> Number of packages received: {res.length}</div>
           <TablePagination
             component={"div"}
             colSpan={2}

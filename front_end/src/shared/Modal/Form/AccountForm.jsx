@@ -1,10 +1,9 @@
 import React from "react";
 import Input from "../components/Input";
-import TypeInput from "../components/TypeInput";
 
 const AccountForm = (props) => {
   return (
-    <div className="flex my-6 sm:my-auto mx-12 sm:mx-96 fixed inset-0 max-h-sm h-[60%] z-50 outline-none focus:outline-none">
+    <div className="text-left flex my-6 sm:my-auto mx-12 sm:mx-96 fixed inset-0 max-h-sm h-[60%] z-50 outline-none focus:outline-none">
       <div className="relative w-auto mx-auto max-w-sm">
         {/*content*/}
         <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
@@ -13,20 +12,18 @@ const AccountForm = (props) => {
             <form>
               <div className="space-y-12">
                 <div className=" pb-4">
-                  <h2 className="text-base font-semibold leading-7 text-gray-900">
+                  <h2 className="font-semibold leading-7 text-gray-900">
                     Manager Account
                   </h2>
 
                   <div className="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                    <Input label="Manager's ID" size="sm:col-span-4" type="text" value="Hieu Pham"/>
+                    <Input label="Manager's ID" size="sm:col-span-4" type="text" value={props.staffId}/>
 
-                    <Input label="Username" size="sm:col-span-3" type="text" value="23chaphet"/>
+                    <Input label="Username" size="sm:col-span-3" type="text" value={props.usrname}/>
 
-                    <Input label="Password" size="sm:col-span-3" type="password" value="hieudeptrai"/>
+                    <Input label="Password" size="sm:col-span-3" type="password" value={props.password}/>
 
-                    <Input label="Phone" size="sm:col-span-4" type="phone" value="0365280358"/>
-
-                    <TypeInput label="Type" size="sm:col-span-3" />
+                    <Input label="Phone" size="sm:col-span-4" type="phone" value={props.phone}/>
                   </div>
                 </div>
               </div>

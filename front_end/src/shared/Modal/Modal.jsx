@@ -13,7 +13,15 @@ function Modal(data) {
   var labeL;
   switch (data.label) {
     case "Account":
-      modal = <AccountForm setShowModal={setShowModal} />;
+      modal = (
+        <AccountForm
+          setShowModal={setShowModal}
+          staffId={data.staffId}
+          password={data.password}
+          usrname={data.usrname}
+          phone={data.phone}
+        />
+      );
       labeL = data.label;
       break;
     case "Add Offices":
@@ -52,7 +60,7 @@ function Modal(data) {
         {data.icon}
         {labeL}
       </Button>
-      {showModal ? (
+      {showModal && (
         <>
           {modal}
           <div
@@ -60,7 +68,7 @@ function Modal(data) {
             onClick={() => setShowModal(false)}
           ></div>
         </>
-      ) : null}
+      ) }
     </>
   );
 }

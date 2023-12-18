@@ -1,82 +1,62 @@
 import React from "react";
-import Navbar from "../../Layout/Navbar";
-import Sidebar from "../../Layout/Sidebar/Sidebar";
-import TBody from "../../shared/Table/TBody";
-import TableInfor from "../../shared/Table/components/TableInfor";
+import StatisticAll from "../../shared/StatisticAll";
 
-const TABLE_HEAD = ["Packages's ID", "FROM", "TO", "Status", "Date"];
+const TABLE_HEAD = ["Packages's ID", "FROM", "TO", "Date", "Status"];
 
-let TABLE_ROWS = [
+const TABLE_ROWS = [
   {
     name: "[BN B SOC SON SOC]",
     address: "Manager",
+    receive: "My Dinh",
     online: true,
-    phone: "0365280358",
+    date: "24/03/2015",
   },
   {
     name: "[BN B Mega  CAU GIAY SOC]",
     address: "Programator",
+    receive: "My Dinh",
     online: false,
-    phone: "0365280358",
+    date: "24/03/2015",
   },
   {
     name: "AAAAA",
     address: "Executive",
+    receive: "My Dinh",
     online: false,
-    phone: "0365280358",
+    date: "24/03/2015",
   },
   {
     name: "123",
     address: "Programator",
+    receive: "My Dinh",
     online: true,
-    phone: "0365280358",
+    date: "24/03/2015",
   },
   {
     name: "456",
     address: "Manager",
+    receive: "My Dinh",
     online: false,
-    phone: "0365280358",
+    date: "24/03/2015",
   },
   {
     name: "789",
     address: "Manager",
+    receive: "My Dinh",
     online: true,
-    phone: "23/04/18",
+    date: "24/03/2015",
   },
   {
     name: "126",
     address: "Programator",
-    online: false,
-    phone: "0365280358",
+    receive: "My Dinh",
+    online: true,
+    date: "24/03/2015",
   },
 ];
 
-const Statistic = () => {
-  const [page, setPage] = React.useState(0);
-
-  return (
-    <div className="flex bg-white">
-      <Sidebar />
-      <div className="h-screen w-[85%] sm:w-full px-auto">
-        <Navbar />
-        <main className="max-w-4xl flex-4 mx-auto py-2 my-4">
-          <TableInfor
-            head="All packages"
-            intro="all packages sent and received"
-            add="hidden"
-          />
-          <TBody
-            className="mt-4 border-2 border-gray-200 rounded-lg"
-            TABLE_ROWS={TABLE_ROWS}
-            type="statistic"
-            TABLE_HEAD={TABLE_HEAD}
-            page={page}
-            setPage={setPage}
-          />
-        </main>
-      </div>
-    </div>
-  );
+const CEOStatistic = () => {
+  return <StatisticAll TABLE_HEAD={TABLE_HEAD} TABLE_ROWS={TABLE_ROWS} />;
 };
 
-export default Statistic;
+export default CEOStatistic;
