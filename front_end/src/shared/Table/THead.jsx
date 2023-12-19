@@ -2,6 +2,7 @@ import { Tabss } from './components/tab';
 import TableInfor from './components/TableInfor';
 import { SearchPack } from './components/SearchPack';
 
+
 import {
   CardHeader,
 } from "@material-tailwind/react";
@@ -30,7 +31,7 @@ const TableHead = ({TABS, setIsTrade, setPage, type }) => {
         </div>
         <div className="flex flex-col mx-4 items-center justify-between gap-4 md:flex-row">
           <Tabss TABS={TABS} setIsTrade={setIsTrade} setPage={setPage}  />
-          <SearchPack     />
+          <SearchPack />
         </div>
       </CardHeader>
     </div>

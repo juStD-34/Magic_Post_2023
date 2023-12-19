@@ -135,9 +135,9 @@ const CentralManager = () => {
             head="All packages"
             intro="all packages sent and received"
             add="hidden"
+            statistic = {true}
           />
           <Tabss TABS={TABS} setIsTrade={setIsTrade} setPage={setPage}  />
-
           <TBody
             className="mt-4 border-2 border-gray-200 rounded-lg"
             TABLE_ROWS={TABLE_ROWS}

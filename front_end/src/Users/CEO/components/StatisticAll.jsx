@@ -1,10 +1,11 @@
 import React from "react";
-import Navbar from "./Layout/Navbar";
-import Sidebar from "./Layout/Sidebar/Sidebar";
-import TBody from "./Table/TBody";
-import TableInfor from "./Table/components/TableInfor";
+import Navbar from "../../../shared/Layout/Navbar";
+import Sidebar from "../../../shared/Layout/Sidebar/Sidebar";
+import TBody from "../../../shared/Table/TBody";
+import TableInfor from "../../../shared/Table/components/TableInfor";
 
-const StatisticAll = ({TABLE_HEAD, TABLE_ROWS}) => {
+
+const StatisticAll = ({ TABLE_HEAD, TABLE_ROWS }) => {
   const [page, setPage] = React.useState(0);
 
   return (
@@ -17,7 +18,9 @@ const StatisticAll = ({TABLE_HEAD, TABLE_ROWS}) => {
             head="All packages"
             intro="all packages sent and received"
             add="hidden"
+            statistic={true}
           />
+
           <TBody
             className="mt-4 border-2 border-gray-200 rounded-lg"
             TABLE_ROWS={TABLE_ROWS}
