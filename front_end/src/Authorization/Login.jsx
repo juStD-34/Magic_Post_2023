@@ -79,7 +79,7 @@ function Login() {
                 </div>
               </div>
               <div className="flex justify-center">
-              <NavLink to={"/trade/employee"} className="w-3/4 bg-blue-500 text-gray-100 p-4  rounded-full tracking-wide
+              <NavLink to={"/central/employee"} className="w-3/4 bg-blue-500 text-gray-100 p-4  rounded-full tracking-wide
                                 font-semibold  focus:outline-none focus:shadow-outline hover:bg-blue-300 shadow-lg cursor-pointer transition ease-in duration-300">Login</NavLink>
               </div>
               <p class="flex flex-col items-center justify-center mt-10 text-center text-md text-gray-500">
