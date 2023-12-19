@@ -1,5 +1,5 @@
 import React from "react";
-import StatisticAll from "../../shared/StatisticAll";
+import StatisticAll from "./components/StatisticAll";
 
 const TABLE_HEAD = ["Packages's ID", "FROM", "TO", "Date", "Status"];
 

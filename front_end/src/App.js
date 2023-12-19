@@ -9,6 +9,7 @@ import CentralEmployee from "./Users/Central/Employee";
 import CentralManager from "./Users/Central/Manager/Statistic";
 import CentralAccount from "./Users/Central/Manager/Account";
 
+import TradeEmployee from "./Users/Trade/Employee";
 import TradeManager from "./Users/Trade/Manager/Statistic";
 import TradeAccount from "./Users/Trade/Manager/Account";
 
@@ -23,7 +24,7 @@ const App = () => {
           <Route path="/central/employee" element={<CentralEmployee />} />
           <Route path="/central/manager/account" element={<CentralAccount />} />
           <Route path="/central/manager/statistic" element={<CentralManager />} />
-          {/* <Route path="/trade/employee" element={<TradeEmployee />} /> */}
+          <Route path="/trade/employee" element={<TradeEmployee />} />
           <Route path="/trade/manager/account" element={<TradeAccount />} />
           <Route path="/trade/manager/statistic" element={<TradeManager />} />
           <Route path="/manager" element={<Manager />} />
