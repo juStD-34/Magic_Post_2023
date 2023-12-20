@@ -31,13 +31,13 @@ const SubMenu = ({ data }) => {
         }
         className="flex h-0 flex-col pl-3 text-[0.8rem] font-normal overflow-hidden"
       >
-        {data.menus?.map((menu) => (
+        {data.menus?.map((menu, index) => (
           <li key={menu} className="hover:text-blue-600 hover:font-medium">
               <NavLink
                 to={`/${data.name}/${menu}`}
                 className="link !bg-transparent capitalize"
               >
-                <GiTrade size={20}></GiTrade>
+                {data.iconList[index]}
                 {menu}
               </NavLink>
           </li>

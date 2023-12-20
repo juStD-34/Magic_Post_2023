@@ -37,6 +37,9 @@ export function Row({ type, row, isTrade }) {
         />,
       ];
       break;
+      case "TradeEmployee":
+        icons = [confirm(onLine, setOnLine)];
+        break;
     default:
       break;
   }

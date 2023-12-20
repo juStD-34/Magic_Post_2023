@@ -1,9 +1,9 @@
 import React from "react";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
-export function SearchPack() {
+export default function SearchPack() {
   return (
-    <div className="sm:ml-6 sm:block relative rounded-md shadow-sm ml-10">
+    <div className="sm:ml-auto sm:block relative rounded-md shadow-sm mt-4 sm:m-0">
       <div className="hidden pointer-events-none absolute inset-y-0 left-0 sm:flex items-center pl-3">
         <MagnifyingGlassIcon
           className="h-5 w-5 text-black"

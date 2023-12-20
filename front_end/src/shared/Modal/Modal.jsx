@@ -3,6 +3,7 @@ import OfficeForm from "./Form/OfficeForm";
 import AccountForm from "./Form/AccountForm";
 import EditForm from "./Form/EditForm";
 import StatisticForm from "./Form/StatisticForm";
+import SuccessForm from "./Form/SuccesForm";
 
 import { Button } from "flowbite-react";
 import ConfirmDelete from "./Form/ConfirmDelete";
@@ -47,9 +48,14 @@ function Modal(data) {
       modal = <StatisticForm setShowModal={setShowModal} />;
       labeL = null;
       break;
+    case "Add":
+      modal = <SuccessForm/>;
+      labeL = data.label;
+      break;
     default:
       break;
   }
+
   return (
     <>
       <Button

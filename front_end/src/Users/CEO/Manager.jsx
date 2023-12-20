@@ -124,7 +124,7 @@ export default function Manager() {
       <Sidebar />
       <div className="h-screen w-[85%] sm:w-full px-auto">
         <Navbar />
-        <main className="max-w-4xl flex-4 mx-auto py-2 my-4 border-2 border-gray-300 rounded-lg">
+        <main className="max-w-4xl flex-4 mx-auto py-2 my-4 rounded-lg">
           <Card className="w-full">
             <TableHead
               TABS={TABS}
