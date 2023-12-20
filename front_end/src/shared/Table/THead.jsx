@@ -1,6 +1,6 @@
 import { Tabss } from './components/tab';
 import TableInfor from './components/TableInfor';
-import { SearchPack } from './components/SearchPack';
+import SearchPack from './components/SearchPack';
 
 
 import {

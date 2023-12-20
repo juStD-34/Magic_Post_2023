@@ -6,10 +6,18 @@ import { IoIosArrowBack } from "react-icons/io";
 // import { TfiAgenda } from "react-icons/tfi";
 // import { TfiCheckBox } from "react-icons/tfi";
 import { IoStatsChart } from "react-icons/io5";
-import { BsFillPersonLinesFill } from "react-icons/bs";
+import { FiPackage } from "react-icons/fi";
+// import { BsFillPersonLinesFill } from "react-icons/bs";
+import { FaShippingFast } from "react-icons/fa";
+import { SiOnlyoffice } from "react-icons/si";
+import { GiConfirmed } from "react-icons/gi";
+import { FaUser } from "react-icons/fa";
+import { GiCancel } from "react-icons/gi";
+
 // import { ImOffice } from "react-icons/im";
 import { useMediaQuery } from "react-responsive";
 import { MdMenu } from "react-icons/md";
+import SubMenu from "./Submenu";
 
 // const CEO = [
 //   {
@@ -19,28 +27,69 @@ import { MdMenu } from "react-icons/md";
 //   }
 // ]
 
-const TradeManager = [
+const TradeEmployee = [
   {
-    link: "/trade/manager/account",
-    name: "Employee",
-    icon: BsFillPersonLinesFill,
+    link: "/trade/employee/package",
+    name: "Packages",
+    icon: FiPackage,
   },
   {
-    link: "/trade/manager/statistic",
+    link: "/trade/employee/delivery",
+    name: "Deliver",
+    icon: FaShippingFast,
+  },
+  {
+    link: "/trade/employee/statistic",
     name: "Statistic",
     icon: IoStatsChart,
-  }
-
+  },
+  {
+    link: "/trade/employee/confirm",
+    name: "Confirm",
+    icon: GiConfirmed,
+  },
 ]
 
-// const Employee = [
+// const res = [
 //   {
-//     link : "/employee/create",
-//     name : "Create",
-//     icon : TfiAgenda,
+//     name: "Confirm",
+//     icon: GiConfirmed,
+//     menus: ["From Central", "To User"],
+//     link: ["/trade/employee/confirm/central", "/trade/employee/confirm/user"],
+//     iconList: [<SiOnlyoffice size={20}/>, <FaUser size={20}/>],
+//   },
+// ];
+
+// const TradeManager = [
+//   {
+//     link: "/trade/manager/account",
+//     name: "Employee",
+//     icon: BsFillPersonLinesFill,
 //   },
 //   {
-//     link : "/employee/confirm",
+//     link: "/trade/manager/statistic",
+//     name: "Statistic",
+//     icon: IoStatsChart,
+//   }
+// ]
+
+
+// const CentralManager = [
+//   {
+//     link: "/central/manager/account",
+//     name: "Employee",
+//     icon: BsFillPersonLinesFill,
+//   },
+//   {
+//     link: "/central/manager/statistic",
+//     name: "Statistic",
+//     icon: IoStatsChart,
+//   }
+// ]
+
+// const CentralEmployee = [
+//   {
+//     link : "/central/employee",
 //     name : "Confirm",
 //     icon : TfiCheckBox,
 //   },
@@ -95,21 +144,6 @@ function Sidebar() {
     isTab && setIsOpen(false);
   }, [pathname]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // const substitute = [
-  //   {
-  //     name: "Tạo đơn",
-  //     icon: TfiAgenda,
-  //     menus: ["Đến điểm giao dịch", "Đến điểm tập kết"],
-  //   },
-  //   {
-  //     name: "Xác nhận đơn ",
-  //     icon: TfiCheckBox,
-  //     menus: ["Từ điểm giao dịch", "Từ điểm tập kết"],
-  //   },
-  // ];
-  
-  // const res = substitute;
-
   return (
     <div>
       <div
@@ -136,7 +170,7 @@ function Sidebar() {
 
         <div className="flex flex-col h-full">
           <ul className="whitespace-pre px-2.5 text-[0.9rem] py-5 flex flex-col gap-1 font-medium overflow-x-hidden scrollbar-thin scrollbar-track-white scrollbar-thumb-slate-100 h-[70%] max-h=[68%]">
-            {TradeManager.map((menu) => (
+            {TradeEmployee.map((menu) => (
               <li key={menu.name}>
                 <NavLink to={menu.link} className={"link"}>
                   <menu.icon size={23} className="min-w-max"></menu.icon>
@@ -146,10 +180,6 @@ function Sidebar() {
             ))}
             {/* {(isOpen || isTab) && (
               <div className="border-y py-5 border-slate-300">
-                <small className="pl-3 text-slate-500 inline-block mb-2">
-                  Works
-                </small>
-
                 {res.map((menu) => (
                   <div key={menu.name} className="flex flex-col gap-1">
                     <SubMenu data={menu} />
@@ -163,12 +193,12 @@ function Sidebar() {
             <div className="flex-1 text-sm z-50 max-h-48 my-auto whitespace-pre w-full font-medium">
               <div className="flex items-center justify-between border-y border-slate-300 p-4">
                 <div>
-                  <p>Spark</p>
-                  <small>No-cost 0/month</small>
+                  <p>BN Dong Da SOC</p>
+                  <small>So 1 Tran Dai Nghia</small>
                 </div>
 
                 <p className="text-teal-500 py-1.5 px-3 text-xs bg-teal-50 rounded-xl">
-                  Upgrade
+                  Working
                 </p>
               </div>
             </div>
