@@ -7,7 +7,7 @@ export const fetchPackages = (postId, type) => {
         return response.json();
       })
       .catch(error => {
-        console.error(`Error fetching ${type} mails:`, error);
+        console.error(`Error fetching ${type} packages:`, error);
       });
   };
   
@@ -15,13 +15,13 @@ export const fetchPackages = (postId, type) => {
   export const fetchIncomingPackages = (postId, setIncomingPackages) => {
     fetchPackages(postId, 'incoming').then(data => {
       console.log("inComingData", data);
-      setIncomingPackages(data.mails);
+      setIncomingPackages(data.Packages);
     });
   };
   
-  export const fetchOutgoingPackages = (postId, setOutgoingMails) => {
+  export const fetchOutgoingPackages = (postId, setOutgoingPackages) => {
     fetchPackages(postId, 'outgoing').then(data => {
       console.log("data", data);
-      setOutgoingMails(data.mails);
+      setOutgoingPackages(data.Packages);
     });
   };

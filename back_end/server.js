@@ -1,5 +1,5 @@
 const express = require('express');
-const sqlite3 = require('sqlite3').verbose();
+const mysql = require('mysql');
 const cors = require('cors');  
 
 const app = express();
@@ -10,13 +10,12 @@ app.use(express.json());
 
 // Kết nối đến SQLite database (đường dẫn đến SQLiteOnline)
 const dbPath = 'C:/Users/HP/Desktop/Magic_Post_2023/back_end/magic_post.db';
-const db = new sqlite3.Database(dbPath, sqlite3.OPEN_READWRITE, (err) => {
-  if (err) {
-    console.error('Could not connect to database:', err.message);
-  } else {
-    console.log('Connected to the SQLite database.');
-  }
-});
+const db = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: '',
+  database: 'magicPost',
+})
 
 app.get('/packageInfor', (req, res) => {
   const postId = parseInt(req.query.postId, 10);
@@ -28,26 +27,26 @@ app.get('/packageInfor', (req, res) => {
   if (type === 'incoming') {
     query = `
       SELECT *
-      FROM Mail_status
-      WHERE Current_Po_ID = ? AND Status_name = "arriving"
+      FROM Package
+      WHERE current_po_id = ? AND statusName = "Arriving"
     `;
   } else if (type === 'outgoing') {
     query = `
       SELECT *
-      FROM Mail_status
-      WHERE Current_Po_ID = ? AND Status_name = "pending"
+      FROM Package
+      WHERE current_po_id = ? AND statusName = "Pending"
     `;
   } else {
     console.log('Invalid request type');
     return res.status(400).json({ error: 'Invalid request type' });
   }
 
-  db.all(query, params, (err, rows) => {
+  db.query(query, params, (err, rows) => {
     if (err) {
       console.error('Error executing query:', err.message);
       res.status(500).json({ error: 'Internal Server Error' });
     } else {
-      res.json({ mails: rows });
+      res.json({ Packages: rows });
     }
   });
 });
@@ -61,16 +60,18 @@ app.post('/addPackage', (req, res) => {
     guessPath,
     senderName,
     senderPhone,
+    senderAddress,
     receiverName,
     receiverPhone,
-    currentPoId,
-    status
+    receiverAddress,
+    currentPoID,
+    statusName
   } = req.body;
-  // console.error(req.body)
-  // console.log(req.body.fromPoID, req.body.toPoID,req.body.guessPath, fromPoID, toPoID);
-  const query = 'INSERT INTO Mail (code,weight,From_Po_id,To_Po_id,Guess_path ,senderName ,senderPhone ,receiverName ,receiverPhone ,statusName ,current_po_id) VALUES (?,?,?,?,?,?,?,?,?,?,?)';
+  console.error(req.body)
+  // console.log(req.body.currentPoID, req.body.statusName,req.body.guessPath, fromPoID, toPoID);
+  const query = 'INSERT INTO Package (code,weight,From_Po_id,To_Po_id,Guess_path ,senderName ,senderPhone ,senderAddress ,receiverName ,receiverPhone ,receiverAddress ,statusName ,current_po_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)';
 
-  db.run(query, [code, weight, fromPoID, toPoID, guessPath, senderName, senderPhone, receiverName, receiverPhone, status, currentPoId], (err) => {
+  db.query(query, [code, weight, fromPoID, toPoID, guessPath, senderName, senderPhone,senderAddress, receiverName, receiverPhone, receiverAddress, statusName, currentPoID], (err) => {
     if (err) {
       console.error('Error executing query:', err.message);
       res.status(500).json({ error: 'Internal Server Error' });
@@ -80,15 +81,59 @@ app.post('/addPackage', (req, res) => {
   })
 })
 
-process.on('exit', () => {
-  db.close((err) => {
-    if (err) {
-      console.error(err.message);
-    }
-    console.log('Closed the SQLite database connection.');
-  });
-});
+app.put('/updatePackage', (req, res) => {
+  updatedPackage = req.body;
+  const sql = `
+    UPDATE Package
+    SET
+      senderName = ?,
+      senderPhone = ?,
+      receiverName = ?,
+      receiverPhone = ?,
+      Weight = ?,
+      From_Po_id = ?,
+      To_Po_id = ?,
+      Guess_path = ?,
+      current_po_id = ?,
+      statusName = ?
+    WHERE id = ?
+  `;
 
+  const params = [
+    updatedPackage.senderName,
+    updatedPackage.senderPhone,
+    updatedPackage.receiverName,
+    updatedPackage.receiverPhone,
+    updatedPackage.Weight,
+    updatedPackage.From_Po_id,
+    updatedPackage.To_Po_id,
+    updatedPackage.Guess_path,
+    updatedPackage.current_po_id,
+    updatedPackage.statusName,
+    updatedPackage.id,
+  ];
+  db.query(sql, params, function (err) {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ success: false, message: 'Error updating package' });
+    } else {
+      res.json({ success: true, message: 'Package updated successfully' });
+    }
+  });
+})
+
+app.get('/postInfo', (req, res) => {
+  const postId = req.query.postId;
+  const query = 'SELECT * FROM PostOffice WHERE id = ?';
+  db.query(query, [postId], (err, rows) => {
+    if (err) {
+      console.error('Error executing query:', err.message);
+      res.status(500).json({ error: 'Internal Server Error' });
+    } else {
+      res.json({ Post: rows[0] });
+    }
+  });
+})
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });

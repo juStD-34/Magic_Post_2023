@@ -14,8 +14,10 @@ export const packageNormalization = (packages) => {
         guessPath,
         senderName: packages.sender,
         senderPhone: packages.senderPhone,
+        senderAddress: packages.senderAddress,
         receiverName: packages.receiver,
         receiverPhone: packages.receiverPhone,
+        receiverAddress: packages.receiverAddress,
         currentPoID: fromPoID,
         statusName: "Pending"
     };
