@@ -9,15 +9,15 @@ import { IoStatsChart } from "react-icons/io5";
 import { FiPackage } from "react-icons/fi";
 // import { BsFillPersonLinesFill } from "react-icons/bs";
 import { FaShippingFast } from "react-icons/fa";
-import { SiOnlyoffice } from "react-icons/si";
+// import { SiOnlyoffice } from "react-icons/si";
 import { GiConfirmed } from "react-icons/gi";
-import { FaUser } from "react-icons/fa";
-import { GiCancel } from "react-icons/gi";
+// import { FaUser } from "react-icons/fa";
+// import { GiCancel } from "react-icons/gi";
 
 // import { ImOffice } from "react-icons/im";
 import { useMediaQuery } from "react-responsive";
 import { MdMenu } from "react-icons/md";
-import SubMenu from "./Submenu";
+// import SubMenu from "./Submenu";
 
 // const CEO = [
 //   {
@@ -39,15 +39,16 @@ const TradeEmployee = [
     icon: FaShippingFast,
   },
   {
-    link: "/trade/employee/statistic",
-    name: "Statistic",
-    icon: IoStatsChart,
-  },
-  {
     link: "/trade/employee/confirm",
     name: "Confirm",
     icon: GiConfirmed,
   },
+  {
+    link: "/trade/employee/statistic",
+    name: "Statistic",
+    icon: IoStatsChart,
+  },
+
 ]
 
 // const res = [

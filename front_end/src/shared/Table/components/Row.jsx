@@ -1,6 +1,6 @@
 import React from "react";
 import { Typography } from "@material-tailwind/react";
-import { action, account, deliver, confirm } from "./Button";
+import { action, account, deliver, confirm, send, cancel } from "./Button";
 import Modal from "../../Modal/Modal";
 import { TiDeleteOutline } from "react-icons/ti";
 
@@ -38,7 +38,13 @@ export function Row({ type, row, isTrade }) {
       ];
       break;
       case "TradeEmployee":
-        icons = [confirm(onLine, setOnLine)];
+        icons = [send({...row})];
+        break;
+      case "confirm":
+        isTrade ? icons = [confirm(onLine, setOnLine)] : icons = [confirm(onLine, setOnLine), cancel({...row})];
+        break;
+      case "tradeStat":
+        icons = [];
         break;
     default:
       break;
