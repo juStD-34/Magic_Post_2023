@@ -1,5 +1,6 @@
 import { Chip, IconButton, Tooltip } from "@material-tailwind/react";
 
+import { TbCubeSend } from "react-icons/tb";
 import { TiTickOutline } from "react-icons/ti";
 import { Button } from "flowbite-react";
 import { BsPersonCircle } from "react-icons/bs";
@@ -25,11 +26,11 @@ export const deliver = (online) => (
 export const confirm = (online, setOnLine) => (
   <Tooltip content="Confirm arrived">
     <IconButton
-      variant="text"
-      className="items-center justify-center flex "
+      variant="icon"
+      className="items-center justify-center flex bg-white"
       onClick={() => setOnLine(true)}
     >
-      <TiTickOutline className="h-4 w-4 " color={online ? "green" : "red"} />
+      <TiTickOutline className="h-4 w-4 " color={"green"} />
     </IconButton>
   </Tooltip>
 );
@@ -47,6 +48,30 @@ export function account(props) {
     />
   );
 }
+
+export const send = (props) => (
+  <Tooltip content="Send Package">
+    <IconButton
+      variant="icon"
+      color="white"
+      className="items-center justify-center flex "
+    >
+      <TbCubeSend className="h-10 w-10" color="lightGreen" />
+    </IconButton>
+  </Tooltip>
+);
+
+export const cancel = (props) => (
+  <Tooltip content="Cancel">
+    <IconButton
+      variant="icon"
+      color="white"
+      className="items-center justify-center flex "
+    >
+      <TiDeleteOutline className="h-6 w-6" color="red" />
+    </IconButton>
+  </Tooltip>
+);
 
 export const action = (props) => {
   return (
