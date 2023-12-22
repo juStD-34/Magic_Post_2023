@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useRef } from "react";
 import Navbar from "../../../shared/Layout/Navbar";
 import Sidebar from "../../../shared/Layout/Sidebar/Sidebar";
-import { Card} from "@material-tailwind/react";
+import { Card } from "@material-tailwind/react";
 import Input from "../../../shared/Modal/components/Input";
-import { FiPrinter } from "react-icons/fi";
 import Modal from "../../../shared/Modal/Modal";
+import { FiPrinter } from "react-icons/fi";
+
+import { useReactToPrint } from "react-to-print";
+import { Print } from "./Print";
 
 const Package = () => {
   const [sendName, setsendName] = React.useState("");
@@ -14,6 +17,12 @@ const Package = () => {
   const [receiveAddress, setreceiveAddress] = React.useState("");
   const [receivePhone, setreceivePhone] = React.useState(0);
   const [weight, setWeight] = React.useState("");
+
+  const componentRef = useRef(null);
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
+  console.log(componentRef.current);
 
   const clear = () => {
     setsendName("");
@@ -92,11 +101,19 @@ const Package = () => {
                   >
                     Clear
                   </button>
-                  <button className="mx-6 w-10 h-8 bg-blue-400 rounded-lg">
+                  <button
+                    className="mx-6 w-10 h-8 bg-blue-400 rounded-lg"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handlePrint();
+                    }}
+                  >
                     <FiPrinter className="h-5 w-5 mx-auto"></FiPrinter>
                   </button>
-                  <Modal label="Add" color="bg-green-500">
-                  </Modal>
+                  <div className="hidden">
+                    <Print ref={componentRef} />
+                  </div>
+                  <Modal label="Add" color="bg-green-500"></Modal>
                 </div>
               </div>
             </form>
