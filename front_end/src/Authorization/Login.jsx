@@ -37,12 +37,12 @@ function Login() {
                   </svg>
                 </div>
                 <label className="text-sm font-bold text-gray-700 tracking-wide">
-                  Email
+                  Username
                 </label>
                 <input
                   className=" w-full text-base py-2 border-b border-gray-300 focus:outline-none focus:border-blue-500"
                   type=""
-                  placeholder="mail@gmail.com"
+                  placeholder="Enter your username"
                 />
               </div>
               <div className="mt-8 content-center">
