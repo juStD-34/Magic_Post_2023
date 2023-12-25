@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../../shared/Layout/Navbar";
 import Sidebar from "../../shared/Layout/Sidebar/Sidebar";
 import TBody from "../../shared/Table/TBody";
 import TableHead from "../../shared/Table/THead";
 import { Card } from "@material-tailwind/react";
+import axios from "axios";
 
 const TABS = [
   {
@@ -19,7 +20,7 @@ const TABS = [
 const TABLE_HEAD = [
   "Office's ID",
   "Office's Address",
-  "Manager Account",
+  "Manager Name",
   "Action",
 ];
 
@@ -114,9 +115,46 @@ var TABLE_ROWS = res;
 export default function Manager() {
   const [isTrade, setIsTrade] = useState(true);
   const [page, setPage] = React.useState(0);
-
+  const [change, setChange] = useState(true);
+  const [TPost, setTPost] = useState();
+  const [CPost, setCPost] = useState();
   const type = "ceo";
 
+  useEffect(() => {
+    const fetchTPostData = async () => {
+      try {
+        const response = await axios.get('http://localhost:3001/getPostByType', {
+          params: {
+            type: 'TP', // Thay 'yourType' bằng giá trị thực tế cần truy vấn
+          },
+        });
+
+        setTPost(response.data.Post);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        // Xử lý lỗi nếu cần thiết
+      }
+    };
+    const fetchCPostData = async () => {
+      try {
+        const response = await axios.get('http://localhost:3001/getPostByType', {
+          params: {
+            type: 'CP', // Thay 'yourType' bằng giá trị thực tế cần truy vấn
+          },
+        });
+
+        setCPost(response.data.Post);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchTPostData();
+    fetchCPostData();
+  }, [change]);
+
+  console.log(TPost);
+  console.log("CPost", CPost);
   TABLE_ROWS = isTrade ? res : fake;
 
   return (

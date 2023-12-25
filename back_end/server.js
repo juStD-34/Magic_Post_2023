@@ -147,6 +147,34 @@ app.get ('/packageByID', (req, res) => {
     }
   });
 })
+
+app.get('/getPostByType', (req, res) => {
+  const type = req.query.type;
+  // console.log(type);
+  const query = `
+    SELECT
+      po.id AS postOfficeID,
+      po.poName AS postOfficeName,
+      po.managerID AS managerID,
+      CONCAT(e.firstName, ' ', e.lastName) AS managerFullName
+    FROM
+      postOffice po
+    JOIN
+      Employees e ON po.managerID = e.id
+    WHERE
+      po.poType = ?;
+  `;
+  db.query(query, [type], (err, rows) => {
+    if (err) {
+      console.error('Error executing query:', err.message);
+      res.status(500).json({ error: 'Internal Server Error' });
+    } else {
+      res.json({ Post: rows });
+    }
+  });
+})
+
+
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
