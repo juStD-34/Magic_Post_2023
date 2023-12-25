@@ -10,6 +10,7 @@ import { useReactToPrint } from "react-to-print";
 import { Print } from "./Print";
 
 const Package = () => {
+  //Get data
   const [sendName, setsendName] = React.useState("");
   const [sendAddress, setsendAddress] = React.useState("");
   const [sendPhone, setsendPhone] = React.useState(0);
@@ -18,12 +19,14 @@ const Package = () => {
   const [receivePhone, setreceivePhone] = React.useState(0);
   const [weight, setWeight] = React.useState("");
 
+  //Print
   const componentRef = useRef(null);
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
   });
   console.log(componentRef.current);
 
+  //Clear information
   const clear = () => {
     setsendName("");
     setsendAddress("");
@@ -93,6 +96,7 @@ const Package = () => {
                   value={weight}
                   onChange={setWeight}
                 />
+                {/* Action */}
                 <div className="mt-6 sm:col-span-4 flex justify-self-end">
                   <button
                     type="button"
