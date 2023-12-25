@@ -19,16 +19,16 @@ export const deliver = (online) => (
     variant="ghost"
     size="sm"
     value={online ? "arrived" : "on delivering"}
-    className={online ? "bg-green-400" : "bg-red-300"}
+    className={online ? "bg-green-400" : "  bg-red-300"}
   />
 );
 
-export const confirm = (online, setOnLine) => (
+export const confirm = (id) => (
   <Tooltip content="Confirm arrived">
     <IconButton
       variant="icon"
       className="items-center justify-center flex bg-white"
-      onClick={() => setOnLine(true)}
+      onClick={() => console.log(id)}
     >
       <TiTickOutline className="h-4 w-4 " color={"green"} />
     </IconButton>

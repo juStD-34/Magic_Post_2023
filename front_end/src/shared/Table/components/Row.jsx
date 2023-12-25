@@ -10,6 +10,8 @@ export function Row({ type, row, isTrade }) {
   const online = rowData.filter((data) => typeof data == "boolean")[0];
   const acc = rowData.filter((data) => typeof data == "object")[0];
 
+  const id = rowData[0];
+
   const [onLine, setOnLine] = React.useState(online);
   const [open, setOpen] = React.useState(false);
   const toggleOpen = () => setOpen((cur) => !cur);
@@ -20,8 +22,8 @@ export function Row({ type, row, isTrade }) {
       break;
     case "employee":
       isTrade
-        ? (icons = [deliver(onLine), confirm(onLine, setOnLine)])
-        : (icons = [deliver(onLine)]);
+        ? (icons = [deliver(onLine), confirm(id)])
+        : (icons = [deliver(onLine), confirm(id)]);
       break;
     case "statistic":
       icons = [deliver(onLine)];
@@ -41,7 +43,7 @@ export function Row({ type, row, isTrade }) {
         icons = [send({...row})];
         break;
       case "confirm":
-        isTrade ? icons = [confirm(onLine, setOnLine)] : icons = [confirm(onLine, setOnLine), cancel({...row})];
+        isTrade ? icons = [confirm(id)] : icons = [confirm(id), cancel({...row})];
         break;
       case "tradeStat":
         icons = [];

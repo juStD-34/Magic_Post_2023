@@ -52,7 +52,7 @@ const TradeStatistic = () => {
               intro="all packages sent and received"
               add="hidden"
             />
-            <div className="flex">
+            <div className="flex flex-col sm:flex-row">
               <Tabss TABS={TABS} setIsTrade={setIsTrade} setPage={setPage} />
               <SearchPack />
             </div>
