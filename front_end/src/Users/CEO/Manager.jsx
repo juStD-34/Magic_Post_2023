@@ -116,8 +116,8 @@ export default function Manager() {
   const [isTrade, setIsTrade] = useState(true);
   const [page, setPage] = React.useState(0);
 
-  const [TPData, setTPData] = useState();
-  const [CPData, setCPData] = useState();
+  const [TPData, setTPData] = useState([]);
+  const [CPData, setCPData] = useState([]);
   const [change, setChange] = useState(true);
   const [TPost, setTPost] = useState();
   const [CPost, setCPost] = useState();
@@ -183,8 +183,8 @@ export default function Manager() {
           address: post.postOfficeAddress,
           account: {
             staffId: post.managerID,
-            usrname: post.managerFullName, // Điền thông tin tài khoản nếu có
-            password: "xxx", // Điền thông tin tài khoản nếu có
+            usrname: post.managerFullName, 
+            password: "xxx",
             phone: post.managerPhone,
           },
         };
