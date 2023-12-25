@@ -1,40 +1,56 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
-export const updatePackage = (myPack, type) => {
-    let {
-        Code,
-        From_Po_id,
-        Guess_path,
-        To_Po_id,
-        Weight,
-        current_po_id,
-        id,
-        receiverName,
-        receiverPhone,
-        senderName,
-        senderPhone,
-        statusName,
-    } = myPack
+import { packageInfor } from "./packInfor";
 
-    let guessPatharray = Guess_path.split("-");
-    let position = guessPatharray.indexOf(current_po_id.toString());
-    // console.log(position, guessPatharray[position + 1]);
-    let newPack = {
-        id,
-        Code,
-        From_Po_id,
-        To_Po_id,
-        Weight,
-        statusName: type === "outGoing" ? "Arriving" : "Pending",
-        receiverName,
-        receiverPhone,
-        senderName,
-        senderPhone,
-        Guess_path,
-        current_po_id: type === "outGoing" ? parseInt(guessPatharray[position + 1]) : parseInt(guessPatharray[position]),
+export const autoForwarding = (packageId, isTrade, change, setChange) => {
+    let myPack;
+    const promise = packageInfor(packageId);
+    Promise.all([promise])
+        .then(res => {
+            myPack = res[0];
+            updatePackage(myPack, isTrade, change, setChange)
+        })
+        .catch(err => {
+            console.log(err);
+        })
+}
+export const updatePackage = (myPack, type, change, setChange) => {
+    console.log("myPack", myPack);
+    if (myPack) {
+        let {
+            code,
+            From_Po_id,
+            Guess_path,
+            To_Po_id,
+            weight,
+            current_po_id,
+            id,
+            receiverName,
+            receiverPhone,
+            senderName,
+            senderPhone,
+            statusName,
+        } = myPack;
+        let guessPatharray = Guess_path.split("-");
+        let position = guessPatharray.indexOf(current_po_id.toString());
+        let newPack = {
+            id,
+            code,
+            From_Po_id,
+            To_Po_id,
+            weight,
+            statusName: type === false ? "Arriving" : "Pending",
+            receiverName,
+            receiverPhone,
+            senderName,
+            senderPhone,
+            Guess_path,
+            current_po_id: type === false ? parseInt(guessPatharray[position + 1]) : parseInt(guessPatharray[position]),
+        }
+        updatePackageOnServer(newPack);
+        setChange(!change);
+    } else {
+        console.log('myPack is undefined or null');
     }
-    console.log(newPack);
-    updatePackageOnServer(newPack);
 }
 
 

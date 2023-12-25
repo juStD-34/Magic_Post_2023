@@ -14,14 +14,14 @@ export const fetchPackages = (postId, type) => {
   // Trong cùng file hoặc file khác, chẳng hạn utils/mailUtils.js
   export const fetchIncomingPackages = (postId, setIncomingPackages) => {
     fetchPackages(postId, 'incoming').then(data => {
-      console.log("inComingData", data);
+      // console.log("inComingData", data);
       setIncomingPackages(data.Packages);
     });
   };
   
   export const fetchOutgoingPackages = (postId, setOutgoingPackages) => {
     fetchPackages(postId, 'outgoing').then(data => {
-      console.log("data", data);
+      // console.log("data", data);
       setOutgoingPackages(data.Packages);
     });
   };

@@ -134,6 +134,19 @@ app.get('/postInfo', (req, res) => {
     }
   });
 })
+
+app.get ('/packageByID', (req, res) => {
+  const packageId = req.query.packageId;
+  const query = 'SELECT * FROM Package WHERE id = ?';
+  db.query(query, [packageId], (err, rows) => {
+    if (err) {
+      console.error('Error executing query:', err.message);
+      res.status(500).json({ error: 'Internal Server Error' });
+    } else {
+      res.json({ Package: rows[0] });
+    }
+  });
+})
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });

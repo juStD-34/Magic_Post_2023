@@ -9,7 +9,6 @@ export const PostInfo = async (postID) => {
                 postId: postID
             }
         });
-        console.log(response.data.Post.poName);
         return response.data.Post.poName;
     } catch (error) {
         console.error(error);
