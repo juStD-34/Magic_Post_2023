@@ -155,8 +155,10 @@ app.get('/getPostByType', (req, res) => {
     SELECT
       po.id AS postOfficeID,
       po.poName AS postOfficeName,
+      po.poAddress AS postOfficeAddress,
       po.managerID AS managerID,
-      CONCAT(e.firstName, ' ', e.lastName) AS managerFullName
+      CONCAT(e.firstName, ' ', e.lastName) AS managerFullName,
+      e.phoneNumber as managerPhone
     FROM
       postOffice po
     JOIN

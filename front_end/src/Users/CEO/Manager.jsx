@@ -115,11 +115,15 @@ var TABLE_ROWS = res;
 export default function Manager() {
   const [isTrade, setIsTrade] = useState(true);
   const [page, setPage] = React.useState(0);
+
+  const [TPData, setTPData] = useState();
+  const [CPData, setCPData] = useState();
   const [change, setChange] = useState(true);
   const [TPost, setTPost] = useState();
   const [CPost, setCPost] = useState();
   const type = "ceo";
 
+  //Take CPost and TPost data
   useEffect(() => {
     const fetchTPostData = async () => {
       try {
@@ -152,10 +156,46 @@ export default function Manager() {
     fetchTPostData();
     fetchCPostData();
   }, [change]);
+  useEffect(() => {
+    if (TPost) {
+      const generatedTPData = TPost.map((post) => {
+        return {
+          name: post.postOfficeName,
+          address: post.postOfficeAddress,
+          account: {
+            staffId: post.managerID,
+            usrname: "", // Điền thông tin tài khoản nếu có
+            password: "", // Điền thông tin tài khoản nếu có
+            phone: post.managerPhone,
+          },
+        };
+      });
+  
+      setTPData(generatedTPData);
+    }
+  }, [TPost])
 
-  console.log(TPost);
-  console.log("CPost", CPost);
-  TABLE_ROWS = isTrade ? res : fake;
+  useEffect(() => {
+    if (CPost) {
+      const generatedCPData = CPost.map((post) => {
+        return {
+          name: post.postOfficeName,
+          address: post.postOfficeAddress,
+          account: {
+            staffId: post.managerID,
+            usrname: post.managerFullName, // Điền thông tin tài khoản nếu có
+            password: "xxx", // Điền thông tin tài khoản nếu có
+            phone: post.managerPhone,
+          },
+        };
+      });
+  
+      setCPData(generatedCPData);
+    }
+  }, [CPost]);
+  console.log(TPData);
+  console.log("CPost", CPData);
+  TABLE_ROWS = isTrade ? TPData : CPData; 
 
   return (
     <div className="flex bg-white">
