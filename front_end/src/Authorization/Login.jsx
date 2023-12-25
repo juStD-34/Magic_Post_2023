@@ -1,8 +1,82 @@
-import React from "react";
+import {React, useState} from "react";
 import { NavLink } from "react-router-dom";
 import Navbar from "../Users/Home/components/Navbar";
+import Axios from "axios";
 
 function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loginStatus, setLoginStatus] = useState("");
+  const {setLogin} = require('./Auth');
+  const {setPostOffice, setWorkerID} = require('./Info');
+  const login = (e) => {
+    e.preventDefault();
+    Axios.post("http://localhost:3000/login", {
+      email: email,
+      password: password,
+    }).then((response) => {
+      if(response.data.message){
+        setLoginStatus(response.data.message);
+      }else{
+        setLoginStatus("SUCCESS");
+        switch(response.data[0].role){
+          case 0:
+            setLogin("central/employee");
+            setWorkerID(response.data[0].id); 
+            setPostOffice(response.data[0].poWorkID);
+            window.location.href = "/central/employee";
+            break;
+          case 1:
+            setLogin("trade/employee");
+            setWorkerID(response.data[0].id); 
+            setPostOffice(response.data[0].poWorkID);
+            window.location.href = "/trade/employee";
+            break;
+          case 2:
+            setLogin("central/manager");
+            setWorkerID(response.data[0].id); 
+            setPostOffice(response.data[0].poWorkID);
+            window.location.href = "/central/manager";
+            break;
+          case 3:
+            setLogin("trade/manager");
+            setWorkerID(response.data[0].id); 
+            setPostOffice(response.data[0].poWorkID);
+            window.location.href = "/trade/manager";
+            break;
+          case 4:
+            setLogin("manager");
+            setWorkerID(response.data[0].id); 
+            setPostOffice(response.data[0].poWorkID);
+            window.location.href = "/manager";
+            break;
+          default:
+            setLogin("null");
+            setWorkerID("0"); 
+            setPostOffice("0");
+            break;
+        }
+      }
+    })
+  }
+
+  const colorStyle = {
+    fontSize: '15px',
+    textAlign: 'center',
+    marginTop: '20px'
+  };
+  
+  const textStyle = {
+    red: {
+      ...colorStyle,
+      color: 'red'
+    },
+    green: {
+      ...colorStyle,
+      color: 'green'
+    }
+  };
+
   return (
     <div>
       <Navbar type={false}/>
@@ -43,6 +117,7 @@ function Login() {
                   className=" w-full text-base py-2 border-b border-gray-300 focus:outline-none focus:border-blue-500"
                   type=""
                   placeholder="mail@gmail.com"
+                  onChange={(e) => {setEmail(e.target.value)}}
                 />
               </div>
               <div className="mt-8 content-center">
@@ -53,6 +128,7 @@ function Login() {
                   className="w-full content-center text-base py-2 border-b border-gray-300 focus:outline-none focus:border-blue-500"
                   type=""
                   placeholder="Enter your password"
+                  onChange={(e) => {setPassword(e.target.value)}}
                 />
               </div>
               <div className="flex items-center justify-between">
@@ -90,6 +166,7 @@ function Login() {
                 >
                   Sign up
                 </a>
+                <h1 style={loginStatus === "WRONG USERNAME OR PASSWORD!" ? textStyle.red : textStyle.green}>{loginStatus}</h1>
               </p>
             </form>
           </div>

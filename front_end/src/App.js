@@ -20,27 +20,30 @@ import Confirm from "./Users/Trade/Employee/Confirm";
 import TradeStatistic from "./Users/Trade/Employee/Statistic";
 
 const App = () => {
-  const userID = 1;
-  const post_officeID = 1;
+  const {getLogin} = require('./Authorization/Auth');
+  const {getPostOffice, getWorkerID} = require('./Authorization/Info');
+  const role = getLogin();
+  const userID = getWorkerID();
+  const post_officeID = getPostOffice();
   return (
     <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
 
-          <Route path="/central/manager/account" element={<CentralAccount />} />
-          <Route path="/central/manager/statistic" element={<CentralManager />} />
-          <Route path="/central/employee" element={<CentralEmployee />} />
+          {role === "central/manager" && <Route path="/central/manager/account" element={<CentralAccount />} />}
+          {role === "central/manager" && <Route path="/central/manager/statistic" element={<CentralManager />} />}
+          {role === "central/employee" && <Route path="/central/employee" element={<CentralEmployee />} />}
 
-          <Route path="/trade/manager/account" element={<TradeAccount />} />
-          <Route path="/trade/manager/statistic" element={<TradeManager />} />
-          <Route path="/trade/employee/package" element={<Package />} />
-          <Route path="/trade/employee/delivery" element={<Delivery />} />
-          <Route path="/trade/employee/statistic" element={<TradeStatistic />} />
-          <Route path="/trade/employee/confirm" element={<Confirm />} />
+          {role === "trade/manager" && <Route path="/trade/manager/account" element={<TradeAccount />} />}
+          {role === "trade/manager" && <Route path="/trade/manager/statistic" element={<TradeManager />} />}
+          {role === "trade/employee" && <Route path="/trade/employee/package" element={<Package />} />}
+          {role === "trade/employee" && <Route path="/trade/employee/delivery" element={<Delivery />} />}
+          {role === "trade/employee" && <Route path="/trade/employee/statistic" element={<TradeStatistic />} />}
+          {role === "trade/employee" && <Route path="/trade/employee/confirm" element={<Confirm />} />}
 
-          <Route path="/manager" element={<Manager />} />
-          <Route path="/manager/statistic" element={<CEOStatistic />} />
+          {role === "manager" && <Route path="/manager" element={<Manager />} />}
+          {role === "manager" && <Route path="/manager/statistic" element={<CEOStatistic />} />}
         </Routes>
     </BrowserRouter>
   );

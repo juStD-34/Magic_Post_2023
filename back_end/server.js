@@ -14,7 +14,71 @@ const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
   password: '',
-  database: 'magicPost',
+  database: 'magic_post',
+})
+
+app.post('/register', (req, res) => {
+  const id = req.body.id;
+  const email = req.body.email;
+  const password = req.body.password;
+  const role = req.body.role;
+  const phone = req.body.phone;
+  const poWorkID = 22;
+  db.query("INSERT INTO users (id, email, password, role, phone, poWorkID) VALUES (?, ?, ?, ?, ?, ?)", [id, email, password, role, phone, poWorkID], 
+      (err, result) => {
+          if(result){
+              res.send(result);
+          }else{
+              res.send({message: "ENTER CORRECT ASKED DETAILS!"})
+          }
+      }
+  )
+})
+
+app.post('/registerMP', (req, res) => {
+  const OfficeID = req.body.OfficeID;
+  const ManagerID = req.body.ManagerID;
+  const ManagerEmail = req.body.ManagerEmail;
+  const ManagerPassword = req.body.ManagerPassword;
+  const ManagerPhone = req.body.ManagerPhone;
+  const Type = req.body.Type;
+  const role = 2;
+  const Address = req.body.Address;
+  db.query("INSERT INTO users (ID, email, password, role, phone, poWorkID) VALUES (?, ?, ?, ?, ?, ?)", [ManagerID, ManagerEmail, ManagerPassword, role, ManagerPhone, OfficeID], 
+  (err, userResult) => {
+      if (userResult) {
+          con.query("INSERT INTO postoffice (OfficeID, ManagerID, ManagerPhone, Address, Type) VALUES (?, ?, ?, ?, ?)", [OfficeID, ManagerID, ManagerPhone, Address, Type], 
+          (err, officeResult) => {
+              if (officeResult) {
+                  res.send(officeResult);
+              } else {
+                  res.send({message: "ENTER CORRECT ASKED DETAILS!"});
+              }
+          });
+      } else {
+          res.send({message: "ENTER CORRECT ASKED DETAILS1!"});
+      }
+  });
+  
+
+})
+
+app.post("/login", (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
+  db.query("SELECT * FROM users WHERE email = ? AND password = ?", [email, password], 
+      (err, result) => {
+          if(err){
+              req.setEncoding({err: err});
+          }else{
+              if(result.length > 0){
+                  res.send(result);
+              }else{
+                  res.send({message: "WRONG USERNAME OR PASSWORD!"})
+              }
+          }
+      }
+  )
 })
 
 app.get('/packageInfor', (req, res) => {
