@@ -17,7 +17,9 @@ const AccountForm = (props) => {
                   </h2>
 
                   <div className="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                    <Input label="Manager's ID" size="sm:col-span-4" type="text" value={props.staffId}/>
+                    <Input label="First Name" size="sm:col-span-3" type="text" value={props.staffId}/>
+
+                    <Input label="Last Name" size="sm:col-span-3" type="text" value={props.staffId}/>
 
                     <Input label="Username" size="sm:col-span-3" type="text" value={props.usrname}/>
 

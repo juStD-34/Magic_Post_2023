@@ -19,16 +19,37 @@ const OfficeForm = (props) => {
 
                   <div className="sm:mt-4 grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-6">
                     <Input
-                      label="Office's ID"
+                      label="Office's Name"
                       size="sm:col-span-4"
                       type="text"
                     />
 
-                    <Input label="Manager's ID" size="sm:col-span-4" type="text"/>
-                  <Input label="Manager account" size="sm:col-span-3" type="text" />
-                  <Input label="Manager password" size="sm:col-span-3" type="password" />
+                    <Input
+                      label="Manager's First Name"
+                      size="sm:col-span-3"
+                      type="text"
+                    />
+                    <Input
+                      label="Manager's Last Name"
+                      size="sm:col-span-3"
+                      type="text"
+                    />
+                    <Input
+                      label="Manager username"
+                      size="sm:col-span-3"
+                      type="text"
+                    />
+                    <Input
+                      label="Manager password"
+                      size="sm:col-span-3"
+                      type="password"
+                    />
 
-                    <Input label="Manager's Phone" size="sm:col-span-3" type="phone" />
+                    <Input
+                      label="Manager's Phone"
+                      size="sm:col-span-3"
+                      type="phone"
+                    />
 
                     <TypeInput label="Type" size="sm:col-span-3" />
 
