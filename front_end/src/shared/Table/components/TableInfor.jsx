@@ -25,9 +25,12 @@ export default function TableInfor({ head, intro, add, statistic }) {
             See information about {intro}
           </Typography>
         </div>
-        {statistic && <div className="lg:w-[20%]">
+        {statistic && <div className="w-[40%] lg:w-[40%] flex pb-2 gap-2">
           <LocalizationProvider dateAdapter={AdapterDayjs} >
-              <DatePicker label="Date" defaultValue={dayjs()}  />
+              <DatePicker label="From" defaultValue={dayjs()}  />
+          </LocalizationProvider>
+          <LocalizationProvider dateAdapter={AdapterDayjs} >
+              <DatePicker label="To" defaultValue={dayjs()}  />
           </LocalizationProvider>
         </div>}
       </div>
