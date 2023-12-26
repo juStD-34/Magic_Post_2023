@@ -8,7 +8,7 @@ export const packageNormalization = (packages) => {
 
     return {
         code: packages.code,
-        weight: packages.packageWeight,
+        weight: packages.weight,
         fromPoID,
         toPoID,
         guessPath,

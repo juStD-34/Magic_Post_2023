@@ -19,11 +19,17 @@ export const PostInfo = async (postID) => {
 export const takeSendingPostID = (myPack) => {
     let guessPatharray = myPack.Guess_path.split("-");
     let current_po_id = myPack.current_po_id;
+    if (current_po_id === 0) {
+        return -1;
+    }
     return parseInt(guessPatharray[guessPatharray.indexOf(current_po_id.toString()) - 1]);
 }
 
 export const takeReceivingPostID = (myPack) => {
     let guessPatharray = myPack.Guess_path.split("-");
     let current_po_id = myPack.current_po_id;
+    if (current_po_id === guessPatharray.length - 1) {
+        return -1;
+    }
     return parseInt(guessPatharray[guessPatharray.indexOf(current_po_id.toString()) + 1]);
 }

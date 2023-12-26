@@ -67,7 +67,7 @@ app.post('/addPackage', (req, res) => {
     currentPoID,
     statusName
   } = req.body;
-  console.error(req.body)
+  console.error(req.body);
   // console.log(req.body.currentPoID, req.body.statusName,req.body.guessPath, fromPoID, toPoID);
   const query = 'INSERT INTO Package (code,weight,From_Po_id,To_Po_id,Guess_path ,senderName ,senderPhone ,senderAddress ,receiverName ,receiverPhone ,receiverAddress ,statusName ,current_po_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)';
 
