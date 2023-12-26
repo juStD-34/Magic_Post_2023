@@ -8,9 +8,10 @@ import { FiPrinter } from "react-icons/fi";
 
 import { useReactToPrint } from "react-to-print";
 import { Print } from "./Print";
+import { generateCode } from "../../../utils/generatedCode";
+import { addPackage } from "../../../utils/addPackage";
 
-const Package = () => {
-  //Get data
+const Package = (postId) => {
   const [sendName, setsendName] = React.useState("");
   const [sendAddress, setsendAddress] = React.useState("");
   const [sendPhone, setsendPhone] = React.useState(0);
@@ -38,6 +39,20 @@ const Package = () => {
     setreceivePhone(0);
     setWeight(0);
   };
+
+  const handleAddPackage = () =>{
+      const packData = {
+        code: generateCode(postId),
+        weight: weight,
+        sender: sendName,
+        senderPhone: sendPhone,
+        senderAddress: sendAddress,
+        receiver: receiveName,
+        receiverPhone: receivePhone,
+        receiverAddress: receiveAddress,
+      }
+      addPackage(packData);
+  }
 
   return (
     <div className="flex bg-white">
@@ -133,6 +148,7 @@ const Package = () => {
                       ) {
                         setInform("Package stored successful");
                         setTick(true);
+                        handleAddPackage();
                         clear();
                       } else {
                         setInform("Please fill all the information");

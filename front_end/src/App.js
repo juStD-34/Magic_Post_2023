@@ -20,6 +20,8 @@ import Confirm from "./Users/Trade/Employee/Confirm";
 import TradeStatistic from "./Users/Trade/Employee/Statistic";
 
 const App = () => {
+  const userID = 1;
+  const post_officeID = 1;
   return (
     <BrowserRouter>
         <Routes>
@@ -32,7 +34,7 @@ const App = () => {
 
           <Route path="/trade/manager/account" element={<TradeAccount />} />
           <Route path="/trade/manager/statistic" element={<TradeManager />} />
-          <Route path="/trade/employee/package" element={<Package />} />
+          <Route path="/trade/employee/package" element={<Package postId = {post_officeID}/>} />
           <Route path="/trade/employee/delivery" element={<Delivery />} />
           <Route path="/trade/employee/statistic" element={<TradeStatistic />} />
           <Route path="/trade/employee/confirm" element={<Confirm />} />

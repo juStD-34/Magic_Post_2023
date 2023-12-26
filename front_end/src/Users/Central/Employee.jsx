@@ -1,184 +1,271 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../../shared/Layout/Navbar";
 import Sidebar from "../../shared/Layout/Sidebar/Sidebar";
 import TBody from "../../shared/Table/TBody";
 import TableHead from "../../shared/Table/THead";
 import { Card } from "@material-tailwind/react";
+import { fetchIncomingPackages, fetchOutgoingPackages } from "../../utils/mailUtils";
+import { takeReceivingPostID, takeSendingPostID, PostInfo } from "../../utils/postInfor";
 
-const resHead = [
+const incomingHead = [
   "Package's ID",
-  "Send Office's ID",
-  "Receive Office's",
-  "Status",
+  "Send Office's name",
   "Confirm",
 ];
 
-const fakeHead = [
+const pendingHead = [
   "Package's ID",
-  "Send Office's ID",
-  "Receive Office's",
-  "Status",
+  "Receive Office's name",
+  "Confirm",
 ];
 
 const TABS = [
   {
-    label: "Ongoing",
+    label: "Incoming",
     value: "123",
   },
   {
-    label: "Outgoing",
+    label: "Pending",
     value: "456",
   },
 ];
 
-let fake = [
-  {
-    name: "456",
+// let pending = [
+//   {
+//     name: "456",
 
-    address: "Programator",
+//     address: "Programator",
 
-    phone: "Ha noi Hoa binh",
-    online: true,
-  },
-  {
-    name: "789",
-    online: false,
+//     phone: "Ha noi Hoa binh",
+//     online: true,
+//   },
+//   {
+//     name: "789",
+//     online: false,
 
-    address: "Executive",
-    phone: "Ha noi Hoa binh",
-  },
-  {
-    name: "123321",
-    address: "Programator",
+//     address: "Executive",
+//     phone: "Ha noi Hoa binh",
+//   },
+//   {
+//     name: "123321",
+//     address: "Programator",
 
-    phone: "Ha noi Hoa binh",
-    online: true,
-  },
-  {
-    name: "12312",
-    address: "Manager",
-    online: false,
+//     phone: "Ha noi Hoa binh",
+//     online: true,
+//   },
+//   {
+//     name: "12312",
+//     address: "Manager",
+//     online: false,
 
-    phone: "Ha noi Hoa binh",
-  },
-  {
-    name: "asS",
-    online: true,
+//     phone: "Ha noi Hoa binh",
+//   },
+//   {
+//     name: "asS",
+//     online: true,
 
-    address: "Manager",
-    phone: "Ha noi Hoa binh",
-  },
-  {
-    name: "qwe",
+//     address: "Manager",
+//     phone: "Ha noi Hoa binh",
+//   },
+//   {
+//     name: "qwe",
 
-    address: "Programator",
+//     address: "Programator",
 
-    phone: "Ha noi Hoa binh",
-    online: true,
-  },
-  {
-    name: "789",
-    online: false,
+//     phone: "Ha noi Hoa binh",
+//     online: true,
+//   },
+//   {
+//     name: "789",
+//     online: false,
 
-    address: "Executive",
+//     address: "Executive",
 
-    phone: "Ha noi Hoa binh",
-  },
-  {
-    name: "123321",
-    address: "Programator",
+//     phone: "Ha noi Hoa binh",
+//   },
+//   {
+//     name: "123321",
+//     address: "Programator",
 
-    phone: "Ha noi Hoa binh",
-    online: true,
-  },
-  {
-    name: "x ",
-    address: "Manager",
-    online: false,
+//     phone: "Ha noi Hoa binh",
+//     online: true,
+//   },
+//   {
+//     name: "x ",
+//     address: "Manager",
+//     online: false,
 
-    phone: "Ha noi Hoa binh",
-  },
-  {
-    name: "a3",
+//     phone: "Ha noi Hoa binh",
+//   },
+//   {
+//     name: "a3",
 
-    address: "Manager",
-    phone: "Ha noi Hoa binh",
-    online: true,
-  },
-  {
-    name: "1sxx",
-    address: "Manager",
+//     address: "Manager",
+//     phone: "Ha noi Hoa binh",
+//     online: true,
+//   },
+//   {
+//     name: "1sxx",
+//     address: "Manager",
 
-    online: true,
+//     online: true,
 
-    phone: "Ha noi Hoa binh",
-  },
-];
+//     phone: "Ha noi Hoa binh",
+//   },
+// ];
 
-let res = [
-  {
-    name: "1",
-    address: "Manager",
-    phone: "Ha noi Hoa binh",
-    online: true,
-  },
-  {
-    name: "2",
+// let incoming = [
+//   {
+//     name: "1",
+//     address: "Manager",
+//     phone: "Ha noi Hoa binh",
+//     online: true,
+//   },
+//   {
+//     name: "2",
 
-    address: "Programator",
+//     address: "Programator",
 
-    phone: "Ha noi Hoa binh",
-    online: false,
-  },
-  {
-    name: "3",
+//     phone: "Ha noi Hoa binh",
+//     online: false,
+//   },
+//   {
+//     name: "3",
 
-    address: "Executive",
-    phone: "Ha noi Hoa binh",
+//     address: "Executive",
+//     phone: "Ha noi Hoa binh",
 
-    online: false,
-  },
-  {
-    name: "4",
-    address: "Manager",
-    phone: "Ha noi Hoa binh",
-    online: true,
-  },
-  {
-    name: "5",
-    address: "Executive",
-    phone: "Ha noi Hoa binh",
-    online: false,
-  },
-  {
-    name: "6",
-    address: "Programator",
-    phone: "Ha noi Hoa binh",
-    online: true,
-  },
-  {
-    name: "7",
-    address: "Manager",
-    phone: "Ha noi Hoa binh",
-    online: false,
-  },
-];
+//     online: false,
+//   },
+//   {
+//     name: "4",
+//     address: "Manager",
+//     phone: "Ha noi Hoa binh",
+//     online: true,
+//   },
+//   {
+//     name: "5",
+//     address: "Executive",
+//     phone: "Ha noi Hoa binh",
+//     online: false,
+//   },
+//   {
+//     name: "6",
+//     address: "Programator",
+//     phone: "Ha noi Hoa binh",
+//     online: true,
+//   },
+//   {
+//     name: "7",
+//     address: "Manager",
+//     phone: "Ha noi Hoa binh",
+//     online: false,
+//   },
+// ];
 
-let TABLE_ROWS = res;
-let TABLE_HEAD = resHead;
+// let TABLE_ROWS = incoming;
+// let TABLE_HEAD = incomingHead;
 
 function CentralEmployee() {
+  const postId = 1;
   const [isTrade, setIsTrade] = useState(true);
   const [page, setPage] = React.useState(0);
-
+  const [pending, setPending] = useState([]);
+  const [incoming, setIncoming] = useState([]);
   const type = "employee";
+  let TABLE_ROWS;
+  let TABLE_HEAD;
+
+  const [change, setChange] = useState(true);
+  const [incomingPackage, setIncomingPackage] = useState([]);
+  const [outgoingPackage, setOutgoingPackage] = useState([]);
+  const [receivingPostName, setReceivingPostName] = useState([]);
+  const [sendingPostName, setSendingPostName] = useState([]);
+
+
+  useEffect(() => {
+    console.log("change", change);
+    fetchIncomingPackages(postId, setIncomingPackage);
+    fetchOutgoingPackages(postId, setOutgoingPackage);
+  }, [change]);
+  
+  useEffect(() => {
+    if (outgoingPackage.length > 0) {
+      // Map the array of promises returned by PostInfo
+      const promises = outgoingPackage.map(pack => PostInfo(takeReceivingPostID(pack)));
+
+      // Use Promise.all to wait for all promises to resolve
+      Promise.all(promises)
+        .then(postNames => {
+          // postNames is an array of resolved post names
+          setReceivingPostName(postNames);
+        })
+        .catch(error => {
+          console.error('Error fetching post names:', error);
+        });
+    }
+    else{
+      setReceivingPostName([]);
+    }
+  }, [outgoingPackage]);
+
+  useEffect(() => {
+    if (outgoingPackage.length > 0 && receivingPostName.length > 0) {
+      // Combine values from outgoingPackage and receivingPostName
+      const combinedPending = outgoingPackage.map((pack, index) => ({
+        id: pack.id,
+        postName: receivingPostName[index],
+        confirm : true,
+      }));
+
+      setPending(combinedPending);
+    }
+    else{
+      setPending([]);
+    }
+  }, [outgoingPackage,receivingPostName]);
+
+  useEffect(() => {
+    if (incomingPackage.length > 0) {
+      const promisess = incomingPackage.map(pack => PostInfo(takeSendingPostID(pack)));
+      Promise.all(promisess)
+        .then(postNames => {
+          setSendingPostName(postNames);
+        })
+        .catch(error => {
+          console.error('Error fetching post names:', error);
+        });
+    }
+    else{
+      setSendingPostName([]);
+    }
+  }, [incomingPackage]);
+
+  useEffect(() => {
+    if (incomingPackage.length > 0 && sendingPostName.length > 0) {
+      // Combine values from incomingPackage and sendingPostName
+      const combinedIncoming = incomingPackage.map((pack, index) => ({
+        id: pack.id,
+        postName: sendingPostName[index],
+
+        confirm: true,
+      }));
+
+      setIncoming(combinedIncoming);
+    }
+    else{
+      setIncoming([]);
+    }
+  }, [incomingPackage,sendingPostName]);
+
+
 
   if (isTrade) {
-    TABLE_ROWS = res;
-    TABLE_HEAD = resHead;
+    TABLE_ROWS = incoming;
+    TABLE_HEAD = incomingHead;
   } else {
-    TABLE_ROWS = fake;
-    TABLE_HEAD = fakeHead;
+    TABLE_ROWS = pending;
+    TABLE_HEAD = pendingHead;
   }
 
   return (
@@ -202,6 +289,8 @@ function CentralEmployee() {
               page={page}
               setPage={setPage}
               isTrade={isTrade}
+              setChange={setChange}
+              change = {change}
             />
           </Card>
         </main>

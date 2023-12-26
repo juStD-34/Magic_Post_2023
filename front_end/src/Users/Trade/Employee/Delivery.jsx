@@ -1,16 +1,36 @@
-import React from "react";
+import React, { useState,useEffect } from "react";
 import Navbar from "../../../shared/Layout/Navbar";
 import Sidebar from "../../../shared/Layout/Sidebar/Sidebar";
 import { Card } from "@material-tailwind/react";
 import { Typography } from "@material-tailwind/react";
 import TBody from "../../../shared/Table/TBody";
 import SearchPack from "../../../shared/Table/components/SearchPack"
+import { fetchOutgoingPackages } from "../../../utils/mailUtils";
+import { takeSendingPostID } from "../../../utils/postInfor";
 
 const TABLE_HEAD = ["Package's ID", "Date", "Ship"];
 const TABLE_ROWS = [{ pack: "1231321323", date: "12/12/2021" }];
 
+
+const takeDeliPack = (deliPack, setDeliPack) =>{
+    
+}
 const Delivery = () => {
+  const postId = 1;
   const [page, setPage] = React.useState(0);
+  const [change, setChange] = useState(true);
+  const [deliPack, setDeliPack] = React.useState([]);
+
+  //Lay thong tin cac goi tin den
+  // useEffect(() => {
+  //   fetchOutgoingPackages(postId, setDeliPack);
+  // }, [change]);
+
+  // //Loc nhung goi tin la hang duoc gui tai TPost
+  // useEffect(() => {
+  //   const filterDeliPack = deliPack.filter(pack => takeSendingPostID(pack) === -1);
+  //   setDeliPack(filterDeliPack);
+  // }, [change]);
   return (
     <div className="flex bg-white">
       <Sidebar />

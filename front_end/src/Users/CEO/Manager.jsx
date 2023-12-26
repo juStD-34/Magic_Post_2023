@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../../shared/Layout/Navbar";
 import Sidebar from "../../shared/Layout/Sidebar/Sidebar";
 import TBody from "../../shared/Table/TBody";
 import TableHead from "../../shared/Table/THead";
 import { Card } from "@material-tailwind/react";
+import axios from "axios";
 
 const TABS = [
   {
@@ -19,7 +20,7 @@ const TABS = [
 const TABLE_HEAD = [
   "Office's ID",
   "Office's Address",
-  "Manager Account",
+  "Manager Name",
   "Action",
 ];
 
@@ -115,9 +116,86 @@ export default function Manager() {
   const [isTrade, setIsTrade] = useState(true);
   const [page, setPage] = React.useState(0);
 
+  const [TPData, setTPData] = useState([]);
+  const [CPData, setCPData] = useState([]);
+  const [change, setChange] = useState(true);
+  const [TPost, setTPost] = useState();
+  const [CPost, setCPost] = useState();
   const type = "ceo";
 
-  TABLE_ROWS = isTrade ? res : fake;
+  //Take CPost and TPost data
+  useEffect(() => {
+    const fetchTPostData = async () => {
+      try {
+        const response = await axios.get('http://localhost:3001/getPostByType', {
+          params: {
+            type: 'TP', // Thay 'yourType' bằng giá trị thực tế cần truy vấn
+          },
+        });
+
+        setTPost(response.data.Post);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        // Xử lý lỗi nếu cần thiết
+      }
+    };
+    const fetchCPostData = async () => {
+      try {
+        const response = await axios.get('http://localhost:3001/getPostByType', {
+          params: {
+            type: 'CP', // Thay 'yourType' bằng giá trị thực tế cần truy vấn
+          },
+        });
+
+        setCPost(response.data.Post);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchTPostData();
+    fetchCPostData();
+  }, [change]);
+  useEffect(() => {
+    if (TPost) {
+      const generatedTPData = TPost.map((post) => {
+        return {
+          name: post.postOfficeName,
+          address: post.postOfficeAddress,
+          account: {
+            staffId: post.managerID,
+            usrname: "", // Điền thông tin tài khoản nếu có
+            password: "", // Điền thông tin tài khoản nếu có
+            phone: post.managerPhone,
+          },
+        };
+      });
+  
+      setTPData(generatedTPData);
+    }
+  }, [TPost])
+
+  useEffect(() => {
+    if (CPost) {
+      const generatedCPData = CPost.map((post) => {
+        return {
+          name: post.postOfficeName,
+          address: post.postOfficeAddress,
+          account: {
+            staffId: post.managerID,
+            usrname: post.managerFullName, 
+            password: "xxx",
+            phone: post.managerPhone,
+          },
+        };
+      });
+  
+      setCPData(generatedCPData);
+    }
+  }, [CPost]);
+  console.log(TPData);
+  console.log("CPost", CPData);
+  TABLE_ROWS = isTrade ? TPData : CPData; 
 
   return (
     <div className="flex bg-white">
