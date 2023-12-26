@@ -13,6 +13,7 @@ import { Collapse } from "@material-tailwind/react";
 
 import Modal from "../../Modal/Modal";
 import React from "react";
+import { autoForwarding } from "../../../utils/autoForwarding";
 
 export const deliver = (online) => (
   <Chip
@@ -23,12 +24,12 @@ export const deliver = (online) => (
   />
 );
 
-export const confirm = (id) => (
+export const confirm = (id, isTrade, setChange, change) => (
   <Tooltip content="Confirm arrived">
     <IconButton
       variant="icon"
       className="items-center justify-center flex bg-white"
-      onClick={() => console.log(id)}
+      onClick={() => { autoForwarding(id, isTrade, change, setChange); }}
     >
       <TiTickOutline className="h-4 w-4 " color={"green"} />
     </IconButton>

@@ -4,26 +4,25 @@ import { action, account, deliver, confirm, send, cancel } from "./Button";
 import Modal from "../../Modal/Modal";
 import { TiDeleteOutline } from "react-icons/ti";
 
-export function Row({ type, row, isTrade }) {
+export function Row({ type, row, isTrade , setChange, change}) {
+  // isTrade = False : Pending ; True : Incoming
   var icons;
   var rowData = Object.values(row);
   const online = rowData.filter((data) => typeof data == "boolean")[0];
   const acc = rowData.filter((data) => typeof data == "object")[0];
 
-  const id = rowData[0];
-
   const [onLine, setOnLine] = React.useState(online);
   const [open, setOpen] = React.useState(false);
   const toggleOpen = () => setOpen((cur) => !cur);
-
+  const id = rowData[0];
   switch (type) {
     case "ceo":
       icons = [account({ ...acc }), action({ toggleOpen, open, name: rowData[0], address: rowData[1]})];
       break;
     case "employee":
       isTrade
-        ? (icons = [deliver(onLine), confirm(id)])
-        : (icons = [deliver(onLine), confirm(id)]);
+        ? (icons = [deliver(onLine), confirm(id, isTrade, setChange, change)])
+        : (icons = [deliver(onLine), confirm(id, isTrade, setChange, change)]);
       break;
     case "statistic":
       icons = [deliver(onLine)];
