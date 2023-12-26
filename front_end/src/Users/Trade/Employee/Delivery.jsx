@@ -6,31 +6,37 @@ import { Typography } from "@material-tailwind/react";
 import TBody from "../../../shared/Table/TBody";
 import SearchPack from "../../../shared/Table/components/SearchPack"
 import { fetchOutgoingPackages } from "../../../utils/mailUtils";
-import { takeSendingPostID } from "../../../utils/postInfor";
+import { packageUserSend, takeSendingPostID } from "../../../utils/postInfor";
+import { deliPackInfor } from "../../../utils/deliPackInfor";
 
-const TABLE_HEAD = ["Package's ID", "Date", "Ship"];
+const TABLE_HEAD = ["Package's Code", "Date", "Ship"];
 const TABLE_ROWS = [{ pack: "1231321323", date: "12/12/2021" }];
 
-
-const takeDeliPack = (deliPack, setDeliPack) =>{
-    
-}
 const Delivery = () => {
   const postId = 1;
   const [page, setPage] = React.useState(0);
   const [change, setChange] = useState(true);
-  const [deliPack, setDeliPack] = React.useState([]);
+  const [deliPack, setDeliPack] = useState([]);
 
   //Lay thong tin cac goi tin den
-  // useEffect(() => {
-  //   fetchOutgoingPackages(postId, setDeliPack);
-  // }, [change]);
+  useEffect(() => {
+    fetchOutgoingPackages(postId, setDeliPack);
+  }, [change]);
 
-  // //Loc nhung goi tin la hang duoc gui tai TPost
-  // useEffect(() => {
-  //   const filterDeliPack = deliPack.filter(pack => takeSendingPostID(pack) === -1);
-  //   setDeliPack(filterDeliPack);
-  // }, [change]);
+  //Loc nhung goi tin la hang duoc gui tai TPost
+  useEffect(() => {
+    const fetchData = async () => {
+      const filteredDeliPack = deliPack.filter(pack => packageUserSend(pack));
+      const updatedDeliPack = await deliPackInfor(filteredDeliPack);
+      console.log("uuu", updatedDeliPack);
+      setDeliPack(updatedDeliPack);
+    };
+    
+    fetchData();
+  }, [change]);
+
+  // setChange(!change);
+  console.log(deliPack);
   return (
     <div className="flex bg-white">
       <Sidebar />

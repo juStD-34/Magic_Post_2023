@@ -9,20 +9,20 @@ const TABLE_HEAD = ["Staff's ID", "Username", "Password", "Update", "Delete"];
 const TABLE_ROWS = [
   {
     staffId: "Nguyen Van A",
-    usrname: "32131232",
-    password: "0123456789",
+    staffName: "32131232",
+    birth: "0123456789",
     phone: "0123456789",
   },
   {
     staffId: "Nguyen Van A",
-    usrname: "Ha Noi",
-    password: "0123456789",
+    staffName: "Ha Noi",
+    birth: "0123456789",
     phone: "0123456789",
   },
   {
     staffId: "Nguyen Van A",
-    usrname: "Ha Noi",
-    password: "0123456789",
+    staffName: "Ha Noi",
+    birth: "0123456789",
     phone: "0123456789",
   }
 ]

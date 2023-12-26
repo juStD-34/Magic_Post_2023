@@ -19,7 +19,7 @@ export const PostInfo = async (postID) => {
 export const takeSendingPostID = (myPack) => {
     let guessPatharray = myPack.Guess_path.split("-");
     let current_po_id = myPack.current_po_id;
-    if (current_po_id === 0) {
+    if (current_po_id === 1) {
         return -1;
     }
     return parseInt(guessPatharray[guessPatharray.indexOf(current_po_id.toString()) - 1]);
@@ -32,4 +32,20 @@ export const takeReceivingPostID = (myPack) => {
         return -1;
     }
     return parseInt(guessPatharray[guessPatharray.indexOf(current_po_id.toString()) + 1]);
+}
+
+export const packageSentToUser = (pack) => {
+    if (takeReceivingPostID(pack) === -1) {
+        return true;
+    }
+    return false;
+}
+
+export const packageUserSend = (pack) => {
+    const sendingPostID = takeSendingPostID(pack);
+    if (sendingPostID === -1) {
+        return true;
+    }
+
+    return false;
 }

@@ -223,6 +223,21 @@ app.put('/updateStatus', (req, res) => {
     }
   })
 })
+
+app.get('/getDeliPackage', (req, res) => {
+  const postId = req.query.postId;
+  const packageCode = req.query.packageCode;
+
+  const query = `Select timeArrived from packagestatus where current_po_id = ? and packageCode = ?`;	
+  db.query(query, [postId, packageCode], (err, rows) => {
+    if (err) {
+      console.error('Error executing query:', err.message);
+      res.status(500).json({ error: 'Internal Server Error' });
+    } else {
+      res.json({ Time: rows[0] });
+    }
+  })
+})
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
