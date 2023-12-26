@@ -49,7 +49,7 @@ function Modal(data) {
       labeL = null;
       break;
     case "Add":
-      modal = <SuccessForm/>;
+      modal = <SuccessForm inform={data.inform} tick={data.tick}/>;
       labeL = data.label;
       break;
     default:
@@ -71,7 +71,10 @@ function Modal(data) {
           {modal}
           <div
             className="opacity-25 fixed inset-0 z-40 bg-black"
-            onClick={() => setShowModal(false)}
+            onClick={(e) => {
+              e.preventDefault();
+              setShowModal(false);
+            }}
           ></div>
         </>
       ) }

@@ -18,14 +18,16 @@ const Package = (postId) => {
   const [receiveName, setreceiveName] = React.useState("");
   const [receiveAddress, setreceiveAddress] = React.useState("");
   const [receivePhone, setreceivePhone] = React.useState(0);
-  const [weight, setWeight] = React.useState("");
+  const [weight, setWeight] = React.useState(0);
+
+  const[inform, setInform] = React.useState("");
+  const[tick, setTick] = React.useState(false);
 
   //Print
   const componentRef = useRef(null);
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
   });
-  console.log(componentRef.current);
 
   //Clear information
   const clear = () => {
@@ -132,7 +134,30 @@ const Package = (postId) => {
                   <div className="hidden">
                     <Print ref={componentRef} />
                   </div>
-                  <Modal onClick = {handleAddPackage()} label="Add" color="bg-green-500"></Modal>
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      if (
+                        sendName !== "" &&
+                        sendAddress !== "" &&
+                        sendPhone !== 0 &&
+                        receiveName !== "" &&
+                        receiveAddress !== "" &&
+                        receivePhone !== 0 &&
+                        weight !== 0
+                      ) {
+                        setInform("Package stored successful");
+                        setTick(true);
+                        handleAddPackage();
+                        clear();
+                      } else {
+                        setInform("Please fill all the information");
+                        setTick(false);
+                      }
+                    }}
+                  >
+                    <Modal label="Add" color="bg-green-500" inform={inform} tick={tick}></Modal>
+                  </button>
                 </div>
               </div>
             </form>
