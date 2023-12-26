@@ -11,7 +11,9 @@ import { Print } from "./Print";
 import { generateCode } from "../../../utils/generatedCode";
 import { addPackage } from "../../../utils/addPackage";
 
-const Package = (postId) => {
+const Package = (data) => {
+  const userId = data.userId;
+  const postId = data.postId;
   const [sendName, setsendName] = React.useState("");
   const [sendAddress, setsendAddress] = React.useState("");
   const [sendPhone, setsendPhone] = React.useState(0);
@@ -51,7 +53,7 @@ const Package = (postId) => {
         receiverPhone: receivePhone,
         receiverAddress: receiveAddress,
       }
-      addPackage(packData);
+      addPackage(packData, userId);
   }
 
   return (
@@ -149,7 +151,7 @@ const Package = (postId) => {
                         setInform("Package stored successful");
                         setTick(true);
                         handleAddPackage();
-                        clear();
+                        // clear();
                       } else {
                         setInform("Please fill all the information");
                         setTick(false);

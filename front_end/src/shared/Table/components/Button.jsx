@@ -24,12 +24,12 @@ export const deliver = (online) => (
   />
 );
 
-export const confirm = (id, isTrade, setChange, change) => (
+export const confirm = (id, isTrade, setChange, change, userId) => (
   <Tooltip content="Confirm arrived">
     <IconButton
       variant="icon"
       className="items-center justify-center flex bg-white"
-      onClick={() => { autoForwarding(id, isTrade, change, setChange); }}
+      onClick={() => { autoForwarding(id, isTrade, change, setChange, userId); }}
     >
       <TiTickOutline className="h-4 w-4 " color={"green"} />
     </IconButton>

@@ -1,19 +1,20 @@
 import axios from "axios";
 import { packageInfor } from "./packInfor";
+import { addPackageStatus } from "./addPackage";
 
-export const autoForwarding = (packageId, isTrade, change, setChange) => {
+export const autoForwarding = (packageId, isTrade, change, setChange, userId) => {
     let myPack;
     const promise = packageInfor(packageId);
     Promise.all([promise])
         .then(res => {
             myPack = res[0];
-            updatePackage(myPack, isTrade, change, setChange)
+            updatePackage(myPack, isTrade, change, setChange, userId)
         })
         .catch(err => {
             console.log(err);
         })
 }
-export const updatePackage = (myPack, type, change, setChange) => {
+export const updatePackage = (myPack, type, change, setChange, userId) => {
     console.log("myPack", myPack);
     if (myPack) {
         let {
@@ -46,6 +47,31 @@ export const updatePackage = (myPack, type, change, setChange) => {
             Guess_path,
             current_po_id: type === false ? parseInt(guessPatharray[position + 1]) : parseInt(guessPatharray[position]),
         }
+
+        if (type === false) {  // type = false => Pending package is forwarded
+            const packStatus = {
+                packageCode: newPack.code,
+                currentPoID: parseInt(guessPatharray[position]),
+                employeeAssignTimeWentID: userId,
+                timeArrived: null,
+                description: null,
+                employeeAssignTimeArrivedID: null,
+                timeWent: new Date(),
+            }
+            updateStatusOnServer(packStatus);
+        } else {
+            const packStatus = {
+                packageCode: newPack.code,
+                currentPoID: parseInt(guessPatharray[position + 1]),
+                employeeAssignTimeWentID: null,
+                timeArrived: new Date(),
+                description: null,
+                employeeAssignTimeArrivedID: userId,
+                timeWent: null,
+            }
+            addPackageStatus(packStatus);
+        }
+
         updatePackageOnServer(newPack);
         setChange(!change);
     } else {
@@ -56,6 +82,16 @@ export const updatePackage = (myPack, type, change, setChange) => {
 
 const updatePackageOnServer = (newPack) => {
     axios.put('http://localhost:3001/updatePackage', newPack)
+        .then(res => {
+            console.log(res.data);
+        })
+        .catch(err => {
+            console.log(err);
+        })
+}
+
+const updateStatusOnServer = (newStatus) => {
+    axios.put('http://localhost:3001/updateStatus', newStatus)
         .then(res => {
             console.log(res.data);
         })

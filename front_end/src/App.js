@@ -34,7 +34,7 @@ const App = () => {
 
           <Route path="/trade/manager/account" element={<TradeAccount />} />
           <Route path="/trade/manager/statistic" element={<TradeManager />} />
-          <Route path="/trade/employee/package" element={<Package postId = {post_officeID}/>} />
+          <Route path="/trade/employee/package" element={<Package postId = {post_officeID} userId = {userID} />} />
           <Route path="/trade/employee/delivery" element={<Delivery />} />
           <Route path="/trade/employee/statistic" element={<TradeStatistic />} />
           <Route path="/trade/employee/confirm" element={<Confirm />} />

@@ -1,11 +1,11 @@
 const express = require('express');
 const mysql = require('mysql');
-const cors = require('cors');  
+const cors = require('cors');
 
 const app = express();
-const port = 3001; 
+const port = 3001;
 
-app.use(cors()); 
+app.use(cors());
 app.use(express.json());
 
 // Kết nối đến SQLite database (đường dẫn đến SQLiteOnline)
@@ -67,11 +67,11 @@ app.post('/addPackage', (req, res) => {
     currentPoID,
     statusName
   } = req.body;
-  console.error(req.body);
+  // console.error(req.body);
   // console.log(req.body.currentPoID, req.body.statusName,req.body.guessPath, fromPoID, toPoID);
   const query = 'INSERT INTO Package (code,weight,From_Po_id,To_Po_id,Guess_path ,senderName ,senderPhone ,senderAddress ,receiverName ,receiverPhone ,receiverAddress ,statusName ,current_po_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)';
 
-  db.query(query, [code, weight, fromPoID, toPoID, guessPath, senderName, senderPhone,senderAddress, receiverName, receiverPhone, receiverAddress, statusName, currentPoID], (err) => {
+  db.query(query, [code, weight, fromPoID, toPoID, guessPath, senderName, senderPhone, senderAddress, receiverName, receiverPhone, receiverAddress, statusName, currentPoID], (err) => {
     if (err) {
       console.error('Error executing query:', err.message);
       res.status(500).json({ error: 'Internal Server Error' });
@@ -135,7 +135,7 @@ app.get('/postInfo', (req, res) => {
   });
 })
 
-app.get ('/packageByID', (req, res) => {
+app.get('/packageByID', (req, res) => {
   const packageId = req.query.packageId;
   const query = 'SELECT * FROM Package WHERE id = ?';
   db.query(query, [packageId], (err, rows) => {
@@ -176,7 +176,53 @@ app.get('/getPostByType', (req, res) => {
   });
 })
 
+app.post('/packageStatus', (req, res) => {
+  const status = req.body;
+  console.log(req.body);
+  const values = [
+    status.packageCode,
+    status.currentPoID,
+    status.employeeAssignTimeWentID,
+    status.timeArrived,
+    status.description,
+    status.employeeAssignTimeArrivedID ,
+    status.timeWent,
+  ];
+  console.log(values);
+  const query = `
+  INSERT INTO packagestatus(packageCode, current_po_id, employeeAssignTimeWentID, timeArrived, description, employeeAssignTimeArrivedID, timeWent) 
+  VALUES (?, ?, IFNULL(?, NULL), IFNULL(?, NULL), IFNULL(?, NULL), IFNULL(?, NULL), IFNULL(?, NULL));
+`;
+  db.query(query, values, (err) => {
+    if (err) {
+      console.error('Error executing query:', err.message);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+    else {
+      res.json({ success: true, message: 'Package status added successfully' });
+    }
+  })
+})
 
+app.put('/updateStatus', (req, res) => {
+  const status = req.body;
+  console.log(req.body);
+  const query = `
+    UPDATE PackageStatus
+    SET employeeAssignTimeWentID = ?,
+        timeWent = ?
+    WHERE packageCode = ? AND current_po_id = ?;
+  `;
+  db.query(query, [status.employeeAssignTimeWentID, status.timeWent, status.packageCode, status.currentPoID], (err) => {
+    if (err) {
+      console.error('Error executing query:', err.message);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+    else {
+      res.json({ success: true, message: 'Package status updated successfully' });
+    }
+  })
+})
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
