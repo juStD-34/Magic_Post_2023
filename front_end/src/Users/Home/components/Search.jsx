@@ -1,10 +1,49 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Track from './Track';
+import { currentStatusPackage } from '../../../utils/getSearchingPath';
+
+const info = [
+  {
+    date: "27/09/2023",
+    locate: "20-HNI Tu Liem Hub",
+    status: "Đơn hàng đã giao thành công",
+  },
+  {
+    date: "27/09/2023",
+    locate: "20-HNI Tu Liem Hub",
+    status: "Đã tới bưu cục phát",
+  },
+  {
+    date: "26/09/2023",
+    locate: "BN B Mega SOC",
+    status: "Đang được luân chuyển đến [20-HNI Tu Liem LM Hub]",
+  },
+  {
+    date: "26/09/2023",
+    locate: "20-HNI Cau Giay 2 SOC",
+    status: "Đang được luân chuyển đến [BN B Mega SOC]",
+  },
+  {
+    date: "26/09/2023",
+    locate: "20-HNI Cau Giay 2 SOC",
+    status: "Đơn vị vận chuyển đã lấy hàng",
+  },
+];
+
 
 const Search = () => {
   const [track, setTrack] = React.useState(false);
-  const [packId, setPackId] = React.useState('');
-  console.log(packId);
+  const [packCode, setpackCode] = React.useState('');
+  const [inFo, setInFo] = React.useState(null);
+  const handleFindButton = () => {
+    currentStatusPackage(packCode)
+    .then((res) => {
+      console.log("SS",res);
+      setInFo(res);
+    });
+    // console.log("RR",currentStatusPackage(packCode));
+    // setInFo(currentStatusPackage(packCode));
+  }
   return (
     <div className='w-full py-16 text-black px-4'>
       <div className='max-w-[1240px] mx-auto grid lg:grid-cols-5'>
@@ -20,9 +59,9 @@ const Search = () => {
               className='p-3 flex w-full rounded-md text-black'
               type='text'
               placeholder='Ex: 123456789'
-              onChange={(e) => setPackId(e.target.value)}
+              onChange={(e) => setpackCode(e.target.value)}
             />
-            <button onClick={() => setTrack(true)} className='bg-blue-400 text-black rounded-md font-medium w-[200px] ml-4 my-6 px-6 py-3'>
+            <button onClick={() => {setTrack(true); handleFindButton();}} className='bg-blue-400 text-black rounded-md font-medium w-[200px] ml-4 my-6 px-6 py-3'>
               Find
             </button>
           </div>
@@ -33,7 +72,7 @@ const Search = () => {
         </div>
       </div>
       {/* Info table */}
-      {track && <Track className={track} packId={packId}/>}
+      {track && <Track className={track} inFo = {inFo}/>}
     </div>
   );
 };

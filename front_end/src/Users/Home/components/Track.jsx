@@ -1,40 +1,12 @@
 import React from "react";
 
-const info = [
-  {
-    date: "27/09/2023",
-    locate: "20-HNI Tu Liem Hub",
-    status: "Đơn hàng đã giao thành công",
-  },
-  {
-    date: "27/09/2023",
-    locate: "20-HNI Tu Liem Hub",
-    status: "Đã tới bưu cục phát",
-  },
-  {
-    date: "26/09/2023",
-    locate: "BN B Mega SOC",
-    status: "Đang được luân chuyển đến [20-HNI Tu Liem LM Hub]",
-  },
-  {
-    date: "26/09/2023",
-    locate: "20-HNI Cau Giay 2 SOC",
-    status: "Đang được luân chuyển đến [BN B Mega SOC]",
-  },
-  {
-    date: "26/09/2023",
-    locate: "20-HNI Cau Giay 2 SOC",
-    status: "Đơn vị vận chuyển đã lấy hàng",
-  },
-];
-
-const Track = (packId) => {
+const Track = (props) => {
   //Dung packId de lay du lieu vao inFO;
-  const [inFo, setInfo] = React.useState(info); 
+  // const [inFo, setInfo] = React.useState(info);
   return (
     <div className="w-full max-w-3xl mx-auto">
       <div className="-my-6">
-        {inFo.map((item) => {
+        {props.inFo.map((item) => {
           return (
             <div className="relative pl-8 sm:pl-32 py-6 group">
               <div className="flex flex-col sm:flex-row items-start mb-1 group-last:before:hidden before:absolute before:left-2 sm:before:left-0 before:h-full before:px-px before:bg-slate-300 sm:before:ml-[6.5rem] before:self-start before:-translate-x-1/2 before:translate-y-3 after:absolute after:left-2 sm:after:left-0 after:w-2 after:h-2 after:bg-blue-600 after:border-4 after:box-content after:border-slate-50 after:rounded-full sm:after:ml-[6.5rem] after:-translate-x-1/2 after:translate-y-1.5">
