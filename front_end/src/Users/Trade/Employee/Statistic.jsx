@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Navbar from '../../../shared/Layout/Navbar'
 import Sidebar from '../../../shared/Layout/Sidebar/Sidebar'
 import { Card } from '@material-tailwind/react'
@@ -6,39 +6,98 @@ import TableInfor from '../../../shared/Table/components/TableInfor'
 import { Tabss } from '../../../shared/Table/components/tab'
 import SearchPack from '../../../shared/Table/components/SearchPack'
 import TBody from '../../../shared/Table/TBody'
+import axios from 'axios'
 
 const TABS = [
-  {label: "SUCCESS", value: "123" }, 
-  {label: "FAILED", value: "456"},
+  { label: "SUCCESS", value: "123" },
+  { label: "FAILED", value: "456" },
 ];
 
-const resHead = ["Package's ID", "Receive's Address", "Status", "Date"];
-const fakeHead = ["Package's ID", "Receive's Address", "Failed Reason", "Date"];
+const successHead = ["Package's Code", "Receive's Address", "receiverName", "receiverPhone"];
+const failedHead = ["Package's Code", "Receive's Address", "senderAddress", "Date", "senderPhone"];
 
-const res = [
+const success = [
   {
-    name: "1231ASASC",
-    address: "Ha noi My DINh Thai",
-    status: "Success",
-    date: "27/01/2023",
+    code: "1231ASASC",
+    receiverAddress: "Ha noi My DINh Thai",
+    receiverName: "Success",
+    receiverPhone: "27/01/2023",
   }
 ]
 
-const fake = [
+const failed = [
   {
-    name: "448asdDAd",
-    address: "Hoa binh adu",
-    status: "Wrong package delivered",
-    date: "27/01/2023",
+    code: "448asdDAd",
+    date: "Hoa binh adu",
+    receiverAdress : "Wrong package delivered",
+    senderAddress: "27/01/2023",
+    senderPhone: "27/01/2023",
   }
 ]
 
-const TradeStatistic = () => {
+const TradeStatistic = (postId, userId) => {
   const [page, setPage] = React.useState(0);
   const [isTrade, setIsTrade] = React.useState(true);
+  const [successPackage, setSuccessPackage] = React.useState(true);
+  const [failedPackage, setFailedPackage] = React.useState(false);
 
-  const TABLE_ROWS = isTrade ? res : fake;
-  const TABLE_HEAD = isTrade ? resHead : fakeHead;
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const success = await axios.get('http://localhost:3001/getSuccessPackage', {
+          params: {
+            postId: postId
+          }
+        });
+        const failed = await axios.get('http://localhost:3001/getFailedPackage');
+        
+        console.log("FFF", failed.data.Packages);
+        console.log(success.data.Packages[0]);
+  
+        setSuccessPackage(success.data.Packages.map(pack => {
+          return {
+            code: pack.code,
+            receiverAddress: pack.receiverAddress,
+            receiverName: pack.receiverName,
+            receiverPhone: pack.receiverPhone
+          }
+        }));
+  
+        const failedPackageDetails = await Promise.all(
+          failed.data.Packages.map(async (pack) => {
+            const code = pack.packageCode;
+            try {
+              const response = await axios.get('http://localhost:3001/getGuesspathByCode', { params: { code: code } });
+              const packInfor = response.data.Guesspath;
+              return {
+                code: pack.packageCode,
+                receiverAddress: packInfor.receiverAddress,
+                senderAddress: packInfor.senderAddress,
+                senderPhone: packInfor.senderPhone,
+                date: pack.timeWent
+              };
+            } catch (err) {
+              console.log(err);
+              return null;
+            }
+          })
+        );
+  
+        setFailedPackage(failedPackageDetails.filter(detail => detail !== null));
+      } catch (error) {
+        console.error(error);
+        // Xử lý lỗi nếu cần thiết
+      }
+    };
+  
+    fetchData();
+  }, [postId]);
+  
+
+  console.log("success", successPackage);
+  console.log("failed", failedPackage);
+  const TABLE_ROWS = isTrade ? success : failed;
+  const TABLE_HEAD = isTrade ? successPackage : failedPackage;
 
   return (
     <div className="flex bg-white">
@@ -47,7 +106,7 @@ const TradeStatistic = () => {
         <Navbar />
         <main className="max-w-4xl flex-4 mx-auto py-2 my-4">
           <Card className="w-full">
-          <TableInfor
+            <TableInfor
               head="All packages"
               intro="all packages sent and received"
               add="hidden"

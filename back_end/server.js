@@ -238,6 +238,7 @@ app.put('/updateSuccessPackage', (req, res) => {
 app.get('/getGuesspathByCode', (req, res) => {
   const code = req.query.code;
   // const guessPath = req.query.guessPath;
+  console.log("code", code);
   const query = `SELECT * FROM Package WHERE code = ?`;
   db.query(query, [code], (err, rows) => {
     if (err) {
@@ -308,15 +309,40 @@ app.get('/getPackageByTime', (req, res) => {
 app.get('/getPackageStatus', (req, res) => {
   const postId = req.query.postId;
   const packageId = req.query.code;
-  console.log(req.query);
+  // console.log(req.query);
   const query = 'SELECT * FROM packagestatus WHERE current_po_id = ? AND packageCode = ?';
   db.query(query, [postId, packageId], (err, rows) => {
     if (err) {
       console.error('Error executing query:', err.message);
       res.status(500).json({ error: 'Internal Server Error' });
     } else {
-      console.log(res);
       res.json({ PackageStatus: rows[0] });
+    }
+  })
+})
+
+app.get('/getSuccessPackage', (req, res) => {
+  const postId = req.query.postId.postId;
+  // console.log(postId);
+  const query = 'SELECT * FROM package WHERE current_po_id = ? AND statusName = "Success"';
+  db.query(query, [postId], (err, rows) => {
+    if (err) {
+      console.error('Error executing query:', err.message);
+      res.status(500).json({ error: 'Internal Server Error' });
+    } else {
+      res.json({ Packages: rows });
+    }
+  })
+})
+
+app.get('/getFailedPackage', (req, res) => {
+  const query = "Select * from packageStatus where description = 'Đã bị hủy'";
+  db.query(query, (err, rows) => {
+    if (err) {
+      console.error('Error executing query:', err.message);
+      res.status(500).json({ error: 'Internal Server Error' });
+    } else {
+      res.json({ Packages: rows });
     }
   })
 })
