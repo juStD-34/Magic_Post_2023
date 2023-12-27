@@ -346,6 +346,26 @@ app.get('/getFailedPackage', (req, res) => {
     }
   })
 })
+
+app.get('/getAllPackage', (req, res) => {
+  const startDate = req.query.startDate;
+  const endDate = dayjs(req.query.endDate).add(1, 'day').format('YYYY-MM-DD');
+  const type = req.query.type;
+  const query = `
+    SELECT ps.packageCode, p.From_po_Id, p.to_po_id, ps.timeArrived,ps.timeWent, p.statusName 
+    FROM packagestatus ps Join package p
+    ON ps.packageCode = p.code AND ps.current_po_id = p.From_po_Id
+    WHERE ps.timeArrived > ? AND ps.timeArrived < ?;
+    `;
+  db.query(query, [startDate, endDate], (err, rows) => {
+    if (err) {
+      console.error('Error executing query:', err.message);
+      res.status(500).json({ error: 'Internal Server Error' });
+    } else {
+      res.json({ Packages: rows });
+    }
+  })
+})
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
