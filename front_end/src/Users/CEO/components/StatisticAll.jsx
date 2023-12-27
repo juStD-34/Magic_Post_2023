@@ -4,7 +4,6 @@ import Sidebar from "../../../shared/Layout/Sidebar/Sidebar";
 import TBody from "../../../shared/Table/TBody";
 import TableInfor from "../../../shared/Table/components/TableInfor";
 
-
 const StatisticAll = ({ TABLE_HEAD, TABLE_ROWS }) => {
   const [page, setPage] = React.useState(0);
 
@@ -20,7 +19,6 @@ const StatisticAll = ({ TABLE_HEAD, TABLE_ROWS }) => {
             add="hidden"
             statistic={true}
           />
-
           <TBody
             className="mt-4 border-2 border-gray-200 rounded-lg"
             TABLE_ROWS={TABLE_ROWS}

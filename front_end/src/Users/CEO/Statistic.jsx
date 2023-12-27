@@ -1,5 +1,10 @@
 import React, { useEffect } from "react";
-import StatisticAll from "./components/StatisticAll";
+import Navbar from "../../shared/Layout/Navbar";
+import Sidebar from "../../shared/Layout/Sidebar/Sidebar";
+import TBody from "../../shared/Table/TBody";
+import TableInfor from "../../shared/Table/components/TableInfor";
+
+
 import axios from "axios";
 import { PostInfo } from "../../utils/postInfor";
 import { dateNormalize } from "../../utils/deliPackInfor";
@@ -7,11 +12,12 @@ import { dateNormalize } from "../../utils/deliPackInfor";
 const TABLE_HEAD = ["Packages's Code", "FROM", "TO", "Date", "Status"];
 
 const CEOStatistic = () => {
+  const [page, setPage] = React.useState(0);
+
   const [change, setChange] = React.useState(true);
   const [fromDate, setFromDate] = React.useState("2023-12-26");
   const [toDate, setToDate] = React.useState("2023-12-27");
   const [arrivedPackages, setArrivedPackages] = React.useState([]);
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -49,7 +55,34 @@ const CEOStatistic = () => {
   }, [change]);
 
   console.log(arrivedPackages);
-  return <StatisticAll TABLE_HEAD={TABLE_HEAD} TABLE_ROWS={arrivedPackages} />;
+  return (
+    <div className="flex bg-white">
+      <Sidebar />
+      <div className="h-screen w-[85%] sm:w-full px-auto">
+        <Navbar />
+        <main className="max-w-4xl flex-4 mx-auto py-2 my-4">
+          <TableInfor
+            head="All packages"
+            intro="all packages sent and received"
+            add="hidden"
+            statistic={true}
+            setFromDate={setFromDate}
+            setToDate={setToDate}
+            change={change}
+            setChange={setChange}
+          />
+          <TBody
+            className="mt-4 border-2 border-gray-200 rounded-lg"
+            TABLE_ROWS={arrivedPackages}
+            type="statistic"
+            TABLE_HEAD={TABLE_HEAD}
+            page={page}
+            setPage={setPage}
+          />
+        </main>
+      </div>
+    </div>
+  );
 };
 
 export default CEOStatistic;

@@ -13,8 +13,8 @@ const TABS = [
   { label: "FAILED", value: "456" },
 ];
 
-const successHead = ["Package's Code", "Receive's Address", "receiverName", "receiverPhone"];
-const failedHead = ["Package's Code", "Receive's Address", "senderAddress", "Date", "senderPhone"];
+const successHead = ["Package's Code", "Receive's Address", "Receiver Name", "Receiver Phone"];
+const failedHead = ["Package's Code", "Date", "Receiver Address", "Sender Address", "Sender Phone"];
 
 const success = [
   {
@@ -97,7 +97,7 @@ const TradeStatistic = (postId, userId) => {
   console.log("success", successPackage);
   console.log("failed", failedPackage);
   const TABLE_ROWS = isTrade ? success : failed;
-  const TABLE_HEAD = isTrade ? successPackage : failedPackage;
+  const TABLE_HEAD = isTrade ? successHead : failedHead;
 
   return (
     <div className="flex bg-white">

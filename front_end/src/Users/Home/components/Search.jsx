@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Track from './Track';
 import { currentStatusPackage } from '../../../utils/getSearchingPath';
 
@@ -34,12 +34,12 @@ const info = [
 const Search = () => {
   const [track, setTrack] = React.useState(false);
   const [packCode, setpackCode] = React.useState('');
-  const [inFo, setInFo] = React.useState(null);
+  const [inFo, setInFo] = React.useState([]);
   const handleFindButton = () => {
     currentStatusPackage(packCode)
     .then((res) => {
       console.log("SS",res);
-      setInFo(res);
+      if (res !== null) setInFo(res);
     });
     // console.log("RR",currentStatusPackage(packCode));
     // setInFo(currentStatusPackage(packCode));
