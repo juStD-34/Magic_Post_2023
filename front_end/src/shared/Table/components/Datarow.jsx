@@ -4,8 +4,9 @@ export default function Datarow({ currentItems, type, emptyRows, isTrade, setCha
   const rows = Object.values(currentItems);
   return (
     <>
-      {rows.map((row) => (
+      {rows.map((row, index) => (
         <Row
+          key={index}
           row = {row}
           type={type}
           isTrade={isTrade}

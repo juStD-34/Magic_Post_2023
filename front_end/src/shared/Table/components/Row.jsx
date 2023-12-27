@@ -6,7 +6,7 @@ import { TiDeleteOutline } from "react-icons/ti";
 
 export function Row({ type, row, isTrade , setChange, change, userId}) {
   // isTrade = False : Pending ; True : Incoming
-  var icons;
+  var icons = [];
   var rowData = Object.values(row);
   const online = rowData.filter((data) => typeof data == "boolean")[0];
   const acc = rowData.filter((data) => typeof data == "object")[0];
@@ -55,8 +55,8 @@ export function Row({ type, row, isTrade , setChange, change, userId}) {
   rowData = rowData.filter((data) => typeof data !== "object");
   return (
     <tr>
-      {rowData.map((data) => (
-        <td className="p-4 border-b border-blue-gray-50">
+      {rowData.map((data, index) => (
+        <td key={index} className="p-4 border-b border-blue-gray-50">
           <Typography
             variant="small"
             color="blue-gray"
@@ -67,8 +67,8 @@ export function Row({ type, row, isTrade , setChange, change, userId}) {
         </td>
       ))}
 
-      {icons.map((data) => (
-        <td className="p-4 border-b border-blue-gray-50">
+      {icons.map((data, index) => (
+        <td key={index} className="p-4 border-b border-blue-gray-50">
           <div className="w-max">{data}</div>
         </td>
       ))}
