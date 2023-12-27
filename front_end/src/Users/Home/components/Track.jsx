@@ -28,7 +28,8 @@ const info = [
   },
 ];
 
-const Track = () => {
+const Track = (packId) => {
+  //Dung packId de lay du lieu vao inFO;
   const [inFo, setInfo] = React.useState(info); 
   return (
     <div className="w-full max-w-3xl mx-auto">
