@@ -20,8 +20,8 @@ const Package = (postId) => {
   const [receivePhone, setreceivePhone] = React.useState(0);
   const [weight, setWeight] = React.useState(0);
 
-  const[inform, setInform] = React.useState("");
-  const[tick, setTick] = React.useState(false);
+  const [inform, setInform] = React.useState("");
+  const [tick, setTick] = React.useState(false);
 
   //Print
   const componentRef = useRef(null);
@@ -40,19 +40,19 @@ const Package = (postId) => {
     setWeight(0);
   };
 
-  const handleAddPackage = () =>{
-      const packData = {
-        code: generateCode(postId),
-        weight: weight,
-        sender: sendName,
-        senderPhone: sendPhone,
-        senderAddress: sendAddress,
-        receiver: receiveName,
-        receiverPhone: receivePhone,
-        receiverAddress: receiveAddress,
-      }
-      addPackage(packData);
-  }
+  const handleAddPackage = () => {
+    const packData = {
+      code: generateCode(postId),
+      weight: weight,
+      sender: sendName,
+      senderPhone: sendPhone,
+      senderAddress: sendAddress,
+      receiver: receiveName,
+      receiverPhone: receivePhone,
+      receiverAddress: receiveAddress,
+    };
+    addPackage(packData);
+  };
 
   return (
     <div className="flex bg-white">
@@ -132,7 +132,16 @@ const Package = (postId) => {
                     <FiPrinter className="h-5 w-5 mx-auto"></FiPrinter>
                   </button>
                   <div className="hidden">
-                    <Print ref={componentRef} />
+                    <Print
+                      ref={componentRef}
+                      sendName={sendName}
+                      sendAddress={sendAddress}
+                      sendPhone={sendPhone}
+                      receiveName={receiveName}
+                      receiveAddress={receiveAddress}
+                      receivePhone={receivePhone}
+                      weight={weight}
+                    />
                   </div>
                   <button
                     onClick={(e) => {
@@ -156,7 +165,12 @@ const Package = (postId) => {
                       }
                     }}
                   >
-                    <Modal label="Add" color="bg-green-500" inform={inform} tick={tick}></Modal>
+                    <Modal
+                      label="Add"
+                      color="bg-green-500"
+                      inform={inform}
+                      tick={tick}
+                    ></Modal>
                   </button>
                 </div>
               </div>
