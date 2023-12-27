@@ -56,13 +56,13 @@ const Confirm = ({ userId, postId }) => {
   const [isTrade, setIsTrade] = React.useState(true);
   const [packagesToUser, setPackagesToUser] = React.useState([]);
   useEffect(() => {
-    console.log("change", change);
+    // console.log("change", change);
     const fetchData = async () => {
       const result = await fetchOutgoingPackages(postId);
-      console.log("Result from fetchOutgoingPackages:", result);
+      // console.log("Result from fetchOutgoingPackages:", result);
       const filterpackagesToUser = result.filter(pack => packageSentToUser(pack))
         .map(pack => ({ code: pack.code, name: pack.receiverName, phone: pack.receiverPhone ,address: pack.receiverAddress}));
-      console.log(filterpackagesToUser);
+      // console.log(filterpackagesToUser);
       setPackagesToUser(filterpackagesToUser);
     };
 

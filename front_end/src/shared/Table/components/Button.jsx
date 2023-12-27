@@ -64,12 +64,13 @@ export function account(props) {
   );
 }
 
-export const send = (props) => (
+export const send = (id, isTrade, setChange, change, userId) => (
   <Tooltip content="Send Package">
     <IconButton
       variant="icon"
       color="white"
       className="items-center justify-center flex "
+      onClick={() => { autoForwarding(id, isTrade, change, setChange, userId); }}
     >
       <TbCubeSend className="h-10 w-10" color="lightGreen" />
     </IconButton>

@@ -1,10 +1,11 @@
 import axios from "axios";
 import { packageInfor } from "./packInfor";
 import { addPackageStatus } from "./addPackage";
+import { getGuesspath } from "./updateFailPackage";
 
-export const autoForwarding = (packageId, isTrade, change, setChange, userId) => {
+export const autoForwarding = (packageCode, isTrade, change, setChange, userId) => {
     let myPack;
-    const promise = packageInfor(packageId);
+    const promise = getGuesspath(packageCode);
     Promise.all([promise])
         .then(res => {
             myPack = res[0];
@@ -71,7 +72,7 @@ export const updatePackage = (myPack, type, change, setChange, userId) => {
             }
             addPackageStatus(packStatus);
         }
-
+        console.log("updated package", newPack);
         updatePackageOnServer(newPack);
         setChange(!change);
     } else {

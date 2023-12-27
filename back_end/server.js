@@ -237,7 +237,7 @@ app.put('/updateSuccessPackage', (req, res)=> {
 app.get('/getGuesspathByCode', (req, res) => {
   const code = req.query.code;
   const guessPath = req.query.guessPath;
-  const query = `SELECT Guess_path, current_po_id FROM Package WHERE code = ?`;
+  const query = `SELECT * FROM Package WHERE code = ?`;
   db.query(query, [code], (err, rows) => {
     if (err) {
       console.error('Error executing query:', err.message);

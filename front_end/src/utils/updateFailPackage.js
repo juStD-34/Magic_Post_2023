@@ -5,7 +5,6 @@ export const updateFailPackage = (packCode, userId, change, setChange) => {
     const promise = getGuesspath(packCode);
     Promise.all([promise])
         .then(Guess_path => {
-            console.log(Guess_path);
             const reversedGuessPath = Guess_path[0].Guess_path.split('').reverse().join('');
             const currentPoID = Guess_path[0].current_po_id;
             axios.put('http://localhost:3001/updateFailedPackage', { code: packCode, Guess_path: reversedGuessPath })
@@ -26,7 +25,7 @@ export const updateFailPackage = (packCode, userId, change, setChange) => {
                 timeWent: null,
             }
             addPackageStatus(status);
-            
+
             setChange(!change);
         })
         .catch(err => {
@@ -34,7 +33,7 @@ export const updateFailPackage = (packCode, userId, change, setChange) => {
         })
 }
 
-const getGuesspath = async (packCode) => {
+export const getGuesspath = async (packCode) => {
     try {
         const response = await axios.get('http://localhost:3001/getGuesspathByCode', {
             params: {

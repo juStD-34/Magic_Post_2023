@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../../../shared/Layout/Navbar";
 import Sidebar from "../../../shared/Layout/Sidebar/Sidebar";
 import { Card } from "@material-tailwind/react";
@@ -15,6 +15,7 @@ const TABLE_ROWS = [{ pack: "1231321323", date: "12/12/2021" }];
 const Delivery = () => {
   const postId = 1;
   const userId = 1;
+  const isTrade = false;
   const [page, setPage] = React.useState(0);
   const [change, setChange] = useState(true);
   const [deliPack, setDeliPack] = useState([]);
@@ -50,11 +51,11 @@ const Delivery = () => {
                 >
                   See information about pending packages
                 </Typography>
-                <SearchPack/>
+                <SearchPack />
               </div>
             </div>
             <TBody
-              TABLE_ROWS={TABLE_ROWS}
+              TABLE_ROWS={packData}
               type="TradeEmployee"
               TABLE_HEAD={TABLE_HEAD}
               page={page}
@@ -62,6 +63,7 @@ const Delivery = () => {
               userId={userId}
               change={change}
               setChange={setChange}
+              isTrade={isTrade}
             />
           </Card>
         </main>
