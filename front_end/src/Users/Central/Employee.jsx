@@ -184,11 +184,17 @@ function CentralEmployee() {
 
 
   useEffect(() => {
-    console.log("change", change);
-    fetchIncomingPackages(postId, setIncomingPackage);
-    fetchOutgoingPackages(postId, setOutgoingPackage);
+    const fetchData = async () => {
+      const incomingPackages = await fetchIncomingPackages(postId);
+      const outgoingPackages = await fetchOutgoingPackages(postId);
+
+      setIncomingPackage(incomingPackages);
+      setOutgoingPackage(outgoingPackages);
+    };
+
+    fetchData();
   }, [change]);
-  
+
   useEffect(() => {
     if (outgoingPackage.length > 0) {
       // Map the array of promises returned by PostInfo
@@ -204,7 +210,7 @@ function CentralEmployee() {
           console.error('Error fetching post names:', error);
         });
     }
-    else{
+    else {
       setReceivingPostName([]);
     }
   }, [outgoingPackage]);
@@ -213,17 +219,17 @@ function CentralEmployee() {
     if (outgoingPackage.length > 0 && receivingPostName.length > 0) {
       // Combine values from outgoingPackage and receivingPostName
       const combinedPending = outgoingPackage.map((pack, index) => ({
-        id: pack.id,
+        code: pack.code,
         postName: receivingPostName[index],
-        confirm : true,
+        confirm: true,
       }));
 
       setPending(combinedPending);
     }
-    else{
+    else {
       setPending([]);
     }
-  }, [outgoingPackage,receivingPostName]);
+  }, [outgoingPackage, receivingPostName]);
 
   useEffect(() => {
     if (incomingPackage.length > 0) {
@@ -236,7 +242,7 @@ function CentralEmployee() {
           console.error('Error fetching post names:', error);
         });
     }
-    else{
+    else {
       setSendingPostName([]);
     }
   }, [incomingPackage]);
@@ -245,7 +251,7 @@ function CentralEmployee() {
     if (incomingPackage.length > 0 && sendingPostName.length > 0) {
       // Combine values from incomingPackage and sendingPostName
       const combinedIncoming = incomingPackage.map((pack, index) => ({
-        id: pack.id,
+        code: pack.code,
         postName: sendingPostName[index],
 
         confirm: true,
@@ -253,10 +259,10 @@ function CentralEmployee() {
 
       setIncoming(combinedIncoming);
     }
-    else{
+    else {
       setIncoming([]);
     }
-  }, [incomingPackage,sendingPostName]);
+  }, [incomingPackage, sendingPostName]);
 
 
 
@@ -290,7 +296,7 @@ function CentralEmployee() {
               setPage={setPage}
               isTrade={isTrade}
               setChange={setChange}
-              change = {change}
+              change={change}
             />
           </Card>
         </main>

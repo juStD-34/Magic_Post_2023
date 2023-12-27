@@ -18,7 +18,7 @@ const TABS = [
 ];
 
 const TABLE_HEAD = [
-  "Office's ID",
+  "Office's Name",
   "Office's Address",
   "Manager Name",
   "Action",

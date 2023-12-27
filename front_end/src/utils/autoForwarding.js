@@ -17,6 +17,7 @@ export const autoForwarding = (packageCode, isTrade, change, setChange, userId) 
 }
 export const updatePackage = (myPack, type, change, setChange, userId) => {
     console.log("myPack", myPack);
+    console.log(userId)
     if (myPack) {
         let {
             code,
@@ -63,13 +64,14 @@ export const updatePackage = (myPack, type, change, setChange, userId) => {
         } else {
             const packStatus = {
                 packageCode: newPack.code,
-                currentPoID: parseInt(guessPatharray[position + 1]),
+                currentPoID: parseInt(guessPatharray[position]),
                 employeeAssignTimeWentID: null,
                 timeArrived: new Date(),
                 description: null,
                 employeeAssignTimeArrivedID: userId,
                 timeWent: null,
             }
+            console.log("packStatus", packStatus);
             addPackageStatus(packStatus);
         }
         console.log("updated package", newPack);

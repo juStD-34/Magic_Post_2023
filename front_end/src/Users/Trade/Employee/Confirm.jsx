@@ -6,7 +6,7 @@ import TableInfor from "../../../shared/Table/components/TableInfor";
 import { Tabss } from "../../../shared/Table/components/tab";
 import SearchPack from "../../../shared/Table/components/SearchPack";
 import TBody from "../../../shared/Table/TBody";
-import { fetchOutgoingPackages } from "../../../utils/mailUtils";
+import { fetchIncomingPackages, fetchOutgoingPackages } from "../../../utils/mailUtils";
 import { packageSentToUser } from "../../../utils/postInfor";
 import { updateSuccessPackage } from "../../../utils/updateSuccessPackage";
 
@@ -15,8 +15,8 @@ const TABS = [
   { label: "USER", value: "456" },
 ];
 
-const resHead = ["Package's ID", "Address", "Date", "Action"];
-const fakeHead = ["Package's Code", "Name", "Phone","Address", "Confirm", "Cancel"];
+const packagesCPSendToHead = ["Package's Code", "Name", "Phone", "Address", "Action"];
+const packagesToUserHead = ["Package's Code", "Name", "Phone","Address", "Confirm", "Cancel"];
 
 const res = [
   {
@@ -47,23 +47,27 @@ const res = [
 ];
 
 let TABLE_ROWS = res;
-let TABLE_HEAD = resHead;
+let TABLE_HEAD = packagesToUserHead;
 
 const Confirm = ({ userId, postId }) => {
   // console.log(userId, postId);
   const [change, setChange] = React.useState(true);
   const [page, setPage] = React.useState(0);
-  const [isTrade, setIsTrade] = React.useState(true);
+  const [isTrade, setIsTrade] = React.useState(true); //true: central, false: user
   const [packagesToUser, setPackagesToUser] = React.useState([]);
+  const [packageCPSendTo, setPackageCPSendTo] = React.useState([]);
   useEffect(() => {
     // console.log("change", change);
     const fetchData = async () => {
-      const result = await fetchOutgoingPackages(postId);
-      // console.log("Result from fetchOutgoingPackages:", result);
-      const filterpackagesToUser = result.filter(pack => packageSentToUser(pack))
+      const outgoingPackage = await fetchOutgoingPackages(postId);
+      const incomingPackage = await fetchIncomingPackages(postId);
+      // console.log("outgoingPackage from fetchOutgoingPackages:", outgoingPackage);
+      const filterpackagesToUser = outgoingPackage.filter(pack => packageSentToUser(pack))
         .map(pack => ({ code: pack.code, name: pack.receiverName, phone: pack.receiverPhone ,address: pack.receiverAddress}));
+      const packageCPSendTo = incomingPackage.map(pack => ({code: pack.code, name: pack.senderName, phone: pack.senderPhone, address: pack.senderAddress}));
       // console.log(filterpackagesToUser);
       setPackagesToUser(filterpackagesToUser);
+      setPackageCPSendTo(packageCPSendTo);
     };
 
     fetchData();
@@ -71,11 +75,11 @@ const Confirm = ({ userId, postId }) => {
 
 
   if (isTrade) {
-    TABLE_ROWS = res;
-    TABLE_HEAD = resHead;
+    TABLE_ROWS = packageCPSendTo;
+    TABLE_HEAD = packagesCPSendToHead;
   } else {
     TABLE_ROWS = packagesToUser;
-    TABLE_HEAD = fakeHead;
+    TABLE_HEAD = packagesToUserHead;
   }
 
   return (
