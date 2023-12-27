@@ -17,15 +17,17 @@ const OfficeForm = (props) => {
                     Add Offices
                   </h2>
 
-                  <div className="sm:mt-4 grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-6">
+                  <div className="sm:mt-4 grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-6">
                     <Input
                       label="Office's Name"
                       size="sm:col-span-4"
                       type="text"
                     />
 
+                    <TypeInput label="Type" size="sm:col-span-3" />
+
                     <Input
-                      label="Manager's First Name"
+                      label="Manager 1st Name"
                       size="sm:col-span-3"
                       type="text"
                     />
@@ -46,12 +48,10 @@ const OfficeForm = (props) => {
                     />
 
                     <Input
-                      label="Manager's Phone"
+                      label="Phone"
                       size="sm:col-span-3"
                       type="phone"
                     />
-
-                    <TypeInput label="Type" size="sm:col-span-3" />
 
                     <Input label="Address" size="sm:col-span-6" type="text" />
                   </div>

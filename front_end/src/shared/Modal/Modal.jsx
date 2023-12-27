@@ -12,6 +12,11 @@ function Modal(data) {
   const [showModal, setShowModal] = useState(false);
   var modal;
   var labeL;
+
+  const close = () => {
+    if (data.label=="Add") setShowModal(false);
+  };
+
   switch (data.label) {
     case "Account":
       modal = (
@@ -49,7 +54,7 @@ function Modal(data) {
       labeL = null;
       break;
     case "Add":
-      modal = <SuccessForm inform={data.inform} tick={data.tick}/>;
+      modal = <SuccessForm inform={data.inform} tick={data.tick} onClick={()=>console.log("clicked")}/>;
       labeL = data.label;
       break;
     default:
@@ -67,7 +72,7 @@ function Modal(data) {
         {labeL}
       </Button>
       {showModal && (
-        <>
+        <div onClick={close}>
           {modal}
           <div
             className="opacity-25 fixed inset-0 z-40 bg-black"
@@ -76,7 +81,7 @@ function Modal(data) {
               setShowModal(false);
             }}
           ></div>
-        </>
+        </div>
       ) }
     </>
   );

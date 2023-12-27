@@ -36,6 +36,18 @@ export const confirm = (id, isTrade, setChange, change) => (
   </Tooltip>
 );
 
+export const confirmArrivedUser = (id, isTrade, setChange, change) => (
+  <Tooltip content="Confirm arrived">
+    <IconButton
+      variant="icon"
+      className="items-center justify-center flex bg-white"
+      onClick={() => { autoForwarding(id, isTrade, change, setChange); }}
+    >
+      <TiTickOutline className="h-4 w-4 " color={"green"} />
+    </IconButton>
+  </Tooltip>
+);
+
 export function account(props) {
   return (
     <Modal
