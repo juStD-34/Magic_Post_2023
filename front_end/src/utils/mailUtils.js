@@ -1,27 +1,37 @@
-export const fetchPackages = (postId, type) => {
-    return fetch(`http://localhost:3001/packageInfor?postId=${postId}&type=${type}`)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
-      .catch(error => {
-        console.error(`Error fetching ${type} packages:`, error);
-      });
-  };
-  
-  // Trong cùng file hoặc file khác, chẳng hạn utils/mailUtils.js
-  export const fetchIncomingPackages = (postId, setIncomingPackages) => {
-    fetchPackages(postId, 'incoming').then(data => {
-      // console.log("inComingData", data);
-      setIncomingPackages(data.Packages);
-    });
-  };
-  
-  export const fetchOutgoingPackages = (postId, setOutgoingPackages) => {
-    fetchPackages(postId, 'outgoing').then(data => {
-      // console.log("data", data);
-      setOutgoingPackages(data.Packages);
-    });
-  };
+export const fetchPackages = async (postId, type) => {
+  try {
+    const response = await fetch(`http://localhost:3001/packageInfor?postId=${postId}&type=${type}`);
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const data = await response.json();
+    return data.Packages;
+  } catch (error) {
+    console.error(`Error fetching ${type} packages:`, error);
+    return null;
+  }
+};
+
+export const fetchIncomingPackages = async (postId) => {
+  try {
+    const incomingPackages = await fetchPackages(postId, 'incoming');
+    // console.log("incomingPackages", incomingPackages);
+    return incomingPackages;
+  } catch (error) {
+    // Handle or log the error if needed
+    console.error("Error fetching incoming packages:", error);
+    return null;
+  }
+};
+
+export const fetchOutgoingPackages = async (postId) => {
+  try {
+    const outgoingPackages = await fetchPackages(postId, 'outgoing');
+    // console.log("outgoingPackages", outgoingPackages);
+    return outgoingPackages;
+  } catch (error) {
+    // Handle or log the error if needed
+    console.error("Error fetching outgoing packages:", error);
+    return null;
+  }
+};

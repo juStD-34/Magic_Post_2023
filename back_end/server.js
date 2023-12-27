@@ -20,7 +20,7 @@ const db = mysql.createConnection({
 app.get('/packageInfor', (req, res) => {
   const postId = parseInt(req.query.postId, 10);
   const type = req.query.type;
-
+  console.log(postId, "rq", req.query);
   let query = '';
   let params = [postId];
 
@@ -214,6 +214,21 @@ app.put('/updateStatus', (req, res) => {
     WHERE packageCode = ? AND current_po_id = ?;
   `;
   db.query(query, [status.employeeAssignTimeWentID, status.timeWent, status.packageCode, status.currentPoID], (err) => {
+    if (err) {
+      console.error('Error executing query:', err.message);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+    else {
+      res.json({ success: true, message: 'Package status updated successfully' });
+    }
+  })
+})
+
+app.put('/updateSuccessPackage', (req, res)=> {
+  const packCode = req.body.code;
+  console.log(packCode);
+  const query = ` UPDATE package SET statusName = "success" WHERE code = ?;`;
+  db.query(query, [packCode], (err) => {
     if (err) {
       console.error('Error executing query:', err.message);
       res.status(500).json({ error: 'Internal Server Error' });

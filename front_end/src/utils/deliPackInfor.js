@@ -1,26 +1,26 @@
 import axios from "axios";
 
 export const deliPackInfor = async (allPacks) => {
-    console.log("djkasjdssda")
+    console.log(allPacks);
     const extractedInfoArray = await Promise.all(allPacks.map(async (pack) => {
-        console.log(pack);
+        
         const packageCode = pack.code;
         const postId = pack.current_po_id;
         try {
             const response = await getDeliPackage(postId, packageCode);
             const timeAdd = response.timeArrived;
             const date = dateNormalize(timeAdd);
-            console.log("date", date);
+            // console.log("date", date);
 
             // Trả về một đối tượng mới chỉ chứa thông tin packageCode và currentPostId
             return { packageCode, date };
         } catch (error) {
-            console.log(error);
+            console.log("error", error);
             return null;
         }
     }));
 
-    console.log(extractedInfoArray);
+    // console.log(extractedInfoArray);
     return extractedInfoArray;
 }
 

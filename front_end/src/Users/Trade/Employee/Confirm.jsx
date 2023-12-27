@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Navbar from "../../../shared/Layout/Navbar";
 import Sidebar from "../../../shared/Layout/Sidebar/Sidebar";
 import { Card } from "@material-tailwind/react";
@@ -6,14 +6,17 @@ import TableInfor from "../../../shared/Table/components/TableInfor";
 import { Tabss } from "../../../shared/Table/components/tab";
 import SearchPack from "../../../shared/Table/components/SearchPack";
 import TBody from "../../../shared/Table/TBody";
+import { fetchOutgoingPackages } from "../../../utils/mailUtils";
+import { packageSentToUser } from "../../../utils/postInfor";
+import { updateSuccessPackage } from "../../../utils/updateSuccessPackage";
 
 const TABS = [
-  {label: "CENTRAL", value: "123" }, 
-  {label: "USER", value: "456"},
+  { label: "CENTRAL", value: "123" },
+  { label: "USER", value: "456" },
 ];
 
 const resHead = ["Package's ID", "Address", "Date", "Action"];
-const fakeHead = ["Package's ID", "Address", "Date", "Confirm", "Cancel"];
+const fakeHead = ["Package's Code", "Name", "Phone","Address", "Confirm", "Cancel"];
 
 const res = [
   {
@@ -43,46 +46,31 @@ const res = [
   },
 ];
 
-const fake = [
-  {
-    id: "68468498adsbd",
-    address: "Ha noi My DINh Thai",
-    date: "27/01/2023"
-  },
-  {
-    id: "16add4aw8",
-    address: "Ha noi My DINh Thai",
-    date: "27/01/2023"
-  },
-  {
-    id: "654adpoak644",
-    address: "Ha noi My DINh Thai",
-    date: "27/01/2023"
-  },
-  {
-    id: "312jk90add",
-    address: "Ha noi My DINh Thai",
-    date: "27/01/2023"
-  },
-  {
-    id: "211AJNDI213",
-    address: "Ha noi My DINh Thai",
-    date: "27/01/2023"
-  },
-]
-
 let TABLE_ROWS = res;
 let TABLE_HEAD = resHead;
 
-const Confirm = () => {
+const Confirm = ({ userId, postId }) => {
+  // console.log(userId, postId);
   const [page, setPage] = React.useState(0);
   const [isTrade, setIsTrade] = React.useState(true);
+  // const [outGoingPacks, setOutGoingPacks] = React.useState([]);
+  const [packagesToUser, setPackagesToUser] = React.useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await fetchOutgoingPackages(postId);
+      const filterpackagesToUser = result.filter(pack => packageSentToUser(pack))
+        .map(pack => ({ code: pack.code, name: pack.receiverName, phone: pack.receiverPhone ,address: pack.receiverAddress}));
+      setPackagesToUser(filterpackagesToUser);
+    };
+    fetchData();
+  }, [postId]);
+
 
   if (isTrade) {
     TABLE_ROWS = res;
     TABLE_HEAD = resHead;
   } else {
-    TABLE_ROWS = fake;
+    TABLE_ROWS = packagesToUser;
     TABLE_HEAD = fakeHead;
   }
 

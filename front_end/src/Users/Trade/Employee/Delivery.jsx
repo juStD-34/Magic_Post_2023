@@ -17,26 +17,21 @@ const Delivery = () => {
   const [page, setPage] = React.useState(0);
   const [change, setChange] = useState(true);
   const [deliPack, setDeliPack] = useState([]);
-
+  const [packData, setPackData] = useState([]);
   //Lay thong tin cac goi tin den
   useEffect(() => {
-    fetchOutgoingPackages(postId, setDeliPack);
-  }, [change]);
-
-  //Loc nhung goi tin la hang duoc gui tai TPost
-  useEffect(() => {
     const fetchData = async () => {
-      const filteredDeliPack = deliPack.filter(pack => packageUserSend(pack));
+      const result = await fetchOutgoingPackages(postId);
+      const filteredDeliPack = result.filter(pack => packageUserSend(pack));
       const updatedDeliPack = await deliPackInfor(filteredDeliPack);
-      console.log("uuu", updatedDeliPack);
-      setDeliPack(updatedDeliPack);
+      console.log("WWWW", updatedDeliPack);
+      setPackData(updatedDeliPack);
     };
-    
     fetchData();
   }, [change]);
 
-  // setChange(!change);
-  console.log(deliPack);
+
+  console.log(packData);
   return (
     <div className="flex bg-white">
       <Sidebar />
@@ -59,7 +54,7 @@ const Delivery = () => {
               </div>
             </div>
             <TBody
-              TABLE_ROWS={TABLE_ROWS}
+              TABLE_ROWS={packData}
               type="TradeEmployee"
               TABLE_HEAD={TABLE_HEAD}
               page={page}
