@@ -1,8 +1,81 @@
-import React from "react";
+import {React, useState} from "react";
 import { NavLink } from "react-router-dom";
 import Navbar from "../Users/Home/components/Navbar";
+import Axios from "axios";
 
 function Login() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [loginStatus, setLoginStatus] = useState("");
+  const {setLogin} = require('./Auth');
+  const {setPostOffice, setWorkerID} = require('./Info');
+  const login = (e) => {
+    e.preventDefault();
+    Axios.post("http://localhost:3001/login", {
+      username: username,
+      password: password,
+    }).then((response) => {
+      if(response.data.message){
+        setLoginStatus(response.data.message);
+      }else{
+        setLoginStatus("SUCCESS");
+        switch(response.data[0].role){
+          case 0:
+            setLogin("central/employee");
+            setWorkerID(response.data[0].id); 
+            setPostOffice(response.data[0].poWorkID);
+            window.location.href = "/central/employee";
+            break;
+          case 1:
+            setLogin("trade/employee");
+            setWorkerID(response.data[0].id); 
+            setPostOffice(response.data[0].poWorkID);
+            window.location.href = "/trade/employee";
+            break;
+          case 2:
+            setLogin("central/manager");
+            setWorkerID(response.data[0].id); 
+            setPostOffice(response.data[0].poWorkID);
+            window.location.href = "/central/manager";
+            break;
+          case 3:
+            setLogin("trade/manager");
+            setWorkerID(response.data[0].id); 
+            setPostOffice(response.data[0].poWorkID);
+            window.location.href = "/trade/manager";
+            break;
+          case 4:
+            setLogin("manager");
+            setWorkerID(response.data[0].id); 
+            setPostOffice(response.data[0].poWorkID);
+            window.location.href = "/manager";
+            break;
+          default:
+            setLogin("null");
+            setWorkerID("0"); 
+            setPostOffice("0");
+            break;
+        }
+      }
+    })
+  }
+
+  const colorStyle = {
+    fontSize: '15px',
+    textAlign: 'center',
+    marginTop: '20px'
+  };
+  
+  const textStyle = {
+    red: {
+      ...colorStyle,
+      color: 'red'
+    },
+    green: {
+      ...colorStyle,
+      color: 'green'
+    }
+  };
   return (
     <div>
       <Navbar type={false}/>
@@ -43,6 +116,7 @@ function Login() {
                   className=" w-full text-base py-2 border-b border-gray-300 focus:outline-none focus:border-blue-500"
                   type=""
                   placeholder="Enter your username"
+                  onChange={(e) => {setUsername(e.target.value)}}
                 />
               </div>
               <div className="mt-8 content-center">
@@ -53,6 +127,7 @@ function Login() {
                   className="w-full content-center text-base py-2 border-b border-gray-300 focus:outline-none focus:border-blue-500"
                   type=""
                   placeholder="Enter your password"
+                  onChange={(e) => {setPassword(e.target.value)}}
                 />
               </div>
               <div className="flex items-center justify-between">
@@ -79,7 +154,7 @@ function Login() {
                 </div>
               </div>
               <div className="flex justify-center">
-              <NavLink to={"/central/employee"} className="w-3/4 bg-blue-500 text-gray-100 p-4  rounded-full tracking-wide
+              <NavLink to={"/central/employee"} onClick={login} className="w-3/4 bg-blue-500 text-gray-100 p-4  rounded-full tracking-wide
                                 font-semibold  focus:outline-none focus:shadow-outline hover:bg-blue-300 shadow-lg cursor-pointer transition ease-in duration-300">Login</NavLink>
               </div>
               <p class="flex flex-col items-center justify-center mt-10 text-center text-md text-gray-500">
@@ -90,6 +165,7 @@ function Login() {
                 >
                   Sign up
                 </a>
+                <h1 style={loginStatus === "WRONG USERNAME OR PASSWORD!" ? textStyle.red : textStyle.green}>{loginStatus}</h1>
               </p>
             </form>
           </div>
