@@ -27,8 +27,8 @@ export const deliver = (online) => (
 export const confirm = (id, isTrade, setChange, change) => (
   <Tooltip content="Confirm arrived">
     <IconButton
-      variant="icon"
-      className="items-center justify-center flex bg-white"
+      variant="gradient"
+      className="items-center justify-center flex"
       onClick={() => { autoForwarding(id, isTrade, change, setChange); }}
     >
       <TiTickOutline className="h-4 w-4 " color={"green"} />
@@ -39,7 +39,7 @@ export const confirm = (id, isTrade, setChange, change) => (
 export const confirmArrivedUser = (id, isTrade, setChange, change) => (
   <Tooltip content="Confirm arrived">
     <IconButton
-      variant="icon"
+      variant="gradient"
       className="items-center justify-center flex bg-white"
       onClick={() => { autoForwarding(id, isTrade, change, setChange); }}
     >
@@ -65,7 +65,7 @@ export function account(props) {
 export const send = (props) => (
   <Tooltip content="Send Package">
     <IconButton
-      variant="icon"
+      variant="gradient"
       color="white"
       className="items-center justify-center flex "
     >
@@ -77,7 +77,7 @@ export const send = (props) => (
 export const cancel = (props) => (
   <Tooltip content="Cancel">
     <IconButton
-      variant="icon"
+      variant="gradient"
       color="white"
       className="items-center justify-center flex "
     >
