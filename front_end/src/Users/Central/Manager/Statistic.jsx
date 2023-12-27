@@ -116,6 +116,7 @@ let TABLE_ROWS = res;
 let TABLE_HEAD = ArrivedPackagesHead;
 
 const CentralManager = (postId) => {
+  const [change, setChange] = useState(true);
   const [page, setPage] = React.useState(0);
   const [isTrade, setIsTrade] = useState(true);  //true: Arrived, false: Sent
   const [fromtDate, setFromDate] = useState("");
@@ -127,7 +128,6 @@ const CentralManager = (postId) => {
     const fetchData = () => {
       getPackageInfor(postId, fromtDate, toDate, "Arrived")
         .then((data) => {
-          console.log(data);
           setArrivedPackages(data.Packages.map((pack) => {
             return {
               code: pack.packageCode,
@@ -156,10 +156,10 @@ const CentralManager = (postId) => {
     }
 
     fetchData();
-  }, [fromtDate, toDate]);
+  }, [change]);
 
-  console.log("arrived",arrivedPackages);
-  console.log("sent",sentPackages);
+  // console.log("arrived",arrivedPackages);
+  // console.log("sent",sentPackages);
 
   if (isTrade) {
     TABLE_ROWS = arrivedPackages;
@@ -183,6 +183,8 @@ const CentralManager = (postId) => {
             statistic={true}
             setFromDate={setFromDate}
             setToDate={setToDate}
+            change={change}
+            setChange={setChange}
           />
           <Tabss TABS={TABS} setIsTrade={setIsTrade} setPage={setPage} />
           <TBody

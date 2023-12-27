@@ -13,7 +13,7 @@ import React from "react";
 import { Button } from "flowbite-react";
 import { NavLink } from "react-router-dom";
 
-export default function TableInfor({ head, intro, add, statistic , setFromDate, setToDate}) {
+export default function TableInfor({ head, intro, add, statistic , setFromDate, setToDate, change, setChange}) {
   return (
     <>
       <div className="flex flex-col sm:flex-row">
@@ -31,17 +31,18 @@ export default function TableInfor({ head, intro, add, statistic , setFromDate, 
         {statistic && (
           <div className="sm:w-[40%] flex py-4 gap-2">
             <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DatePicker label="From" defaultValue={dayjs()} />
+              <DatePicker label="From" defaultValue={dayjs()} onChange={ (e) => setFromDate(e.format("YYYY-MM-DD"))} />
             </LocalizationProvider>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DatePicker label="To" defaultValue={dayjs()} />
+              <DatePicker label="To" defaultValue={dayjs() } onChange={ (e) => setToDate(e.format("YYYY-MM-DD"))} />
             </LocalizationProvider>
             <Tooltip content="Filter by date">
               <IconButton
                 variant="gradient"
                 className="items-center justify-center flex bg-white"
                 onClick={() => {
-                  console.log("filter");
+                  setChange(!change);
+                  console.log("SSSS")
                 }}
               >
                 <CiSearch className="h-6 w-6" color="black"/>
