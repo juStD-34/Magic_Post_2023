@@ -51,19 +51,23 @@ let TABLE_HEAD = resHead;
 
 const Confirm = ({ userId, postId }) => {
   // console.log(userId, postId);
+  const [change, setChange] = React.useState(true);
   const [page, setPage] = React.useState(0);
   const [isTrade, setIsTrade] = React.useState(true);
-  // const [outGoingPacks, setOutGoingPacks] = React.useState([]);
   const [packagesToUser, setPackagesToUser] = React.useState([]);
   useEffect(() => {
+    console.log("change", change);
     const fetchData = async () => {
       const result = await fetchOutgoingPackages(postId);
+      console.log("Result from fetchOutgoingPackages:", result);
       const filterpackagesToUser = result.filter(pack => packageSentToUser(pack))
         .map(pack => ({ code: pack.code, name: pack.receiverName, phone: pack.receiverPhone ,address: pack.receiverAddress}));
+      console.log(filterpackagesToUser);
       setPackagesToUser(filterpackagesToUser);
     };
+
     fetchData();
-  }, [postId]);
+  }, [change]);
 
 
   if (isTrade) {
@@ -98,6 +102,9 @@ const Confirm = ({ userId, postId }) => {
               page={page}
               setPage={setPage}
               isTrade={isTrade}
+              change={change}
+              setChange={setChange}
+              userId={userId}	
             />
           </Card>
         </main>

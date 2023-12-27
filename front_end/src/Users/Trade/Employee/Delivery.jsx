@@ -14,6 +14,7 @@ const TABLE_ROWS = [{ pack: "1231321323", date: "12/12/2021" }];
 
 const Delivery = () => {
   const postId = 1;
+  const userId = 1;
   const [page, setPage] = React.useState(0);
   const [change, setChange] = useState(true);
   const [deliPack, setDeliPack] = useState([]);
@@ -24,7 +25,6 @@ const Delivery = () => {
       const result = await fetchOutgoingPackages(postId);
       const filteredDeliPack = result.filter(pack => packageUserSend(pack));
       const updatedDeliPack = await deliPackInfor(filteredDeliPack);
-      console.log("WWWW", updatedDeliPack);
       setPackData(updatedDeliPack);
     };
     fetchData();
@@ -54,11 +54,14 @@ const Delivery = () => {
               </div>
             </div>
             <TBody
-              TABLE_ROWS={packData}
+              TABLE_ROWS={TABLE_ROWS}
               type="TradeEmployee"
               TABLE_HEAD={TABLE_HEAD}
               page={page}
               setPage={setPage}
+              userId={userId}
+              change={change}
+              setChange={setChange}
             />
           </Card>
         </main>

@@ -14,6 +14,8 @@ import { Collapse } from "@material-tailwind/react";
 import Modal from "../../Modal/Modal";
 import React from "react";
 import { autoForwarding } from "../../../utils/autoForwarding";
+import { updateSuccessPackage } from "../../../utils/updateSuccessPackage";
+import { updateFailPackage } from "../../../utils/updateFailPackage";
 
 export const deliver = (online) => (
   <Chip
@@ -36,12 +38,12 @@ export const confirm = (id, isTrade, setChange, change, userId) => (
   </Tooltip>
 );
 
-export const confirmArrivedUser = (id, isTrade, setChange, change) => (
+export const confirmArrivedUser = (packCode, change, setChange) => (
   <Tooltip content="Confirm arrived">
     <IconButton
       variant="icon"
       className="items-center justify-center flex bg-white"
-      onClick={() => { autoForwarding(id, isTrade, change, setChange); }}
+      onClick={() => { updateSuccessPackage(packCode);setChange(!change) }}
     >
       <TiTickOutline className="h-4 w-4 " color={"green"} />
     </IconButton>
@@ -74,12 +76,13 @@ export const send = (props) => (
   </Tooltip>
 );
 
-export const cancel = (props) => (
+export const cancel = (id, change, setChange, userId) => (
   <Tooltip content="Cancel">
     <IconButton
       variant="icon"
       color="white"
       className="items-center justify-center flex "
+      onClick={() => { updateFailPackage(id, userId, change, setChange);}}
     >
       <TiDeleteOutline className="h-6 w-6" color="red" />
     </IconButton>

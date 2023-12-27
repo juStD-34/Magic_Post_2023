@@ -42,7 +42,7 @@ export function Row({ type, row, isTrade , setChange, change, userId}) {
         icons = [send({...row})];
         break;
       case "confirm":
-        isTrade ? icons = [confirm(id)] : icons = [confirmArrivedUser(id), cancel({...row})];
+        isTrade ? icons = [confirm(id)] : icons = [confirmArrivedUser(id, change, setChange), cancel(id, change, setChange, userId)];
         break;
       case "tradeStat":
         icons = [];

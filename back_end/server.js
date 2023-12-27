@@ -20,7 +20,6 @@ const db = mysql.createConnection({
 app.get('/packageInfor', (req, res) => {
   const postId = parseInt(req.query.postId, 10);
   const type = req.query.type;
-  console.log(postId, "rq", req.query);
   let query = '';
   let params = [postId];
 
@@ -178,7 +177,6 @@ app.get('/getPostByType', (req, res) => {
 
 app.post('/packageStatus', (req, res) => {
   const status = req.body;
-  console.log(req.body);
   const values = [
     status.packageCode,
     status.currentPoID,
@@ -188,7 +186,6 @@ app.post('/packageStatus', (req, res) => {
     status.employeeAssignTimeArrivedID ,
     status.timeWent,
   ];
-  console.log(values);
   const query = `
   INSERT INTO packagestatus(packageCode, current_po_id, employeeAssignTimeWentID, timeArrived, description, employeeAssignTimeArrivedID, timeWent) 
   VALUES (?, ?, IFNULL(?, NULL), IFNULL(?, NULL), IFNULL(?, NULL), IFNULL(?, NULL), IFNULL(?, NULL));
@@ -206,7 +203,6 @@ app.post('/packageStatus', (req, res) => {
 
 app.put('/updateStatus', (req, res) => {
   const status = req.body;
-  console.log(req.body);
   const query = `
     UPDATE PackageStatus
     SET employeeAssignTimeWentID = ?,
@@ -226,8 +222,7 @@ app.put('/updateStatus', (req, res) => {
 
 app.put('/updateSuccessPackage', (req, res)=> {
   const packCode = req.body.code;
-  console.log(packCode);
-  const query = ` UPDATE package SET statusName = "success" WHERE code = ?;`;
+  const query = ` UPDATE package SET statusName = "Success" WHERE code = ?;`;
   db.query(query, [packCode], (err) => {
     if (err) {
       console.error('Error executing query:', err.message);
@@ -235,6 +230,33 @@ app.put('/updateSuccessPackage', (req, res)=> {
     }
     else {
       res.json({ success: true, message: 'Package status updated successfully' });
+    }
+  })
+})
+
+app.get('/getGuesspathByCode', (req, res) => {
+  const code = req.query.code;
+  const guessPath = req.query.guessPath;
+  const query = `SELECT Guess_path, current_po_id FROM Package WHERE code = ?`;
+  db.query(query, [code], (err, rows) => {
+    if (err) {
+      console.error('Error executing query:', err.message);
+      res.status(500).json({ error: 'Internal Server Error' });
+    } else {
+      res.json({ Guesspath: rows[0] });
+    }
+  })
+})
+app.put('/updateFailedPackage', (req, res)=> {
+  const Guess_path = req.body;
+  const query = `UPDATE package SET Guess_path = ? WHERE code = ?`;	
+  db.query(query, [Guess_path, req.body.code], (err) => {
+    if (err) {
+      console.error('Error executing query:', err.message);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+    else {
+      res.json({ success: true, message: 'Package guess path updated successfully' });
     }
   })
 })
