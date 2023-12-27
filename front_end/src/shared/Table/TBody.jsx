@@ -4,9 +4,8 @@ import TablePagination from "@mui/material/TablePagination";
 
 import { Typography, CardBody } from "@material-tailwind/react";
 
-const TBody = ({ TABLE_HEAD, TABLE_ROWS, type, page, setPage, isTrade, setChange , change}) => {
+const TBody = ({ TABLE_HEAD, TABLE_ROWS, type, page, setPage, isTrade, setChange , change, userId}) => {
   const [rowsPerPage, setRowsPerPage] = React.useState(4);
-
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - TABLE_ROWS.length) : 0;
 
@@ -46,7 +45,7 @@ const TBody = ({ TABLE_HEAD, TABLE_ROWS, type, page, setPage, isTrade, setChange
           </tr>
         </thead>
         <tbody>
-          <Datarow currentItems={Data} type={type} isTrade={isTrade} emptyRows={emptyRows} setChange = {setChange} change = {change}/>
+          <Datarow currentItems={Data} type={type} isTrade={isTrade} emptyRows={emptyRows} setChange = {setChange} change = {change} userId={userId}/>
         </tbody>
       </table>
       <TablePagination

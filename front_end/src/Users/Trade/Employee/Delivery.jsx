@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../../../shared/Layout/Navbar";
 import Sidebar from "../../../shared/Layout/Sidebar/Sidebar";
 import { Card } from "@material-tailwind/react";
@@ -6,31 +6,33 @@ import { Typography } from "@material-tailwind/react";
 import TBody from "../../../shared/Table/TBody";
 import SearchPack from "../../../shared/Table/components/SearchPack"
 import { fetchOutgoingPackages } from "../../../utils/mailUtils";
-import { takeSendingPostID } from "../../../utils/postInfor";
+import { packageUserSend, takeSendingPostID } from "../../../utils/postInfor";
+import { deliPackInfor } from "../../../utils/deliPackInfor";
 
-const TABLE_HEAD = ["Package's ID", "Date", "Ship"];
+const TABLE_HEAD = ["Package's Code", "Date", "Ship"];
 const TABLE_ROWS = [{ pack: "1231321323", date: "12/12/2021" }];
 
-
-const takeDeliPack = (deliPack, setDeliPack) =>{
-    
-}
 const Delivery = () => {
   const postId = 1;
+  const userId = 1;
+  const isTrade = false;
   const [page, setPage] = React.useState(0);
   const [change, setChange] = useState(true);
-  const [deliPack, setDeliPack] = React.useState([]);
-
+  const [deliPack, setDeliPack] = useState([]);
+  const [packData, setPackData] = useState([]);
   //Lay thong tin cac goi tin den
-  // useEffect(() => {
-  //   fetchOutgoingPackages(postId, setDeliPack);
-  // }, [change]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await fetchOutgoingPackages(postId);
+      const filteredDeliPack = result.filter(pack => packageUserSend(pack));
+      const updatedDeliPack = await deliPackInfor(filteredDeliPack);
+      setPackData(updatedDeliPack);
+    };
+    fetchData();
+  }, [change]);
 
-  // //Loc nhung goi tin la hang duoc gui tai TPost
-  // useEffect(() => {
-  //   const filterDeliPack = deliPack.filter(pack => takeSendingPostID(pack) === -1);
-  //   setDeliPack(filterDeliPack);
-  // }, [change]);
+
+  console.log(packData);
   return (
     <div className="flex bg-white">
       <Sidebar />
@@ -49,15 +51,19 @@ const Delivery = () => {
                 >
                   See information about pending packages
                 </Typography>
-                <SearchPack/>
+                <SearchPack />
               </div>
             </div>
             <TBody
-              TABLE_ROWS={TABLE_ROWS}
+              TABLE_ROWS={packData}
               type="TradeEmployee"
               TABLE_HEAD={TABLE_HEAD}
               page={page}
               setPage={setPage}
+              userId={userId}
+              change={change}
+              setChange={setChange}
+              isTrade={isTrade}
             />
           </Card>
         </main>

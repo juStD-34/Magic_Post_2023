@@ -1,6 +1,6 @@
 import Row from "./Row";
 
-export default function Datarow({ currentItems, type, emptyRows, isTrade, setChange , change}) {
+export default function Datarow({ currentItems, type, emptyRows, isTrade, setChange , change, userId}) {
   const rows = Object.values(currentItems);
   return (
     <>
@@ -11,6 +11,7 @@ export default function Datarow({ currentItems, type, emptyRows, isTrade, setCha
           isTrade={isTrade}
           setChange = {setChange}
           change = {change}
+          userId = {userId}
         />
       ))}
       {emptyRows > 0 && (

@@ -14,6 +14,8 @@ import { Collapse } from "@material-tailwind/react";
 import Modal from "../../Modal/Modal";
 import React from "react";
 import { autoForwarding } from "../../../utils/autoForwarding";
+import { updateSuccessPackage } from "../../../utils/updateSuccessPackage";
+import { updateFailPackage } from "../../../utils/updateFailPackage";
 
 export const deliver = (online) => (
   <Chip
@@ -24,24 +26,24 @@ export const deliver = (online) => (
   />
 );
 
-export const confirm = (id, isTrade, setChange, change) => (
+export const confirm = (id, isTrade, setChange, change, userId) => (
   <Tooltip content="Confirm arrived">
     <IconButton
       variant="gradient"
-      className="items-center justify-center flex"
-      onClick={() => { autoForwarding(id, isTrade, change, setChange); }}
+      className="items-center justify-center flex bg-white"
+      onClick={() => { autoForwarding(id, isTrade, change, setChange, userId); }}
     >
       <TiTickOutline className="h-4 w-4 " color={"green"} />
     </IconButton>
   </Tooltip>
 );
 
-export const confirmArrivedUser = (id, isTrade, setChange, change) => (
+export const confirmArrivedUser = (packCode, change, setChange) => (
   <Tooltip content="Confirm arrived">
     <IconButton
       variant="gradient"
       className="items-center justify-center flex bg-white"
-      onClick={() => { autoForwarding(id, isTrade, change, setChange); }}
+      onClick={() => { updateSuccessPackage(packCode);setChange(!change) }}
     >
       <TiTickOutline className="h-4 w-4 " color={"green"} />
     </IconButton>
@@ -62,24 +64,26 @@ export function account(props) {
   );
 }
 
-export const send = (props) => (
+export const send = (id, isTrade, setChange, change, userId) => (
   <Tooltip content="Send Package">
     <IconButton
       variant="gradient"
       color="white"
       className="items-center justify-center flex "
+      onClick={() => { autoForwarding(id, isTrade, change, setChange, userId); }}
     >
       <TbCubeSend className="h-10 w-10" color="lightGreen" />
     </IconButton>
   </Tooltip>
 );
 
-export const cancel = (props) => (
+export const cancel = (id, change, setChange, userId) => (
   <Tooltip content="Cancel">
     <IconButton
       variant="gradient"
       color="white"
       className="items-center justify-center flex "
+      onClick={() => { updateFailPackage(id, userId, change, setChange);}}
     >
       <TiDeleteOutline className="h-6 w-6" color="red" />
     </IconButton>

@@ -4,7 +4,7 @@ import { action, account, deliver, confirm, send, cancel, confirmArrivedUser } f
 import Modal from "../../Modal/Modal";
 import { TiDeleteOutline } from "react-icons/ti";
 
-export function Row({ type, row, isTrade , setChange, change}) {
+export function Row({ type, row, isTrade , setChange, change, userId}) {
   // isTrade = False : Pending ; True : Incoming
   var icons;
   var rowData = Object.values(row);
@@ -21,8 +21,8 @@ export function Row({ type, row, isTrade , setChange, change}) {
       break;
     case "employee":
       isTrade
-        ? (icons = [deliver(onLine), confirm(id, isTrade, setChange, change)])
-        : (icons = [deliver(onLine), confirm(id, isTrade, setChange, change)]);
+        ? (icons = [deliver(onLine), confirm(id, isTrade, setChange, change, userId)])
+        : (icons = [deliver(onLine), confirm(id, isTrade, setChange, change, userId)]);
       break;
     case "statistic":
       icons = [deliver(onLine)];
@@ -39,10 +39,10 @@ export function Row({ type, row, isTrade , setChange, change}) {
       ];
       break;
       case "TradeEmployee":
-        icons = [send({...row})];
+        icons = [send(id, isTrade, setChange, change, userId)];
         break;
       case "confirm":
-        isTrade ? icons = [confirm(id)] : icons = [confirmArrivedUser(id), cancel({...row})];
+        isTrade ? icons = [confirm(id)] : icons = [confirmArrivedUser(id, change, setChange), cancel(id, change, setChange, userId)];
         break;
       case "tradeStat":
         icons = [];

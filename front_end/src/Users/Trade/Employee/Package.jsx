@@ -11,7 +11,9 @@ import { Print } from "./Print";
 import { generateCode } from "../../../utils/generatedCode";
 import { addPackage } from "../../../utils/addPackage";
 
-const Package = (postId) => {
+const Package = (data) => {
+  const userId = data.userId;
+  const postId = data.postId;
   const [sendName, setsendName] = React.useState("");
   const [sendAddress, setsendAddress] = React.useState("");
   const [sendPhone, setsendPhone] = React.useState(0);
@@ -40,19 +42,19 @@ const Package = (postId) => {
     setWeight(0);
   };
 
-  const handleAddPackage = () => {
-    const packData = {
-      code: generateCode(postId),
-      weight: weight,
-      sender: sendName,
-      senderPhone: sendPhone,
-      senderAddress: sendAddress,
-      receiver: receiveName,
-      receiverPhone: receivePhone,
-      receiverAddress: receiveAddress,
-    };
-    addPackage(packData);
-  };
+  const handleAddPackage = () =>{
+      const packData = {
+        code: generateCode(postId),
+        weight: weight,
+        sender: sendName,
+        senderPhone: sendPhone,
+        senderAddress: sendAddress,
+        receiver: receiveName,
+        receiverPhone: receivePhone,
+        receiverAddress: receiveAddress,
+      }
+      addPackage(packData, userId);
+  }
 
   return (
     <div className="flex bg-white">
@@ -158,7 +160,7 @@ const Package = (postId) => {
                         setInform("Package stored successful");
                         setTick(true);
                         handleAddPackage();
-                        clear();
+                        // clear();
                       } else {
                         setInform("Please fill all the information");
                         setTick(false);

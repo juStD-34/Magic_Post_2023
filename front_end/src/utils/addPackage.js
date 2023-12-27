@@ -24,12 +24,32 @@ export const packageNormalization = (packages) => {
 }
 
 
-export const addPackage = (packages) => {
+export const addPackage = (packages, userId) => {
+    console.log("user", userId)
     const packageData = packageNormalization(packages);
-    console.log(packageData);
+    const packStatus = {
+        packageCode : packageData.code,
+        currentPoID : packageData.fromPoID,
+        employeeAssignTimeWentID : null,
+        timeArrived : new Date(),
+        description : null,
+        employeeAssignTimeArrivedID: userId,
+        timeWent: null
+    }
+    addPackageStatus(packStatus);
     axios.post('http://localhost:3001/addPackage', packageData)
         .then(res => {
             console.log(res.data);	
+        })
+        .catch (err => {
+            console.log(err);
+        })
+}
+
+export const addPackageStatus = (packStatus) =>{
+    axios.post('http://localhost:3001/packageStatus', packStatus)
+        .then(res => {
+            console.log(res.data);
         })
         .catch (err => {
             console.log(err);
