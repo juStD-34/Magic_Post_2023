@@ -20,6 +20,8 @@ const Delivery = () => {
   const [change, setChange] = useState(true);
   const [deliPack, setDeliPack] = useState([]);
   const [packData, setPackData] = useState([]);
+  const [changeRow, setChangeRow] = useState(true);
+  const [TABLE_ROWS, setTABLE_ROWS] = useState([]);
   //Lay thong tin cac goi tin den
   useEffect(() => {
     const fetchData = async () => {
@@ -31,6 +33,9 @@ const Delivery = () => {
     fetchData();
   }, [change]);
 
+  useEffect(() => {
+    setTABLE_ROWS(packData);
+  }, [changeRow])
 
   console.log(packData);
   return (
@@ -51,11 +56,11 @@ const Delivery = () => {
                 >
                   See information about pending packages
                 </Typography>
-                <SearchPack />
+                <SearchPack TABLE_ROWS={TABLE_ROWS} setTABLE_ROWS={setTABLE_ROWS} change={changeRow} setChange={setChangeRow}/>
               </div>
             </div>
             <TBody
-              TABLE_ROWS={packData}
+              TABLE_ROWS={TABLE_ROWS}
               type="TradeEmployee"
               TABLE_HEAD={TABLE_HEAD}
               page={page}

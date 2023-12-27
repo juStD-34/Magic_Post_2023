@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../../../shared/Layout/Navbar";
 import Sidebar from "../../../shared/Layout/Sidebar/Sidebar";
 import { Card } from "@material-tailwind/react";
@@ -56,6 +56,8 @@ const Confirm = ({ userId, postId }) => {
   const [isTrade, setIsTrade] = React.useState(true); //true: central, false: user
   const [packagesToUser, setPackagesToUser] = React.useState([]);
   const [packageCPSendTo, setPackageCPSendTo] = React.useState([]);
+  const [changeRow, setChangeRow] = React.useState(true);
+  const [TABLE_ROWS, setTABLE_ROWS] = React.useState([]);
   useEffect(() => {
     // console.log("change", change);
     const fetchData = async () => {
@@ -73,12 +75,19 @@ const Confirm = ({ userId, postId }) => {
     fetchData();
   }, [change]);
 
-
+  useEffect(() => {
+    if (isTrade) {
+      setTABLE_ROWS(packageCPSendTo);
+    } else {
+      setTABLE_ROWS(packagesToUser);
+    }
+  }, [changeRow])
+  console.log("packagesToUser", TABLE_ROWS);
   if (isTrade) {
-    TABLE_ROWS = packageCPSendTo;
+    // TABLE_ROWS = packageCPSendTo;
     TABLE_HEAD = packagesCPSendToHead;
   } else {
-    TABLE_ROWS = packagesToUser;
+    // TABLE_ROWS = packagesToUser;
     TABLE_HEAD = packagesToUserHead;
   }
 
@@ -96,7 +105,7 @@ const Confirm = ({ userId, postId }) => {
             />
             <div className="flex flex-col sm:flex-row">
               <Tabss TABS={TABS} setIsTrade={setIsTrade} setPage={setPage} />
-              <SearchPack />
+              <SearchPack TABLE_ROWS={TABLE_ROWS} setTABLE_ROWS={setTABLE_ROWS} change={changeRow} setChange={setChangeRow}/>
             </div>
             <TBody
               className="mt-4 border-2 border-gray-200 rounded-lg"
