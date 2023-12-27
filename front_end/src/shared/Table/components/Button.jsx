@@ -29,7 +29,7 @@ export const deliver = (online) => (
 export const confirm = (id, isTrade, setChange, change, userId) => (
   <Tooltip content="Confirm arrived">
     <IconButton
-      variant="icon"
+      variant="gradient"
       className="items-center justify-center flex bg-white"
       onClick={() => { autoForwarding(id, isTrade, change, setChange, userId); }}
     >
@@ -41,7 +41,7 @@ export const confirm = (id, isTrade, setChange, change, userId) => (
 export const confirmArrivedUser = (packCode, change, setChange) => (
   <Tooltip content="Confirm arrived">
     <IconButton
-      variant="icon"
+      variant="gradient"
       className="items-center justify-center flex bg-white"
       onClick={() => { updateSuccessPackage(packCode);setChange(!change) }}
     >
@@ -67,7 +67,7 @@ export function account(props) {
 export const send = (id, isTrade, setChange, change, userId) => (
   <Tooltip content="Send Package">
     <IconButton
-      variant="icon"
+      variant="gradient"
       color="white"
       className="items-center justify-center flex "
       onClick={() => { autoForwarding(id, isTrade, change, setChange, userId); }}
@@ -80,7 +80,7 @@ export const send = (id, isTrade, setChange, change, userId) => (
 export const cancel = (id, change, setChange, userId) => (
   <Tooltip content="Cancel">
     <IconButton
-      variant="icon"
+      variant="gradient"
       color="white"
       className="items-center justify-center flex "
       onClick={() => { updateFailPackage(id, userId, change, setChange);}}

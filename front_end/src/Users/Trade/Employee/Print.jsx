@@ -17,15 +17,15 @@ export const Print = React.forwardRef((props, ref) => {
           <td className="mx-auto border-2 border-gray-300">
             <div>
               <p>Họ tên địa chỉ người gửi</p>
-              <p>Anthony Fernandez 63/120 Le Duc THo</p>
-              <p>So Dien thoai: 0365280358</p>
+              <p>{props.sendName} {props.sendAddress}</p>
+              <p>So Dien thoai: {props.sendPhone}</p>
             </div>
           </td>
           <td className="mx-auto border-2 border-gray-300">
             <div>
               <p>Họ tên địa chỉ người nhận</p>
-              <p>Anthony Fernandez 63/120 Le Duc THo</p>
-              <p>So Dien thoai: 0365280358</p>
+              <p>{props.receiveName} {props.receiveAddress}</p>
+              <p>So Dien thoai: {props.receivePhone}</p>
             </div>
           </td>
         </tr>
@@ -39,7 +39,7 @@ export const Print = React.forwardRef((props, ref) => {
           <td className="mx-auto border-2 border-gray-300">
             <div>
               <p>Khối lượng tịnh:</p>
-              <p>2kg</p>
+              <p>{props.weight}</p>
             </div>
           </td>
         </tr>
