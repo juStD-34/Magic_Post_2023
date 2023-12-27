@@ -1,23 +1,25 @@
-import React, {useState} from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../../../shared/Layout/Navbar";
 import Sidebar from "../../../shared/Layout/Sidebar/Sidebar";
 import TBody from "../../../shared/Table/TBody"
 import TableInfor from "../../../shared/Table/components/TableInfor";
 import { Tabss } from '../../../shared/Table/components/tab';
+import { getPackageInfor } from "../../../utils/getPackageByTime";
+import { timeNormalize } from "../../../utils/deliPackInfor";
 
 const TABS = [
   {
-    label: "Ongoing",
+    label: "Arrived",
     value: "123",
   },
   {
-    label: "Outgoing",
+    label: "Sent",
     value: "456",
   },
 ];
 
-const resHead = ["Package's ID", "FROM", "Date", "Status"];
-const fakeHead = ["Package's ID", "TO", "Date", "Status"];
+const ArrivedPackagesHead = ["Package's Code", "Employee Accepted", "Date"];
+const SentPackagesHead = ["Package's Code", "Employee Assigned", "Date"];
 
 let res = [
   {
@@ -111,19 +113,62 @@ let fake = [
 
 
 let TABLE_ROWS = res;
-let TABLE_HEAD = resHead;
+let TABLE_HEAD = ArrivedPackagesHead;
 
-const CentralManager = () => {
+const CentralManager = (postId) => {
   const [page, setPage] = React.useState(0);
-  const [isTrade, setIsTrade] = useState(true);
+  const [isTrade, setIsTrade] = useState(true);  //true: Arrived, false: Sent
+  const [fromtDate, setFromDate] = useState("");
+  const [toDate, setToDate] = useState("");
+  const [arrivedPackages, setArrivedPackages] = useState([]);
+  const [sentPackages, setSentPackages] = useState([]);
+
+  useEffect(() => {
+    const fetchData = () => {
+      getPackageInfor(postId, fromtDate, toDate, "Arrived")
+        .then((data) => {
+          console.log(data);
+          setArrivedPackages(data.Packages.map((pack) => {
+            return {
+              code: pack.packageCode,
+              employeeAcceptedID: pack.employeeAssignTimeArrivedID,
+              date: timeNormalize(pack.timeArrived)
+            }
+          }));
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+      getPackageInfor(postId, fromtDate, toDate, "Sent")
+        .then((data) => {
+          setSentPackages(data.Packages.map((pack) => {
+            return {
+              code: pack.packageCode,
+              employeeAcceptedID: pack.employeeAssignTimeWentID,
+              date: timeNormalize(pack.timeWent)
+            }
+          }));
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+
+    }
+
+    fetchData();
+  }, [fromtDate, toDate]);
+
+  console.log("arrived",arrivedPackages);
+  console.log("sent",sentPackages);
 
   if (isTrade) {
-    TABLE_ROWS = res;
-    TABLE_HEAD = resHead;
+    TABLE_ROWS = arrivedPackages;
+    TABLE_HEAD = ArrivedPackagesHead;
   } else {
-    TABLE_ROWS = fake;
-    TABLE_HEAD = fakeHead;
+    TABLE_ROWS = sentPackages;
+    TABLE_HEAD = SentPackagesHead;
   }
+
 
   return (
     <div className="flex bg-white">
@@ -135,9 +180,11 @@ const CentralManager = () => {
             head="All packages"
             intro="all packages sent and received"
             add="hidden"
-            statistic = {true}
+            statistic={true}
+            setFromDate={setFromDate}
+            setToDate={setToDate}
           />
-          <Tabss TABS={TABS} setIsTrade={setIsTrade} setPage={setPage}  />
+          <Tabss TABS={TABS} setIsTrade={setIsTrade} setPage={setPage} />
           <TBody
             className="mt-4 border-2 border-gray-200 rounded-lg"
             TABLE_ROWS={TABLE_ROWS}

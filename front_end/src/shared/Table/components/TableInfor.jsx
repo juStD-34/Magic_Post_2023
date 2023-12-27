@@ -13,7 +13,7 @@ import { Button } from "flowbite-react";
 import { NavLink } from "react-router-dom";
 
 
-export default function TableInfor({ head, intro, add, statistic }) {
+export default function TableInfor({ head, intro, add, statistic , setFromDate, setToDate}) {
   return (
     <>
       <div className="flex flex-row">
@@ -27,10 +27,10 @@ export default function TableInfor({ head, intro, add, statistic }) {
         </div>
         {statistic && <div className="w-[40%] lg:w-[40%] flex pb-2 gap-2">
           <LocalizationProvider dateAdapter={AdapterDayjs} >
-              <DatePicker label="From" defaultValue={dayjs()}  />
+              <DatePicker label="From" defaultValue={dayjs()} onChange = {(newValue) => {setFromDate(newValue.format("YYYY-MM-DD"))}}  />
           </LocalizationProvider>
           <LocalizationProvider dateAdapter={AdapterDayjs} >
-              <DatePicker label="To" defaultValue={dayjs()}  />
+              <DatePicker label="To" defaultValue={dayjs()} onChange = {(newValue) => {setToDate(newValue.format("YYYY-MM-DD"))}}  />
           </LocalizationProvider>
         </div>}
       </div>

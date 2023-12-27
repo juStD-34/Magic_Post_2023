@@ -29,7 +29,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
 
           <Route path="/central/manager/account" element={<CentralAccount />} />
-          <Route path="/central/manager/statistic" element={<CentralManager />} />
+          <Route path="/central/manager/statistic" element={<CentralManager postId = {post_officeID} />} />
           <Route path="/central/employee" element={<CentralEmployee />} />
 
           <Route path="/trade/manager/account" element={<TradeAccount />} />

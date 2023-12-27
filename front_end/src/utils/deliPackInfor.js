@@ -36,7 +36,7 @@ const getDeliPackage = async (postId, packageCode) => {
     }
 }
 
-const dateNormalize = (isoDate) => {
+export const dateNormalize = (isoDate) => {
     const originalDate = new Date(isoDate);
 
     const year = originalDate.getFullYear();
@@ -47,4 +47,17 @@ const dateNormalize = (isoDate) => {
     // const seconds = originalDate.getSeconds();
 
     return `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+}
+
+export const timeNormalize = (isoDate) => {
+    const originalDate = new Date(isoDate);
+
+    const year = originalDate.getFullYear();
+    const month = originalDate.getMonth() + 1; // Tháng bắt đầu từ 0, nên cộng thêm 1
+    const day = originalDate.getDate();
+    const hours = originalDate.getHours();
+    const minutes = originalDate.getMinutes();
+    const seconds = originalDate.getSeconds();
+
+    return `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')} ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 }

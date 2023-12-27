@@ -8,15 +8,15 @@ import { fetchIncomingPackages, fetchOutgoingPackages } from "../../utils/mailUt
 import { takeReceivingPostID, takeSendingPostID, PostInfo } from "../../utils/postInfor";
 
 const incomingHead = [
-  "Package's ID",
+  "Package's Code",
   "Send Office's name",
-  "Confirm",
+  "Confirm Arrived",
 ];
 
 const pendingHead = [
-  "Package's ID",
+  "Package's Code",
   "Receive Office's name",
-  "Confirm",
+  "Send",
 ];
 
 const TABS = [
@@ -29,142 +29,6 @@ const TABS = [
     value: "456",
   },
 ];
-
-// let pending = [
-//   {
-//     name: "456",
-
-//     address: "Programator",
-
-//     phone: "Ha noi Hoa binh",
-//     online: true,
-//   },
-//   {
-//     name: "789",
-//     online: false,
-
-//     address: "Executive",
-//     phone: "Ha noi Hoa binh",
-//   },
-//   {
-//     name: "123321",
-//     address: "Programator",
-
-//     phone: "Ha noi Hoa binh",
-//     online: true,
-//   },
-//   {
-//     name: "12312",
-//     address: "Manager",
-//     online: false,
-
-//     phone: "Ha noi Hoa binh",
-//   },
-//   {
-//     name: "asS",
-//     online: true,
-
-//     address: "Manager",
-//     phone: "Ha noi Hoa binh",
-//   },
-//   {
-//     name: "qwe",
-
-//     address: "Programator",
-
-//     phone: "Ha noi Hoa binh",
-//     online: true,
-//   },
-//   {
-//     name: "789",
-//     online: false,
-
-//     address: "Executive",
-
-//     phone: "Ha noi Hoa binh",
-//   },
-//   {
-//     name: "123321",
-//     address: "Programator",
-
-//     phone: "Ha noi Hoa binh",
-//     online: true,
-//   },
-//   {
-//     name: "x ",
-//     address: "Manager",
-//     online: false,
-
-//     phone: "Ha noi Hoa binh",
-//   },
-//   {
-//     name: "a3",
-
-//     address: "Manager",
-//     phone: "Ha noi Hoa binh",
-//     online: true,
-//   },
-//   {
-//     name: "1sxx",
-//     address: "Manager",
-
-//     online: true,
-
-//     phone: "Ha noi Hoa binh",
-//   },
-// ];
-
-// let incoming = [
-//   {
-//     name: "1",
-//     address: "Manager",
-//     phone: "Ha noi Hoa binh",
-//     online: true,
-//   },
-//   {
-//     name: "2",
-
-//     address: "Programator",
-
-//     phone: "Ha noi Hoa binh",
-//     online: false,
-//   },
-//   {
-//     name: "3",
-
-//     address: "Executive",
-//     phone: "Ha noi Hoa binh",
-
-//     online: false,
-//   },
-//   {
-//     name: "4",
-//     address: "Manager",
-//     phone: "Ha noi Hoa binh",
-//     online: true,
-//   },
-//   {
-//     name: "5",
-//     address: "Executive",
-//     phone: "Ha noi Hoa binh",
-//     online: false,
-//   },
-//   {
-//     name: "6",
-//     address: "Programator",
-//     phone: "Ha noi Hoa binh",
-//     online: true,
-//   },
-//   {
-//     name: "7",
-//     address: "Manager",
-//     phone: "Ha noi Hoa binh",
-//     online: false,
-//   },
-// ];
-
-// let TABLE_ROWS = incoming;
-// let TABLE_HEAD = incomingHead;
 
 function CentralEmployee() {
   const postId = 1;

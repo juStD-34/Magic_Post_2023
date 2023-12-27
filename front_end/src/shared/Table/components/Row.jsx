@@ -21,11 +21,11 @@ export function Row({ type, row, isTrade , setChange, change, userId}) {
       break;
     case "employee":
       isTrade
-        ? (icons = [deliver(onLine), confirm(id, isTrade, setChange, change, userId)])
-        : (icons = [deliver(onLine), confirm(id, isTrade, setChange, change, userId)]);
+        ? (icons = [confirm(id, isTrade, setChange, change, userId)])
+        : (icons = [confirm(id, isTrade, setChange, change, userId)]);
       break;
     case "statistic":
-      icons = [deliver(onLine)];
+      icons = [];
       break;
     case "TradeManager":
       rowData.pop();

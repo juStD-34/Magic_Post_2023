@@ -1,6 +1,7 @@
 const express = require('express');
 const mysql = require('mysql');
 const cors = require('cors');
+const dayjs = require('dayjs')
 
 const app = express();
 const port = 3001;
@@ -183,7 +184,7 @@ app.post('/packageStatus', (req, res) => {
     status.employeeAssignTimeWentID,
     status.timeArrived,
     status.description,
-    status.employeeAssignTimeArrivedID ,
+    status.employeeAssignTimeArrivedID,
     status.timeWent,
   ];
   const query = `
@@ -220,7 +221,7 @@ app.put('/updateStatus', (req, res) => {
   })
 })
 
-app.put('/updateSuccessPackage', (req, res)=> {
+app.put('/updateSuccessPackage', (req, res) => {
   const packCode = req.body.code;
   const query = ` UPDATE package SET statusName = "Success" WHERE code = ?;`;
   db.query(query, [packCode], (err) => {
@@ -247,9 +248,9 @@ app.get('/getGuesspathByCode', (req, res) => {
     }
   })
 })
-app.put('/updateFailedPackage', (req, res)=> {
+app.put('/updateFailedPackage', (req, res) => {
   const Guess_path = req.body;
-  const query = `UPDATE package SET Guess_path = ? WHERE code = ?`;	
+  const query = `UPDATE package SET Guess_path = ? WHERE code = ?`;
   db.query(query, [Guess_path, req.body.code], (err) => {
     if (err) {
       console.error('Error executing query:', err.message);
@@ -265,13 +266,41 @@ app.get('/getDeliPackage', (req, res) => {
   const postId = req.query.postId;
   const packageCode = req.query.packageCode;
 
-  const query = `Select timeArrived from packagestatus where current_po_id = ? and packageCode = ?`;	
+  const query = `Select timeArrived from packagestatus where current_po_id = ? and packageCode = ?`;
   db.query(query, [postId, packageCode], (err, rows) => {
     if (err) {
       console.error('Error executing query:', err.message);
       res.status(500).json({ error: 'Internal Server Error' });
     } else {
       res.json({ Time: rows[0] });
+    }
+  })
+})
+
+app.get('/getPackageByTime', (req, res) => {
+  const postId = req.query.postId.postId;
+  const startDate = req.query.startDate;
+  const endDate = dayjs(req.query.endDate).add(1, 'day').format('YYYY-MM-DD');
+  const type = req.query.type;
+  let query = '';
+  if (type == "Arrived") {
+    query = `
+    SELECT * FROM packagestatus
+    WHERE current_po_id = ? AND timeArrived > ? AND timeArrived < ?;
+  `;
+  } else {
+    query = `
+    SELECT * FROM packagestatus
+    WHERE current_po_id = ? AND timeWent > ? AND timeWent < ?;
+    `;
+  }
+  db.query(query, [postId, startDate, endDate], (err, rows) => {
+    if (err) {
+      console.error('Error executing query:', err.message);
+      res.status(500).json({ error: 'Internal Server Error' });
+    } else {
+      // console.log(rows);
+      res.json({ Packages: rows });
     }
   })
 })
