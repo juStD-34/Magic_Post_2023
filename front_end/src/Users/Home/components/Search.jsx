@@ -3,6 +3,8 @@ import Track from './Track';
 
 const Search = () => {
   const [track, setTrack] = React.useState(false);
+  const [packId, setPackId] = React.useState('');
+  console.log(packId);
   return (
     <div className='w-full py-16 text-black px-4'>
       <div className='max-w-[1240px] mx-auto grid lg:grid-cols-5'>
@@ -18,6 +20,7 @@ const Search = () => {
               className='p-3 flex w-full rounded-md text-black'
               type='text'
               placeholder='Ex: 123456789'
+              onChange={(e) => setPackId(e.target.value)}
             />
             <button onClick={() => setTrack(true)} className='bg-blue-400 text-black rounded-md font-medium w-[200px] ml-4 my-6 px-6 py-3'>
               Find
@@ -30,7 +33,7 @@ const Search = () => {
         </div>
       </div>
       {/* Info table */}
-      {track && <Track className={track}/>}
+      {track && <Track className={track} packId={packId}/>}
     </div>
   );
 };
