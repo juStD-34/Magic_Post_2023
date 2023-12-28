@@ -20,9 +20,13 @@ const TABS = [
 const TABLE_HEAD = [
   "Office's Name",
   "Office's Address",
-  "Manager Name",
+  "Manager's ID",
   "Action",
 ];
+
+const row = [
+  {1:  "Name", 2: "Address", 3: "City",}
+]
 
 let res = [
   {
@@ -122,7 +126,30 @@ export default function Manager() {
   const [TPost, setTPost] = useState();
   const [CPost, setCPost] = useState();
   const type = "ceo";
+  const {getPostOffice} = require("../../Authorization/Info");
 
+
+  const [userData, setUserdata]= useState([]); 
+    useEffect( ()=>{
+        const getUserdata= async()=>{
+            const reqData= await fetch("http://localhost:3001/postOffice");
+            const resData= await reqData.json();
+            setUserdata(resData);
+            console.log(resData);
+        }
+        getUserdata();
+    },[]);
+    var data2 = [{"name":"Lenovo Thinkpad 41A4298","website":"google"},
+    {"name":"Lenovo Thinkpad 41A2222","website":"google"},
+    {"name":"Lenovo Thinkpad 41Awww33","website":"yahoo"},
+    {"name":"Lenovo Thinkpad 41A424448","website":"google"},
+    {"name":"Lenovo Thinkpad 41A429rr8","website":"ebay"},
+    {"name":"Lenovo Thinkpad 41A429ff8","website":"ebay"},
+    {"name":"Lenovo Thinkpad 41A429ss8","website":"rediff"},
+    {"name":"Lenovo Thinkpad 41A429sg8","website":"yahoo"}]
+
+  var data = userData.map(({poName, poAddress, managerID}) => ({poName, poAddress, managerID}));
+  // var data_filter = data.filter( element => element.role =="0");
   //Take CPost and TPost data
   useEffect(() => {
     const fetchTPostData = async () => {
@@ -160,13 +187,13 @@ export default function Manager() {
     if (TPost) {
       const generatedTPData = TPost.map((post) => {
         return {
-          name: post.postOfficeName,
-          address: post.postOfficeAddress,
+          name: post.poName,
+          address: post.poAddress,
           account: {
             staffId: post.managerID,
-            usrname: "", // Điền thông tin tài khoản nếu có
+            username: "", // Điền thông tin tài khoản nếu có
             password: "", // Điền thông tin tài khoản nếu có
-            phone: post.managerPhone,
+            phone: post.phone,
           },
         };
       });
@@ -179,13 +206,13 @@ export default function Manager() {
     if (CPost) {
       const generatedCPData = CPost.map((post) => {
         return {
-          name: post.postOfficeName,
-          address: post.postOfficeAddress,
+          name: post.poName,
+          address: post.poAddress,
           account: {
             staffId: post.managerID,
-            usrname: post.managerFullName, 
+            username: "post.managerFullName", 
             password: "xxx",
-            phone: post.managerPhone,
+            phone: post.phone,
           },
         };
       });
@@ -212,7 +239,7 @@ export default function Manager() {
               setIsTrade={setIsTrade}
             />
             <TBody
-              TABLE_ROWS={TABLE_ROWS}
+              TABLE_ROWS={data}
               type={type}
               TABLE_HEAD={TABLE_HEAD}
               page={page}
