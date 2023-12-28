@@ -155,7 +155,7 @@ const Package = (data) => {
                         setInform("Package stored successful");
                         setTick(true);
                         handleAddPackage();
-                        // clear();
+                        clear();
                       } else {
                         setInform("Please fill all the information");
                         setTick(false);

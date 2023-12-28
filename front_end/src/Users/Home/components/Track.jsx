@@ -2,8 +2,8 @@ import React from "react";
 
 const Track = (props) => {
   var data =
-    props.inFo.length == 0 ? (
-      <div className="relative pl-8 sm:pl-32 py-6 group"><h1>No package found</h1></div>
+    props.inFo.length === 0 ? (
+      <div className="relative pl-8 sm:px-auto py-6 group text-red-400"><h1>No package found</h1></div>
     ) : (
       props.inFo.map((item) => {
         return (

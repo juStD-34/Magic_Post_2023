@@ -37,7 +37,8 @@ function CentralEmployee() {
   const [pending, setPending] = useState([]);
   const [incoming, setIncoming] = useState([]);
   const type = "employee";
-  let TABLE_ROWS;
+  const [TABLE_ROWS, setTABLE_ROWS] = useState([]);
+  const [changeRow, setChangeRow] = useState(true);
   let TABLE_HEAD;
 
   const [change, setChange] = useState(true);
@@ -128,13 +129,19 @@ function CentralEmployee() {
     }
   }, [incomingPackage, sendingPostName]);
 
+  
+  // console.log("pending", pending);
+  // console.log("incoming", incoming);
+  useEffect(() => {
+      isTrade ? setTABLE_ROWS(incoming) : setTABLE_ROWS(pending);
+  }, [changeRow, isTrade]);
 
-
+  // console.log("TABLE_ROWS", TABLE_ROWS);
   if (isTrade) {
-    TABLE_ROWS = incoming;
+    // TABLE_ROWS = incoming;
     TABLE_HEAD = incomingHead;
   } else {
-    TABLE_ROWS = pending;
+    // TABLE_ROWS = pending;
     TABLE_HEAD = pendingHead;
   }
 
@@ -151,6 +158,10 @@ function CentralEmployee() {
               setIsTrade={setIsTrade}
               setPage={setPage}
               type={type}
+              TABLE_ROWS={TABLE_ROWS}
+              setTABLE_ROWS = {setTABLE_ROWS}
+              changeRow={changeRow}
+              setChangeRow={setChangeRow}
             />
             <TBody
               TABLE_ROWS={TABLE_ROWS}
@@ -159,8 +170,8 @@ function CentralEmployee() {
               page={page}
               setPage={setPage}
               isTrade={isTrade}
-              setChange={setChange}
               change={change}
+              setChange={setChange}
             />
           </Card>
         </main>

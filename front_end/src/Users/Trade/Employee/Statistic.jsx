@@ -16,31 +16,14 @@ const TABS = [
 const successHead = ["Package's Code", "Receive's Address", "Receiver Name", "Receiver Phone"];
 const failedHead = ["Package's Code", "Date", "Receiver Address", "Sender Address", "Sender Phone"];
 
-const success = [
-  {
-    code: "1231ASASC",
-    receiverAddress: "Ha noi My DINh Thai",
-    receiverName: "Success",
-    receiverPhone: "27/01/2023",
-  }
-]
-
-const failed = [
-  {
-    code: "448asdDAd",
-    date: "Hoa binh adu",
-    receiverAdress : "Wrong package delivered",
-    senderAddress: "27/01/2023",
-    senderPhone: "27/01/2023",
-  }
-]
 
 const TradeStatistic = (postId, userId) => {
   const [page, setPage] = React.useState(0);
   const [isTrade, setIsTrade] = React.useState(true);
-  const [successPackage, setSuccessPackage] = React.useState(true);
-  const [failedPackage, setFailedPackage] = React.useState(false);
-
+  const [successPackage, setSuccessPackage] = React.useState([]);
+  const [failedPackage, setFailedPackage] = React.useState([]);
+  const [change, setChange] = React.useState(true);
+  const [TABLE_ROWS, setTABLE_ROWS] = React.useState([]);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -50,10 +33,10 @@ const TradeStatistic = (postId, userId) => {
           }
         });
         const failed = await axios.get('http://localhost:3001/getFailedPackage');
-        
+
         console.log("FFF", failed.data.Packages);
         console.log(success.data.Packages[0]);
-  
+
         setSuccessPackage(success.data.Packages.map(pack => {
           return {
             code: pack.code,
@@ -62,7 +45,7 @@ const TradeStatistic = (postId, userId) => {
             receiverPhone: pack.receiverPhone
           }
         }));
-  
+
         const failedPackageDetails = await Promise.all(
           failed.data.Packages.map(async (pack) => {
             const code = pack.packageCode;
@@ -82,23 +65,25 @@ const TradeStatistic = (postId, userId) => {
             }
           })
         );
-  
+
         setFailedPackage(failedPackageDetails.filter(detail => detail !== null));
       } catch (error) {
         console.error(error);
         // Xử lý lỗi nếu cần thiết
       }
     };
-  
+
     fetchData();
   }, [postId]);
-  
+
+
+  useEffect(() => {
+    isTrade ? setTABLE_ROWS(successPackage) : setTABLE_ROWS(failedPackage);
+  }, [change, isTrade])
 
   console.log("success", successPackage);
   console.log("failed", failedPackage);
-  const TABLE_ROWS = isTrade ? success : failed;
   const TABLE_HEAD = isTrade ? successHead : failedHead;
-
   return (
     <div className="flex bg-white">
       <Sidebar />
@@ -113,7 +98,7 @@ const TradeStatistic = (postId, userId) => {
             />
             <div className="flex flex-col sm:flex-row">
               <Tabss TABS={TABS} setIsTrade={setIsTrade} setPage={setPage} />
-              <SearchPack />
+              <SearchPack TABLE_ROWS={TABLE_ROWS} setTABLE_ROWS={setTABLE_ROWS} change={change} setChange={setChange} />
             </div>
             <TBody
               className="mt-4 border-2 border-gray-200 rounded-lg"

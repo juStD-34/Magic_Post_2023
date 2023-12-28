@@ -3,29 +3,29 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
 import { IoIosArrowBack } from "react-icons/io";
-// import { TfiAgenda } from "react-icons/tfi";
-// import { TfiCheckBox } from "react-icons/tfi";
+import { TfiAgenda } from "react-icons/tfi";
+import { TfiCheckBox } from "react-icons/tfi";
 import { IoStatsChart } from "react-icons/io5";
 import { FiPackage } from "react-icons/fi";
-// import { BsFillPersonLinesFill } from "react-icons/bs";
+import { BsFillPersonLinesFill } from "react-icons/bs";
 import { FaShippingFast } from "react-icons/fa";
-// import { SiOnlyoffice } from "react-icons/si";
+import { SiOnlyoffice } from "react-icons/si";
 import { GiConfirmed } from "react-icons/gi";
-// import { FaUser } from "react-icons/fa";
-// import { GiCancel } from "react-icons/gi";
+import { FaUser } from "react-icons/fa";
+import { GiCancel } from "react-icons/gi";
 
-// import { ImOffice } from "react-icons/im";
+import { ImOffice } from "react-icons/im";
 import { useMediaQuery } from "react-responsive";
 import { MdMenu } from "react-icons/md";
 // import SubMenu from "./Submenu";
 
-// const CEO = [
-//   {
-//     link: "/manager",
-//     name: "Offices",
-//     icon: ImOffice,
-//   }
-// ]
+const CEO = [
+  {
+    link: "/manager",
+    name: "Offices",
+    icon: ImOffice,
+  }
+]
 
 const TradeEmployee = [
   {
@@ -50,6 +50,9 @@ const TradeEmployee = [
   },
 
 ]
+var sidebar;
+const {getLogin} = require('../../../Authorization/Auth')
+console.log(getLogin());
 
 // const res = [
 //   {
@@ -61,40 +64,61 @@ const TradeEmployee = [
 //   },
 // ];
 
-// const TradeManager = [
-//   {
-//     link: "/trade/manager/account",
-//     name: "Employee",
-//     icon: BsFillPersonLinesFill,
-//   },
-//   {
-//     link: "/trade/manager/statistic",
-//     name: "Statistic",
-//     icon: IoStatsChart,
-//   }
-// ]
+const TradeManager = [
+  {
+    link: "/trade/manager/account",
+    name: "Employee",
+    icon: BsFillPersonLinesFill,
+  },
+  {
+    link: "/trade/manager/statistic",
+    name: "Statistic",
+    icon: IoStatsChart,
+  }
+]
 
 
-// const CentralManager = [
-//   {
-//     link: "/central/manager/account",
-//     name: "Employee",
-//     icon: BsFillPersonLinesFill,
-//   },
-//   {
-//     link: "/central/manager/statistic",
-//     name: "Statistic",
-//     icon: IoStatsChart,
-//   }
-// ]
+const CentralManager = [
+  {
+    link: "/central/manager/account",
+    name: "Employee",
+    icon: BsFillPersonLinesFill,
+  },
+  {
+    link: "/central/manager/statistic",
+    name: "Statistic",
+    icon: IoStatsChart,
+  }
+]
 
-// const CentralEmployee = [
-//   {
-//     link : "/central/employee",
-//     name : "Confirm",
-//     icon : TfiCheckBox,
-//   },
-// ]
+const CentralEmployee = [
+  {
+    link : "/central/employee",
+    name : "Confirm",
+    icon : TfiCheckBox,
+  },
+]
+
+switch(getLogin()){
+  case 'trade/employee':
+    sidebar = CentralEmployee;
+    break;
+  case 'central/employee':
+    sidebar = TradeEmployee;
+    break;
+  case 'central/manager':
+    sidebar = CentralManager
+    break;
+  case 'trade/manager':
+    sidebar = TradeManager
+    break;
+  case 'manager':
+    sidebar = CEO;
+    break;
+  default:
+    sidebar = sidebar = CentralEmployee;
+    break;
+}
 
 function Sidebar() {
   let isTab = useMediaQuery({ query: "(max-width: 768px)" });
@@ -171,7 +195,7 @@ function Sidebar() {
 
         <div className="flex flex-col h-full">
           <ul className="whitespace-pre px-2.5 text-[0.9rem] py-5 flex flex-col gap-1 font-medium overflow-x-hidden scrollbar-thin scrollbar-track-white scrollbar-thumb-slate-100 h-[70%] max-h=[68%]">
-            {TradeEmployee.map((menu) => (
+            {TradeManager.map((menu) => (
               <li key={menu.name}>
                 <NavLink to={menu.link} className={"link"}>
                   <menu.icon size={23} className="min-w-max"></menu.icon>

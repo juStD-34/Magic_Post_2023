@@ -8,12 +8,12 @@ export const deliPackInfor = async (allPacks) => {
         const postId = pack.current_po_id;
         try {
             const response = await getDeliPackage(postId, packageCode);
-            const timeAdd = response.timeArrived;
-            const date = dateNormalize(timeAdd);
+            console.log("res", response);
+            const date = response?.timeArrived ? dateNormalize(response.timeArrived) : null;
             // console.log("date", date);
 
             // Trả về một đối tượng mới chỉ chứa thông tin packageCode và currentPostId
-            return { packageCode, date };
+            return date ? { code: packageCode, date: date } : null;
         } catch (error) {
             console.log("error", error);
             return null;

@@ -7,7 +7,7 @@ import {
   CardHeader,
 } from "@material-tailwind/react";
 
-const TableHead = ({TABS, setIsTrade, setPage, type }) => {
+const TableHead = ({TABS, setIsTrade, setPage, type, TABLE_ROWS, setTABLE_ROWS, changeRow, setChangeRow }) => {
   let intro = "all sent packages",
     head = "Packages list",
     add = "";
@@ -31,7 +31,7 @@ const TableHead = ({TABS, setIsTrade, setPage, type }) => {
         </div>
         <div className="flex flex-col mx-4 items-center justify-between gap-4 md:flex-row">
           <Tabss TABS={TABS} setIsTrade={setIsTrade} setPage={setPage}  />
-          <SearchPack />
+          <SearchPack TABLE_ROWS={TABLE_ROWS} setTABLE_ROWS={setTABLE_ROWS} change={changeRow} setChange={setChangeRow} />
         </div>
       </CardHeader>
     </div>

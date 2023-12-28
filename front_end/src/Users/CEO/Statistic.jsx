@@ -15,8 +15,8 @@ const CEOStatistic = () => {
   const [page, setPage] = React.useState(0);
 
   const [change, setChange] = React.useState(true);
-  const [fromDate, setFromDate] = React.useState("2023-12-26");
-  const [toDate, setToDate] = React.useState("2023-12-27");
+  const [fromDate, setFromDate] = React.useState("");
+  const [toDate, setToDate] = React.useState("");
   const [arrivedPackages, setArrivedPackages] = React.useState([]);
 
   useEffect(() => {
