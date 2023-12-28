@@ -1,4 +1,4 @@
-import React from "react";
+import {React, useState, useEffect} from "react";
 import Navbar from "../../../shared/Layout/Navbar";
 import Sidebar from "../../../shared/Layout/Sidebar/Sidebar";
 import TBody from "../../../shared/Table/TBody";
@@ -28,8 +28,24 @@ const TABLE_ROWS = [
 ]
 
 const TradeAccount = () => {
-  const [page, setPage] = React.useState(0);
-
+  const [page, setPage] = useState(0);
+  const {getPostOffice} = require('../../../Authorization/Info');
+  const [userData, setUserdata]= useState([]); 
+    useEffect( ()=>{
+      const getUserdata= async()=>{
+          const reqData= await fetch("http://localhost:3001/users");
+          const resData= await reqData.json();
+          setUserdata(resData);
+          console.log(resData);
+      }
+      getUserdata();
+  },[]);
+  var data = userData.map(({id, username, password, role, poWorkID}) => ({id, username, password, role, poWorkID}));
+  var data_filter1 = data.filter( element => element.role == "1");
+  var data_filter2 = data_filter1.filter(element => element.poWorkID == getPostOffice());
+  var data2 = data_filter2.map(({id, username, password, role}) => ({id, username, password, role}));
+  console.log(data);
+  console.log(getPostOffice());
   return (
     <div className="flex bg-white">
       <Sidebar />
@@ -43,7 +59,7 @@ const TradeAccount = () => {
           />
           <TBody
             className="mt-4 border-2 border-gray-200 rounded-lg"
-            TABLE_ROWS={TABLE_ROWS}
+            TABLE_ROWS={data2}
             type="TradeManager"
             TABLE_HEAD={TABLE_HEAD}
             page={page}

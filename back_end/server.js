@@ -47,6 +47,16 @@ app.get("/users", (req, res) => {
   });
 });
 
+app.get("/postOffice", (req, res) => {
+  db.query("SELECT * FROM postoffice", (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+    }
+  });
+});
+
 app.post('/registerMP', (req, res) => {
   const poName = req.body.poName;
   const managerFName = req.body.managerFName;
@@ -256,12 +266,12 @@ app.get('/getPostByType', (req, res) => {
   // console.log(type);
   const query = `
     SELECT
-      po.id AS postOfficeID,
-      po.poName AS postOfficeName,
-      po.poAddress AS postOfficeAddress,
+      po.id AS id,
+      po.poName AS poName,
+      po.poAddress AS poAddress,
       po.managerID AS managerID,
       CONCAT(e.firstName, ' ', e.lastName) AS managerFullName,
-      e.phoneNumber as managerPhone
+      e.phone as phone
     FROM
       postOffice po
     JOIN
