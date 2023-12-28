@@ -5,7 +5,7 @@ export const updateFailPackage = (packCode, userId, change, setChange) => {
     const promise = getGuesspath(packCode);
     Promise.all([promise])
         .then(Guess_path => {
-            const reversedGuessPath = Guess_path[0].Guess_path.split('').reverse().join('');
+            const reversedGuessPath = Guess_path[0].Guess_path.split('-').reverse().join('-');
             const currentPoID = Guess_path[0].current_po_id;
             axios.put('http://localhost:3001/updateFailedPackage', { code: packCode, Guess_path: reversedGuessPath })
                 .then(res => {

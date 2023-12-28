@@ -3,6 +3,7 @@ export const getPostData = async () => {
     try {
         const response = await axios.get("http://localhost:3001/getPostOffice");
         const postData = response.data.PostOffice;
+        console.log(postData, "asdasd");
 
         const formattedData = postData.reduce((acc, post) => {
             const { id, poType, linkPoId, poAddress } = post;
@@ -16,7 +17,7 @@ export const getPostData = async () => {
             return acc;
         }, { post: {}, gatheringPost: {} });
 
-        console.log(formattedData);
+        console.log(formattedData, "jhgjhj");
         return formattedData;
     } catch (err) {
         console.error(err);

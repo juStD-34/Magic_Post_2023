@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import OfficeForm from "./Form/OfficeForm";
-import AccountForm from "./Form/AccountForm";
+import AccountForm2 from "./Form/AccountForm2";
 import EditForm from "./Form/EditForm";
 import StatisticForm from "./Form/StatisticForm";
 import SuccessForm from "./Form/SuccesForm";
@@ -20,7 +20,7 @@ function Modal(data) {
   switch (data.label) {
     case "Account":
       modal = (
-        <AccountForm
+        <AccountForm2
           setShowModal={setShowModal}
           staffId={data.staffId}
           password={data.password}

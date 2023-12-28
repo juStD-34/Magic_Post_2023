@@ -88,7 +88,7 @@ app.post('/registerMP', (req, res) => {
   const managerPhone = req.body.managerPhone;
   const type = req.body.type;
   var role;
-  if (type === 'Centralize Office') {
+  if (type == 'CP') {
     role = 2;
   } else {
     role = 3;
@@ -204,7 +204,7 @@ app.post('/addPackage', (req, res) => {
   } = req.body;
   // console.error(req.body);
   // console.log(req.body.currentPoID, req.body.statusName,req.body.guessPath, fromPoID, toPoID);
-  const query = 'INSERT INTO Package (code,weight,From_Po_id,To_Po_id,Guess_path ,senderName ,senderPhone ,senderAddress ,receiverName ,receiverPhone ,receiverAddress ,statusName ,current_po_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)';
+  const query = 'INSERT INTO Package (code,weight,From_Po_id,To_po_id,Guess_path ,senderName ,senderPhone ,senderAddress ,receiverName ,receiverPhone ,receiverAddress ,statusName ,current_po_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)';
 
   db.query(query, [code, weight, fromPoID, toPoID, guessPath, senderName, senderPhone, senderAddress, receiverName, receiverPhone, receiverAddress, statusName, currentPoID], (err) => {
     if (err) {
@@ -227,7 +227,7 @@ app.put('/updatePackage', (req, res) => {
       receiverPhone = ?,
       Weight = ?,
       From_Po_id = ?,
-      To_Po_id = ?,
+      To_po_id = ?,
       Guess_path = ?,
       current_po_id = ?,
       statusName = ?
@@ -241,7 +241,7 @@ app.put('/updatePackage', (req, res) => {
     updatedPackage.receiverPhone,
     updatedPackage.Weight,
     updatedPackage.From_Po_id,
-    updatedPackage.To_Po_id,
+    updatedPackage.To_po_id,
     updatedPackage.Guess_path,
     updatedPackage.current_po_id,
     updatedPackage.statusName,
@@ -414,9 +414,10 @@ app.get('/getDeliPackage', (req, res) => {
 })
 
 app.get('/getPackageByTime', (req, res) => {
-  const postId = req.query.postId.postId;
+  const postId = req.query.postId;
   const startDate = req.query.startDate;
   const endDate = dayjs(req.query.endDate).add(1, 'day').format('YYYY-MM-DD');
+  // console.log(postId, startDate, endDate);
   const type = req.query.type;
   let query = '';
   if (type == "Arrived") {
@@ -487,7 +488,7 @@ app.get('/getAllPackage', (req, res) => {
   const endDate = dayjs(req.query.endDate).add(1, 'day').format('YYYY-MM-DD');
   const type = req.query.type;
   const query = `
-    SELECT ps.packageCode, p.From_po_Id, p.to_po_id, ps.timeArrived,ps.timeWent, p.statusName 
+    SELECT ps.packageCode, p.From_Po_id, p.To_po_id, ps.timeArrived,ps.timeWent, p.statusName 
     FROM packagestatus ps Join package p
     ON ps.packageCode = p.code AND ps.current_po_id = p.From_po_Id
     WHERE ps.timeArrived > ? AND ps.timeArrived < ?;

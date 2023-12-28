@@ -19,6 +19,7 @@ function Login() {
         setLoginStatus(response.data.message);
       }else{
         setLoginStatus("SUCCESS");
+        console.log(response.data[0].id);
         switch(response.data[0].role){
           case 0:
             setLogin("central/employee");
@@ -30,19 +31,19 @@ function Login() {
             setLogin("trade/employee");
             setWorkerID(response.data[0].id); 
             setPostOffice(response.data[0].poWorkID);
-            window.location.href = "/trade/employee";
+            window.location.href = "/trade/employee/package";
             break;
           case 2:
             setLogin("central/manager");
             setWorkerID(response.data[0].id); 
             setPostOffice(response.data[0].poWorkID);
-            window.location.href = "/central/manager";
+            window.location.href = "/central/manager/account";
             break;
           case 3:
             setLogin("trade/manager");
             setWorkerID(response.data[0].id); 
             setPostOffice(response.data[0].poWorkID);
-            window.location.href = "/trade/manager";
+            window.location.href = "/trade/manager/account";
             break;
           case 4:
             setLogin("manager");

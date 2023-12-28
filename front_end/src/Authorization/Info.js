@@ -1,4 +1,4 @@
-let workerID = localStorage.getItem("worker") || "0";
+let ID = localStorage.getItem("ID") || "0";
 let postOffice = localStorage.getItem("postOffice") || "0";
 let Type = localStorage.getItem("Type") || "0";
 function setPostOffice(postOffice) {
@@ -11,12 +11,12 @@ function getPostOffice() {
 }
 
 function setWorkerID(ID) {
-  workerID = ID;
-  localStorage.setItem("workerID", ID);
+  ID = ID;
+  localStorage.setItem("ID", ID);
 }
 
 function getWorkerID() {
-  return workerID;
+  return ID;
 }
 
 function setType(Type) {

@@ -52,7 +52,7 @@ const TradeEmployee = [
 ]
 var sidebar;
 const {getLogin} = require('../../../Authorization/Auth')
-console.log(getLogin());
+console.log('z',getLogin());
 
 // const res = [
 //   {
@@ -101,10 +101,10 @@ const CentralEmployee = [
 
 switch(getLogin()){
   case 'trade/employee':
-    sidebar = CentralEmployee;
+    sidebar = TradeEmployee;
     break;
   case 'central/employee':
-    sidebar = TradeEmployee;
+    sidebar = CentralEmployee;
     break;
   case 'central/manager':
     sidebar = CentralManager
@@ -195,7 +195,7 @@ function Sidebar() {
 
         <div className="flex flex-col h-full">
           <ul className="whitespace-pre px-2.5 text-[0.9rem] py-5 flex flex-col gap-1 font-medium overflow-x-hidden scrollbar-thin scrollbar-track-white scrollbar-thumb-slate-100 h-[70%] max-h=[68%]">
-            {TradeManager.map((menu) => (
+            {sidebar.map((menu) => (
               <li key={menu.name}>
                 <NavLink to={menu.link} className={"link"}>
                   <menu.icon size={23} className="min-w-max"></menu.icon>

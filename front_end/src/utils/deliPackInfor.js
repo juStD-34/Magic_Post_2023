@@ -8,7 +8,7 @@ export const deliPackInfor = async (allPacks) => {
         const postId = pack.current_po_id;
         try {
             const response = await getDeliPackage(postId, packageCode);
-            console.log("res", response);
+            // console.log("res", response);
             const date = response?.timeArrived ? dateNormalize(response.timeArrived) : null;
             // console.log("date", date);
 
@@ -20,13 +20,14 @@ export const deliPackInfor = async (allPacks) => {
         }
     }));
 
-    // console.log(extractedInfoArray);
+    // console.log(extractedInfoArray, "extracted");
     return extractedInfoArray;
 }
 
 
 const getDeliPackage = async (postId, packageCode) => {
     try {
+        console.log("postId", postId, "packageCode", packageCode);
         const response = await axios.get('http://localhost:3001/getDeliPackage', { params: { postId: postId, packageCode: packageCode } });
         // console.log(response.data);
         return response.data.Time;

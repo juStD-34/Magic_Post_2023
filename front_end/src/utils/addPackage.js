@@ -2,6 +2,7 @@ import { getPostIDFromLocation } from "./path"
 import { generatePath } from "./path"
 import axios from "axios"
 export const packageNormalization = (packages) => {
+    console.log(packages.receiverAddress, "dnjandaaskdm");
     const fromPoID = parseInt(getPostIDFromLocation(packages.senderAddress));
     const toPoID = parseInt(getPostIDFromLocation(packages.receiverAddress));
     const guessPath = generatePath(fromPoID, toPoID);
@@ -25,8 +26,9 @@ export const packageNormalization = (packages) => {
 
 
 export const addPackage = (packages, userId) => {
-    console.log("user", userId)
+    console.log("user", packages);
     const packageData = packageNormalization(packages);
+    console.log(packageData, "packageDatass");
     const packStatus = {
         packageCode : packageData.code,
         currentPoID : packageData.fromPoID,

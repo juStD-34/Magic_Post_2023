@@ -17,13 +17,13 @@ export const autoForwarding = (packageCode, isTrade, change, setChange, userId) 
 }
 export const updatePackage = (myPack, type, change, setChange, userId) => {
     console.log("myPack", myPack);
-    console.log(userId)
+    console.log('pack', myPack)
     if (myPack) {
         let {
             code,
             From_Po_id,
             Guess_path,
-            To_Po_id,
+            To_po_id,
             weight,
             current_po_id,
             id,
@@ -39,7 +39,7 @@ export const updatePackage = (myPack, type, change, setChange, userId) => {
             id,
             code,
             From_Po_id,
-            To_Po_id,
+            To_po_id,
             weight,
             statusName: type === false ? "Arriving" : "Pending",
             receiverName,

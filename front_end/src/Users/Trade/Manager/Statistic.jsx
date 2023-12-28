@@ -123,7 +123,6 @@ const TradeManager = ({postId, userId}) => {
   const [toDate, setToDate] = useState("");
   const [arrivedPackages, setArrivedPackages] = useState([]);
   const [sentPackages, setSentPackages] = useState([]);
-
   useEffect(() => {
     const fetchData = () => {
       getPackageInfor(postId, fromtDate, toDate, "Arrived")
@@ -154,7 +153,8 @@ const TradeManager = ({postId, userId}) => {
         })
 
     }
-
+    // console.log(arrivedPackages, sentPackages, userId, postId);
+    
     fetchData();
   }, [change]);
 

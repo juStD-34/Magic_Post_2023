@@ -27,7 +27,8 @@ const Delivery = ({postId, userId}) => {
     const fetchData = async () => {
       const result = await fetchOutgoingPackages(postId);
       const filteredDeliPack = result.filter(pack => packageUserSend(pack));
-      const updatedDeliPack = await deliPackInfor(filteredDeliPack);
+      let updatedDeliPack = await deliPackInfor(filteredDeliPack);
+      updatedDeliPack = updatedDeliPack.filter(deliPack => deliPack!==null);
       setPackData(updatedDeliPack);
     };
     fetchData();

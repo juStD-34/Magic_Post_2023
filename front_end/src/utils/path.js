@@ -1,7 +1,7 @@
 import { getPostData } from "./postData";
 
 const postData = await getPostData();
-// console.log(postData);
+console.log('hehe', postData);
 
 const getGatheringPost = (postId) => {
     return postData.post[postId]?.connectedPost || null;
@@ -9,6 +9,7 @@ const getGatheringPost = (postId) => {
 
 export const getPostIDFromLocation = (location) => {
     const postId = findPostIdByLocation(location);
+    console.log("P",postId, typeof postId);
     return postId;
 }
 

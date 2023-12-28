@@ -13,10 +13,12 @@ const OfficeForm = (props) => {
   const [managerPhone, setManagerPhone] = useState('');
   const [Address, setAddress] = useState('');
   const [SignupStatus, setSignupStatus] = useState("");
-  const {getType} = require("../../../Authorization/Info");
-  const type = getType();
+  const [office, setOffice] = useState('Centralize Office');
 
   const SignUp = (e) => {
+    const {getType} = require("../../../Authorization/Info");
+    const type = getType();
+    console.log(type);
     e.preventDefault();
     Axios.post("http://localhost:3001/registerMP", {
       poName: poName,
@@ -25,7 +27,7 @@ const OfficeForm = (props) => {
       managerUsername: managerUsername,
       managerPassword: managerPassword,
       managerPhone: managerPhone,
-      type: type,
+      type: office,
       Address: Address,
     }).then((response) => {
       // setRegisterStatus(response);
@@ -115,7 +117,7 @@ const OfficeForm = (props) => {
                       onChange={setManagerPhone}
                     />
 
-                    <TypeInput label="Type" size="sm:col-span-3"/>
+                    <TypeInput label="Type" size="sm:col-span-3" office={office} setOffice={setOffice}/>
 
                     <Input label="Address" size="sm:col-span-6" type="text" value={Address} onChange={setAddress}/>
                   </div>

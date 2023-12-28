@@ -23,13 +23,13 @@ const CEOStatistic = () => {
     const fetchData = async () => {
       try {
         const arrived = await axios.get('http://localhost:3001/getAllPackage', { params: { startDate: fromDate, endDate: toDate, type: "Arrived" } });
-        console.log(arrived.data.Packages);
+        console.log("R", arrived.data.Packages);
         const arrivedPack = await Promise.all(arrived.data.Packages.map(async (pack) => {
           try {
             const From_po_Id = pack.From_po_Id;
-            const to_po_id = pack.to_po_id;
+            const To_po_id = pack.To_po_id;
             const [fromPoName, toPoName] = await Promise.all([
-              PostInfo(From_po_Id), PostInfo(to_po_id)
+              PostInfo(From_po_Id), PostInfo(To_po_id)
             ]);
             console.log(fromPoName, toPoName);
             return {

@@ -3,19 +3,23 @@ import Navbar from "../../../shared/Layout/Navbar";
 import Sidebar from "../../../shared/Layout/Sidebar/Sidebar";
 import { Card } from "@material-tailwind/react";
 import Input from "../../../shared/Modal/components/Input";
-import Modal from "../../../shared/Modal/Modal";
+import { Button } from "flowbite-react";
 import Phone from "./components/Phone";
 import Name from "./components/Name";
 import { FiPrinter } from "react-icons/fi";
 
+import SuccessForm from "../../../shared/Modal/Form/SuccesForm";
 import { useReactToPrint } from "react-to-print";
 import { Print } from "./Print";
 import { generateCode } from "../../../utils/generatedCode";
 import { addPackage } from "../../../utils/addPackage";
 
 const Package = (data) => {
-  const userId = data.userId;
   const postId = data.postId;
+  const userId = data.userId;
+  const {getWorkerID} = require('../../../Authorization/Info');
+  const {getPostOffice} = require('../../../Authorization/Info');
+  console.log('test',userId, postId);
   const [sendName, setsendName] = React.useState("");
   const [sendAddress, setsendAddress] = React.useState("");
   const [sendPhone, setsendPhone] = React.useState(0);
@@ -23,6 +27,8 @@ const Package = (data) => {
   const [receiveAddress, setreceiveAddress] = React.useState("");
   const [receivePhone, setreceivePhone] = React.useState(0);
   const [weight, setWeight] = React.useState(0);
+
+  const [showModal, setShowModal] = React.useState(false);
 
   const [inform, setInform] = React.useState("");
   const [tick, setTick] = React.useState(false);
@@ -46,7 +52,7 @@ const Package = (data) => {
 
   const handleAddPackage = () => {
     const packData = {
-      code: generateCode(postId),
+      code: generateCode(getPostOffice()),
       weight: weight,
       sender: sendName,
       senderPhone: sendPhone,
@@ -140,9 +146,10 @@ const Package = (data) => {
                       weight={weight}
                     />
                   </div>
-                  <button
+                  <Button
                     onClick={(e) => {
                       e.preventDefault();
+                      setShowModal(true);
                       if (
                         sendName !== "" &&
                         sendAddress !== "" &&
@@ -161,14 +168,18 @@ const Package = (data) => {
                         setTick(false);
                       }
                     }}
+                    className={`flex items-center gap-4 bg-green-500 shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150`}
                   >
-                    <Modal
-                      label="Add"
-                      color="bg-green-500"
-                      inform={inform}
-                      tick={tick}
-                    ></Modal>
-                  </button>
+                    Add
+                  </Button>
+                  {showModal && (
+                    <div onClick={() => setShowModal(false)}>
+                      <SuccessForm inform={inform} tick={tick} />
+                      <div
+                        className="opacity-25 fixed inset-0 z-40 bg-black"
+                      ></div>
+                    </div>
+                  )}
                 </div>
               </div>
             </form>
