@@ -46,7 +46,14 @@ function Modal(data) {
       labeL = null;
       break;
     case "Delete":
-      modal = <ConfirmDelete setShowModal={setShowModal} />;
+      modal = (
+        <ConfirmDelete
+          setShowModal={setShowModal}
+          name={data.name}
+          address={data.address}
+          phone={data.phone}
+        />
+      );
       labeL = null;
       break;
     case "Print":

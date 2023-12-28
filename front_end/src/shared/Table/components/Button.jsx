@@ -117,6 +117,8 @@ export const action = (props) => {
           label="Delete"
           icon={<TiDeleteOutline className="h-5 w-5 " />}
           color="bg-red-400"
+          name={props.name}
+          address={props.address}
         />
       </Collapse>
     </div>

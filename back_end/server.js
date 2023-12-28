@@ -15,8 +15,30 @@ const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
   password: '',
-  database: 'magicpost',
+  database: 'magic_post',
 })
+
+app.post('/editOffice', (req, res) => {
+  const name = req.body.name;
+  const address = req.body.address;
+  const oldAddress = req.body.oldAddress;
+  const oldName = req.body.oldName;
+  const sql = `UPDATE postoffice SET poName = ?, poAddress = ? WHERE poName = ? AND poAddress = ?`;
+  db.query(sql, [name, address, oldName, oldAddress], (error, results, fields) => {
+    if (error) throw error;
+    res.send('User updated successfully');
+  });
+});
+
+app.post('/deleteOffice', (req, res) => {
+  const name = req.body.name;
+  const address = req.body.address;
+  const sql = `DELETE FROM postoffice WHERE poName = ? AND poAddress = ?`;
+  db.query(sql, [name, address], (error, results, fields) => {
+    if (error) throw error;
+    res.send('User updated successfully');
+  });
+});
 
 app.post('/registerE', (req, res) => {
   const username = req.body.Username;

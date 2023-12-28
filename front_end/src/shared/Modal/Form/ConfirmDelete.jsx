@@ -1,6 +1,21 @@
 import React from "react";
+import Axios from "axios";
 
 const ConfirmDelete = (props) => {
+  console.log(props.address);
+  const Delete = (e) => {
+    e.preventDefault();
+    Axios.post("http://localhost:3001/deleteOffice", {
+      name: props.name,
+      address: props.address,
+    }).then((response) => {
+      if(response.data.message){
+        console.log('FAILED');
+      }else{
+        console.log('SUCCESS');
+      }
+    })
+  }
   return (
     <div className="flex my-6 sm:my-auto mx-12 sm:mx-96 fixed inset-0 max-h-sm h-[60%] z-50 outline-none focus:outline-none">
       <div className="relative w-auto mx-auto max-w-sm">
@@ -32,7 +47,7 @@ const ConfirmDelete = (props) => {
                 <button
                   type="submit"
                   className="rounded-md bg-red-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
-                  onClick={() => props.setShowModal(false)}
+                  onClick={Delete}
                 >
                   Yes
                 </button>
