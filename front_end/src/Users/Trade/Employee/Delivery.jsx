@@ -12,9 +12,9 @@ import { deliPackInfor } from "../../../utils/deliPackInfor";
 const TABLE_HEAD = ["Package's Code", "Date", "Ship"];
 const TABLE_ROWS = [{ pack: "1231321323", date: "12/12/2021" }];
 
-const Delivery = () => {
-  const postId = 1;
-  const userId = 1;
+const Delivery = ({postId, userId}) => {
+  // const postId = 1;
+  // const userId = 1;
   const isTrade = false;
   const [page, setPage] = React.useState(0);
   const [change, setChange] = useState(true);

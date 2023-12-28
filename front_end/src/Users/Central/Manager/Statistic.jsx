@@ -115,7 +115,7 @@ let fake = [
 let TABLE_ROWS = res;
 let TABLE_HEAD = ArrivedPackagesHead;
 
-const CentralManager = (postId) => {
+const CentralManager = ({postId}) => {
   const [change, setChange] = useState(true);
   const [page, setPage] = React.useState(0);
   const [isTrade, setIsTrade] = useState(true);  //true: Arrived, false: Sent

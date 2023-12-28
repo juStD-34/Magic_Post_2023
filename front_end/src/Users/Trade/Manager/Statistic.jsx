@@ -115,7 +115,7 @@ let fake = [
 let TABLE_ROWS = res;
 let TABLE_HEAD = ongoingPackagesHead;
 
-const TradeManager = (postId, userId) => {
+const TradeManager = ({postId, userId}) => {
   const [change, setChange] = useState(true);
   const [page, setPage] = React.useState(0);
   const [isTrade, setIsTrade] = useState(true);

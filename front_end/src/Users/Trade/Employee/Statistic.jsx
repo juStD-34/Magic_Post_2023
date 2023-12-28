@@ -17,7 +17,7 @@ const successHead = ["Package's Code", "Receive's Address", "Receiver Name", "Re
 const failedHead = ["Package's Code", "Date", "Receiver Address", "Sender Address", "Sender Phone"];
 
 
-const TradeStatistic = (postId, userId) => {
+const TradeStatistic = ({postId, userId}) => {
   const [page, setPage] = React.useState(0);
   const [isTrade, setIsTrade] = React.useState(true);
   const [successPackage, setSuccessPackage] = React.useState([]);

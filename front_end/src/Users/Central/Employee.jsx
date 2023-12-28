@@ -30,8 +30,8 @@ const TABS = [
   },
 ];
 
-function CentralEmployee() {
-  const postId = 1;
+function CentralEmployee({postId}) {
+  // const postId = 1;
   const [isTrade, setIsTrade] = useState(true);
   const [page, setPage] = React.useState(0);
   const [pending, setPending] = useState([]);
