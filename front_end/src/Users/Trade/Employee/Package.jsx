@@ -4,6 +4,8 @@ import Sidebar from "../../../shared/Layout/Sidebar/Sidebar";
 import { Card } from "@material-tailwind/react";
 import Input from "../../../shared/Modal/components/Input";
 import Modal from "../../../shared/Modal/Modal";
+import Phone from "./components/Phone";
+import Name from "./components/Name";
 import { FiPrinter } from "react-icons/fi";
 
 import { useReactToPrint } from "react-to-print";
@@ -42,19 +44,19 @@ const Package = (data) => {
     setWeight(0);
   };
 
-  const handleAddPackage = () =>{
-      const packData = {
-        code: generateCode(postId),
-        weight: weight,
-        sender: sendName,
-        senderPhone: sendPhone,
-        senderAddress: sendAddress,
-        receiver: receiveName,
-        receiverPhone: receivePhone,
-        receiverAddress: receiveAddress,
-      }
-      addPackage(packData, userId);
-  }
+  const handleAddPackage = () => {
+    const packData = {
+      code: generateCode(postId),
+      weight: weight,
+      sender: sendName,
+      senderPhone: sendPhone,
+      senderAddress: sendAddress,
+      receiver: receiveName,
+      receiverPhone: receivePhone,
+      receiverAddress: receiveAddress,
+    };
+    addPackage(packData, userId);
+  };
 
   return (
     <div className="flex bg-white">
@@ -65,20 +67,22 @@ const Package = (data) => {
           <Card className="w-full">
             <div>Add New Package</div>
             <form action="">
-              <div className="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-4">
-                <Input
+              <div className="mt-4 grid grid-cols-1 gap-x-6 gap-y-5 sm:grid-cols-4">
+                <Name
+                  name={sendName}
+                  setName={setsendName}
                   label="Sender's Name"
-                  size="sm:col-span-2"
-                  type="text"
-                  value={sendName}
-                  onChange={setsendName}
                 />
-                <Input
+                <Name
+                  name={receiveName}
+                  setName={setreceiveName}
+                  label="Receiver's Name"
+                />
+
+                <Phone
+                  phone={sendPhone}
+                  setPhone={setsendPhone}
                   label="Sender's Phone"
-                  size="sm:col-span-2"
-                  type="tel"
-                  value={sendPhone}
-                  onChange={setsendPhone}
                 />
                 <Input
                   label="Sender's Address"
@@ -87,19 +91,10 @@ const Package = (data) => {
                   value={sendAddress}
                   onChange={setsendAddress}
                 />
-                <Input
-                  label="Receiver's Name"
-                  size="sm:col-span-2"
-                  type="text"
-                  value={receiveName}
-                  onChange={setreceiveName}
-                />
-                <Input
+                <Phone
+                  phone={receivePhone}
+                  setPhone={setreceivePhone}
                   label="Receiver's Phone"
-                  size="sm:col-span-2"
-                  type="tel"
-                  value={receivePhone}
-                  onChange={setreceivePhone}
                 />
                 <Input
                   label="Receiver's Address"
