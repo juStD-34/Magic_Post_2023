@@ -35,7 +35,7 @@ const Delivery = ({postId, userId}) => {
 
   useEffect(() => {
     setTABLE_ROWS(packData);
-  }, [changeRow])
+  }, [changeRow, packData]);
 
   console.log(packData);
   return (

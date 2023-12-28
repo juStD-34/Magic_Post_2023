@@ -79,7 +79,7 @@ const TradeStatistic = ({postId, userId}) => {
 
   useEffect(() => {
     isTrade ? setTABLE_ROWS(successPackage) : setTABLE_ROWS(failedPackage);
-  }, [change, isTrade])
+  }, [change, isTrade, successPackage, failedPackage]);
 
   console.log("success", successPackage);
   console.log("failed", failedPackage);

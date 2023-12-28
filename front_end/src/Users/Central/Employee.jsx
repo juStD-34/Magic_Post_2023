@@ -134,7 +134,7 @@ function CentralEmployee({postId}) {
   // console.log("incoming", incoming);
   useEffect(() => {
       isTrade ? setTABLE_ROWS(incoming) : setTABLE_ROWS(pending);
-  }, [changeRow, isTrade]);
+  }, [changeRow, isTrade, incoming, pending]);
 
   // console.log("TABLE_ROWS", TABLE_ROWS);
   if (isTrade) {

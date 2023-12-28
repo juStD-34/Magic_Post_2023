@@ -81,7 +81,7 @@ const Confirm = ({ userId, postId }) => {
     } else {
       setTABLE_ROWS(packagesToUser);
     }
-  }, [changeRow])
+  }, [changeRow, packageCPSendTo, packagesToUser, isTrade]);
   console.log("packagesToUser", TABLE_ROWS);
   if (isTrade) {
     // TABLE_ROWS = packageCPSendTo;
