@@ -10,12 +10,12 @@ app.use(cors());
 app.use(express.json());
 
 // Kết nối đến SQLite database (đường dẫn đến SQLiteOnline)
-const dbPath = 'C:/Users/HP/Desktop/Magic_Post_2023/back_end/magic_post.db';
+const dbPath = 'C:/Users/HP/Desktop/Magic_Post_2023/back_end/magicpost.db';
 const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
   password: '',
-  database: 'magic_post',
+  database: 'magicpost',
 })
 
 app.post('/registerE', (req, res) => {
