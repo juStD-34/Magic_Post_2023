@@ -2,15 +2,15 @@ import {React, useState} from "react";
 import Input from "../components/Input";
 import Axios from "axios";
 
-const EditForm = (props) => {
-  const [name, setName] = useState(props.name);
-  const [address, setAddress] = useState(props.address);
-  console.log(name + ' ' + address + ' ' + props.name + ' ' + props.address);
+const EditForm = ({Name, Address, setShowModal, change, setChange}) => {
+  const [name, setName] = useState(Name);
+  const [address, setAddress] = useState(Address);
+  console.log(name + ' ' + address + ' ' + Name + ' ' + Address);
   const Edit = (e) => {
     e.preventDefault();
     Axios.post("http://localhost:3001/editOffice", {
-      oldName: props.name,
-      oldAddress: props.address,
+      oldName: Name,
+      oldAddress: Address,
       name: name,
       address: address,
     }).then((response) => {
@@ -22,6 +22,7 @@ const EditForm = (props) => {
         console.log('SUCCESS');
       }
     })
+    setChange(!change);
   }
   return (
     <div className="flex my-6 sm:my-auto mx-12 sm:mx-96 fixed inset-0 max-h-sm h-[60%] z-50 outline-none focus:outline-none">
@@ -57,7 +58,7 @@ const EditForm = (props) => {
 
               <div className="flex items-center justify-end gap-x-6">
                 <button
-                  onClick={() => props.setShowModal(false)}
+                  onClick={() => setShowModal(false)}
                   type="button"
                   className="text-sm font-semibold leading-6 text-gray-900"
                 >

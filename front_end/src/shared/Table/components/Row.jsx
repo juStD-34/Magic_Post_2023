@@ -8,16 +8,15 @@ export function Row({ type, row, isTrade , setChange, change, userId}) {
   // isTrade = False : Pending ; True : Incoming
   var icons = [];
   var rowData = Object.values(row);
-  const online = rowData.filter((data) => typeof data == "boolean")[0];
   const acc = rowData.filter((data) => typeof data == "object")[0];
-
-  const [onLine, setOnLine] = React.useState(online);
+  
   const [open, setOpen] = React.useState(false);
   const toggleOpen = () => setOpen((cur) => !cur);
   const id = rowData[0];
   switch (type) {
     case "ceo":
-      icons = [account({ ...acc }), action({ toggleOpen, open, name: rowData[0], address: rowData[1]})];
+      // icons = [account(acc.username, acc.password, change, setChange), action({ toggleOpen, open, name: rowData[0], address: rowData[1], change, setChange})];
+      icons = [account(row.username, row.password, row.phone, change, setChange), action({ toggleOpen, open, name: rowData[0], address: rowData[1], change, setChange})];
       break;
     case "employee":
       isTrade
@@ -29,10 +28,14 @@ export function Row({ type, row, isTrade , setChange, change, userId}) {
       break;
     case "TradeManager":
       rowData.pop();
+
       icons = [ 
-        account({...row}),
+        account(row.username, row.password, row.phone, change, setChange),
         <Modal
-          label="Delete"
+          label="Delete2"
+          {...row}
+          change={change}
+          setChange={setChange} 
           icon={<TiDeleteOutline className="h-5 w-5 " />}
           color="bg-red-400"
         />,

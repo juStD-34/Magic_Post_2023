@@ -2,7 +2,7 @@ import {React, useState} from "react";
 import Input from "../components/Input";
 import Axios from "axios";
 
-const AccountForm = (props) => {
+const AccountForm = ({setShowModal, change, setChange}) => {
   const [FName, setFName] = useState('');
   const [LName, setLName] = useState('');
   const [Username, setUsername] = useState('');
@@ -39,6 +39,7 @@ const AccountForm = (props) => {
         console.log(getLogin());
       }
     })
+    setChange(!change);
   }
 
   const colorStyle = {
@@ -69,7 +70,7 @@ const AccountForm = (props) => {
               <div className="space-y-12">
                 <div className=" pb-4">
                   <h2 className="font-semibold leading-7 text-gray-900">
-                    Manager Account
+                    Add Employee Account
                   </h2>
 
                   <div className="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
@@ -88,7 +89,7 @@ const AccountForm = (props) => {
 
               <div className="flex items-center justify-end gap-x-6">
                 <button
-                  onClick={() => props.setShowModal(false)}
+                  onClick={() => setShowModal(false)}
                   type="button"
                   className="text-sm font-semibold leading-6 text-gray-900"
                 >

@@ -58,6 +58,8 @@ export default function TableInfor({ head, intro, add, statistic , setFromDate, 
             <BsBuildingFillAdd className="h-4 w-4 mr-2"></BsBuildingFillAdd>
           }
           color="bg-blue-500"
+          change={change}
+          setChange={setChange}
         />
         <NavLink to="/manager/statistic">
           <Button

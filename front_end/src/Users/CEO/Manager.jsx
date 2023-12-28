@@ -21,6 +21,7 @@ const TABLE_HEAD = [
   "Office's Name",
   "Office's Address",
   "Manager's ID",
+  "Manager's Account",
   "Action",
 ];
 
@@ -122,12 +123,13 @@ export default function Manager() {
 
   const [TPData, setTPData] = useState([]);
   const [CPData, setCPData] = useState([]);
-  const [change, setChange] = useState(true);
+
+  const [change, setChange] = useState(false);
+
   const [TPost, setTPost] = useState();
   const [CPost, setCPost] = useState();
   const type = "ceo";
   const {getPostOffice} = require("../../Authorization/Info");
-
 
   const [userData, setUserdata]= useState([]); 
     useEffect( ()=>{
@@ -138,7 +140,7 @@ export default function Manager() {
             console.log(resData);
         }
         getUserdata();
-    },[]);
+    },[change]);
     var data2 = [{"name":"Lenovo Thinkpad 41A4298","website":"google"},
     {"name":"Lenovo Thinkpad 41A2222","website":"google"},
     {"name":"Lenovo Thinkpad 41Awww33","website":"yahoo"},
@@ -237,6 +239,8 @@ export default function Manager() {
               setPage={setPage}
               type={type}
               setIsTrade={setIsTrade}
+              change={change}
+              setChange={setChange}
             />
             <TBody
               TABLE_ROWS={data}
@@ -244,6 +248,8 @@ export default function Manager() {
               TABLE_HEAD={TABLE_HEAD}
               page={page}
               setPage={setPage}
+              change={change}
+              setChange={setChange}
             />
           </Card>
         </main>

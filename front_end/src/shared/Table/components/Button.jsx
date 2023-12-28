@@ -50,14 +50,15 @@ export const confirmArrivedUser = (packCode, change, setChange) => (
   </Tooltip>
 );
 
-export function account(props) {
+export function account(username, password, phone, change, setChange) {
   return (
     <Modal
       label="Account"
-      staffId={props.staffId}
-      usrname={props.usrname}
-      password={props.password}
-      phone={props.phone}
+      username={username}
+      password={password}
+      phone={phone}
+      change={change}
+      setChange={setChange}
       icon={<BsPersonCircle className="h-4 w-4 mr-2" />}
       color="bg-green-400"
     />
@@ -90,17 +91,17 @@ export const cancel = (id, change, setChange, userId) => (
   </Tooltip>
 );
 
-export const action = (props) => {
+export const action = ({toggleOpen, open, name, address, change, setChange}) => {
   return (
     <div className="flex">
       <Button
         className="items-center h-[30%] gap-4 bg-blue-400 shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
         size="sm"
-        onClick={props.toggleOpen}
+        onClick={toggleOpen}
       >
         <FaPlus className="h-5 w-5 transition-transform group-before:rotate-45 group-after:-rotate-45" />
       </Button>
-      <Collapse open={props.open} className="flex flex-col w-10">
+      <Collapse open={open} className="flex flex-col w-10">
         <Modal
           label="Print"
           icon={<FiPrinter className="h-5 w-5"></FiPrinter>}
@@ -110,15 +111,19 @@ export const action = (props) => {
           label="Edit"
           icon={<FaRegEdit className="h-5 w-5 " />}
           color="bg-red-400"
-          name={props.name}
-          address={props.address}
+          name={name}
+          address={address}
+          change={change}
+          setChange={setChange}
         />
         <Modal
           label="Delete"
           icon={<TiDeleteOutline className="h-5 w-5 " />}
           color="bg-red-400"
-          name={props.name}
-          address={props.address}
+          name={name}
+          address={address}
+          change={change}
+          setChange={setChange}
         />
       </Collapse>
     </div>

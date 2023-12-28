@@ -2,7 +2,6 @@ import { getPostIDFromLocation } from "./path"
 import { generatePath } from "./path"
 import axios from "axios"
 export const packageNormalization = (packages) => {
-    console.log(packages.receiverAddress, "dnjandaaskdm");
     const fromPoID = parseInt(getPostIDFromLocation(packages.senderAddress));
     const toPoID = parseInt(getPostIDFromLocation(packages.receiverAddress));
     const guessPath = generatePath(fromPoID, toPoID);

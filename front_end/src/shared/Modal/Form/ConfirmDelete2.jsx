@@ -1,13 +1,14 @@
 import React from "react";
 import Axios from "axios";
 
-const ConfirmDelete = ({name, address, setShowModal, change, setChange}) => {
-  console.log(address);
+const ConfirmDelete2 = ({username, password, setShowModal, change, setChange}) => {
+
   const Delete = (e) => {
     e.preventDefault();
-    Axios.post("http://localhost:3001/deleteOffice", {
-      name: name,
-      address: address,
+    setChange(!change);
+    Axios.post("http://localhost:3001/deleteE", {
+      username: username,
+      password: password,
     }).then((response) => {
       if(response.data.message){
         console.log('FAILED');
@@ -15,7 +16,6 @@ const ConfirmDelete = ({name, address, setShowModal, change, setChange}) => {
         console.log('SUCCESS');
       }
     })
-    setChange(!change);
   }
   return (
     <div className="flex my-6 sm:my-auto mx-12 sm:mx-96 fixed inset-0 max-h-sm h-[60%] z-50 outline-none focus:outline-none">
@@ -61,4 +61,4 @@ const ConfirmDelete = ({name, address, setShowModal, change, setChange}) => {
   );
 };
 
-export default ConfirmDelete;
+export default ConfirmDelete2;

@@ -4,7 +4,7 @@ import TypeInput from "../components/TypeInput";
 import Manager from "../../../Users/CEO/Manager";
 import Axios from "axios";
 
-const OfficeForm = (props) => {
+const OfficeForm = ({setShowModal, change, setChange}) => {
   const [poName, setPoName] = useState('');
   const [managerFName, setManagerFName] = useState('');
   const [managerLName, setManagerLName] = useState('');
@@ -38,6 +38,7 @@ const OfficeForm = (props) => {
         setSignupStatus("ACCOUNT CREATED SUCCESSFULLY");
       }
     })
+    setChange(!change);
   }
 
   const colorStyle = {
@@ -126,7 +127,7 @@ const OfficeForm = (props) => {
 
               <div className="flex items-center justify-end gap-x-6">
                 <button
-                  onClick={() => props.setShowModal(false)}
+                  onClick={() => setShowModal(false)}
                   type="button"
                   className="text-sm font-semibold leading-6 text-gray-900"
                 >

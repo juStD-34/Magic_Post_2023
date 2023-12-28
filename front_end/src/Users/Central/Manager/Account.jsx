@@ -31,6 +31,9 @@ const CentralAccount = () => {
   const [page, setPage] = useState(0);
   const {getPostOffice} = require('../../../Authorization/Info');
   const [userData, setUserdata]= useState([]); 
+  const [change, setChange] = useState(false);
+  console.log(setChange, "set  change origin");
+
     useEffect( ()=>{
       const getUserdata= async()=>{
           const reqData= await fetch("http://localhost:3001/users");
@@ -39,7 +42,8 @@ const CentralAccount = () => {
           console.log(resData);
       }
       getUserdata();
-  },[]);
+  },[change]);
+
   var data = userData.map(({id, username, password, role, poWorkID}) => ({id, username, password, role, poWorkID}));
   var data_filter1 = data.filter( element => element.role == "0");
   var data_filter2 = data_filter1.filter(element => element.poWorkID == getPostOffice());
@@ -55,6 +59,7 @@ const CentralAccount = () => {
             head="All Employees"
             intro="all employees account"
             type="TradeManager"
+            change={change} setChange={setChange}
           />
           <TBody
             className="mt-4 border-2 border-gray-200 rounded-lg"
@@ -63,6 +68,7 @@ const CentralAccount = () => {
             TABLE_HEAD={TABLE_HEAD}
             page={page}
             setPage={setPage}
+            change={change} setChange={setChange}
           />
         </main>
       </div>

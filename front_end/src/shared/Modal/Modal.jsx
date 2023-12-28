@@ -1,46 +1,63 @@
 import React, { useState } from "react";
 import OfficeForm from "./Form/OfficeForm";
 import AccountForm2 from "./Form/AccountForm2";
+import AccountForm from "./Form/AccountForm";
 import EditForm from "./Form/EditForm";
 import StatisticForm from "./Form/StatisticForm";
 import SuccessForm from "./Form/SuccesForm";
 
 import { Button } from "flowbite-react";
 import ConfirmDelete from "./Form/ConfirmDelete";
+import ConfirmDelete2 from "./Form/ConfirmDelete2";
 
-function Modal(data) {
+// function Modal(data) {
+function Modal({label, password, icon, color, username, name, address, phone, change, setChange,  inform, tick }) {
   const [showModal, setShowModal] = useState(false);
+
   var modal;
   var labeL;
-
   const close = () => {
-    if (data.label=="Add") setShowModal(false);
+    if (label=="Add") setShowModal(false);
   };
 
-  switch (data.label) {
+  switch (label) {
     case "Account":
       modal = (
         <AccountForm2
           setShowModal={setShowModal}
-          staffId={data.staffId}
-          password={data.password}
-          usrname={data.usrname}
-          phone={data.phone}
+          password={password}
+          username={username}
+          change={change}
+          setChange={setChange}
         />
       );
-      labeL = data.label;
+      labeL = label;
+      break;
+  case "Account2":
+      modal = (
+        <AccountForm
+          setShowModal={setShowModal}
+          password={password}
+          username={username}
+          change={change}
+          setChange={setChange}
+        />
+      );
+      labeL = label;
       break;
     case "Add Offices":
-      modal = <OfficeForm setShowModal={setShowModal} />;
-      labeL = data.label;
+      modal = (<OfficeForm setShowModal={setShowModal} change={change} setChange={setChange}/>);
+      labeL = label;
       break;
     case "Edit":
       modal = (
         <EditForm
           setShowModal={setShowModal}
-          name={data.name}
-          address={data.address}
-          phone={data.phone}
+          Name={name}
+          Address={address}
+          phone={phone}
+          change={change}
+          setChange={setChange}
         />
       );
       labeL = null;
@@ -49,9 +66,23 @@ function Modal(data) {
       modal = (
         <ConfirmDelete
           setShowModal={setShowModal}
-          name={data.name}
-          address={data.address}
-          phone={data.phone}
+          change={change}
+          setChange={setChange}
+          name={name}
+          address={address}
+          phone={phone}
+        />
+      );
+      labeL = null;
+      break;
+    case "Delete2":
+      modal = (
+        <ConfirmDelete2
+          setShowModal={setShowModal}
+          change={change}
+          setChange={setChange}
+          username={username}
+          password={password}
         />
       );
       labeL = null;
@@ -61,21 +92,20 @@ function Modal(data) {
       labeL = null;
       break;
     case "Add":
-      modal = <SuccessForm inform={data.inform} tick={data.tick} onClick={()=>console.log("clicked")}/>;
-      labeL = data.label;
+      modal = <SuccessForm inform={inform} tick={tick} onClick={()=>console.log("clicked")}/>;
+      labeL = label;
       break;
     default:
       break;
   }
-
   return (
     <>
       <Button
         onClick={() => setShowModal(true)}
-        className={`flex items-center gap-4 ${data.color} shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150`}
+        className={`flex items-center gap-4 ${color} shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150`}
         size="sm"
       >
-        {data.icon}
+        {icon}
         {labeL}
       </Button>
       {showModal && (

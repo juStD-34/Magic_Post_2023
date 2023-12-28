@@ -2,42 +2,25 @@ import {React, useState} from "react";
 import Input from "../components/Input";
 import Axios from "axios";
 
-const AccountForm2 = (props) => {
-  const [FName, setFName] = useState('');
-  const [LName, setLName] = useState('');
-  const [Username, setUsername] = useState('');
-  const [Password, setPassword] = useState('');
-  const [Phone, setPhone] = useState('');
+const AccountForm2 = ({username, password, setShowModal, change, setChange}) => {
+  const [Username, setUsername] = useState(username);
+  const [Password, setPassword] = useState(password);
   const [SignupStatus, setSignupStatus] = useState("");
-  const {getLogin} = require('../../../Authorization/Auth');
-  const {getPostOffice} = require('../../../Authorization/Info');
-  var role;
-  var n = getLogin();
-  console.log(props.usrname + ' ' + props.staffID + ' ' + props.password + ' ' + props.phone);
-  if(n === 'trade/manager') {
-    role = 1;
-  } else {
-    role = 0;
-  }
-  const poWorkID = getPostOffice();
-  const SignUp = (e) => {
+  const EditE = (e) => {
     e.preventDefault();
-    Axios.post("http://localhost:3001/registerE", {
-      FName: FName,
-      LName: LName,
+    setChange(!change);
+    Axios.post("http://localhost:3001/editE", {
+      oldUsername: username,
+      oldPassword: password,
       Username: Username,
       Password: Password,
-      Phone: Phone,
-      role: role,
-      poWorkID: poWorkID,
     }).then((response) => {
       // setRegisterStatus(response);
       // console.log(response);
       if(response.data.message){
         setSignupStatus(response.data.message);
       }else{
-        setSignupStatus("ACCOUNT CREATED SUCCESSFULLY");
-        console.log(getLogin());
+        setSignupStatus("ACCOUNT CHANGE SUCCESSFULLY");
       }
     })
   }
@@ -74,22 +57,17 @@ const AccountForm2 = (props) => {
                   </h2>
 
                   <div className="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                    <Input label="First Name" size="sm:col-span-3" type="text" value={FName} onChange = {setFName} />
-
-                    <Input label="Last Name" size="sm:col-span-3" type="text" value={LName} onChange = {setLName}/>
 
                     <Input label="Username" size="sm:col-span-3" type="text" value={Username} onChange = {setUsername}/>
 
                     <Input label="Password" size="sm:col-span-3" type="password" value={Password} onChange = {setPassword}/>
-
-                    <Input label="Phone" size="sm:col-span-4" type="phone" value={Phone} onChange = {setPhone}/>
                   </div>
                 </div>
               </div>
 
               <div className="flex items-center justify-end gap-x-6">
                 <button
-                  onClick={() => props.setShowModal(false)}
+                  onClick={() => setShowModal(false)}
                   type="button"
                   className="text-sm font-semibold leading-6 text-gray-900"
                 >
@@ -98,9 +76,9 @@ const AccountForm2 = (props) => {
                 <button
                   type="submit"
                   className="rounded-md bg-green-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
-                  onClick={SignUp}
+                  onClick={EditE}
                 >
-                  Savee
+                  Save
                 </button>
                 <h1 style={SignupStatus === "Account already exists" ? textStyle.red : textStyle.green}>{SignupStatus}</h1>
               </div>

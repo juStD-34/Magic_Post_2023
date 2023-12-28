@@ -18,6 +18,18 @@ const db = mysql.createConnection({
   database: 'magic_post',
 })
 
+app.post('/editE', (req, res) => {
+  const oldUsername = req.body.oldUsername;
+  const oldPassword = req.body.oldPassword;
+  const username = req.body.Username;
+  const password = req.body.Password;
+  const sql = `UPDATE employees SET username = ?, password = ? WHERE username = ? AND password = ?`;
+  db.query(sql, [username, password, oldUsername, oldPassword], (error, results, fields) => {
+    if (error) throw error;
+    res.send('User updated successfully');
+  });
+});
+
 app.post('/editOffice', (req, res) => {
   const name = req.body.name;
   const address = req.body.address;
@@ -35,6 +47,17 @@ app.post('/deleteOffice', (req, res) => {
   const address = req.body.address;
   const sql = `DELETE FROM postoffice WHERE poName = ? AND poAddress = ?`;
   db.query(sql, [name, address], (error, results, fields) => {
+    if (error) throw error;
+    res.send('User updated successfully');
+  });
+});
+
+app.post('/deleteE', (req, res) => {
+  const username = req.body.username;
+  const password = req.body.password;
+  console.log('deleteE', username, password);
+  const sql = `DELETE FROM employees WHERE username = ? AND password = ?`;
+  db.query(sql, [username, password], (error, results, fields) => {
     if (error) throw error;
     res.send('User updated successfully');
   });

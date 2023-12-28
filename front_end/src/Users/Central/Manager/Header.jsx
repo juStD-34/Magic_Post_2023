@@ -5,7 +5,7 @@ import { Typography } from "@material-tailwind/react";
 import React from "react";
 
 
-export default function Header({ head, intro, add }) {
+export default function Header({ head, intro, add, change, setChange }) {
   return (
     <div className="flex">
       <div className="items-start w-[50%]">
@@ -19,10 +19,12 @@ export default function Header({ head, intro, add }) {
       <div className={`${add} w-[50%] my-auto text-right`}>
         <div className="inline-block">
           <Modal
-            label="Account"
+            label="Account2"
             icon={
               <MdOutlinePersonAddAlt className="h-4 w-4 mr-2 "></MdOutlinePersonAddAlt>
             }
+            change={change}
+            setChange={setChange}
             color="bg-green-400"
           />
         </div>
