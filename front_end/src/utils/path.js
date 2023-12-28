@@ -1,15 +1,7 @@
-const postData = {
-    post: {
-        1: { id: 1, connectedPost: 3, location: "Quan Hoa, Cầu Giấy" },
-        2: { id: 2, connectedPost: 4, location: "Hoàng Văn Thụ, Hoàng Mai" },
-        5: { id: 5, connectedPost: 6, location: "Dịch Vọng, Cầu giấy" },
-    },
-    gatheringPost: {
-        3: { id: 3 },
-        4: { id: 4 },
-        6: { id: 6 },
-    }
-};
+import { getPostData } from "./postData";
+
+const postData = await getPostData();
+// console.log(postData);
 
 const getGatheringPost = (postId) => {
     return postData.post[postId]?.connectedPost || null;
@@ -32,8 +24,12 @@ const findPostIdByLocation = (location) => {
 export const generatePath = (fromtPoID, toPoID) => {
     let guessPath = "";
     guessPath = guessPath + fromtPoID + "-";
-    guessPath = guessPath + getGatheringPost(fromtPoID) + "-";
-    guessPath = guessPath + getGatheringPost(toPoID) + "-";
+    if (getGatheringPost(fromtPoID) === getGatheringPost(toPoID)) {
+        guessPath = guessPath + getGatheringPost(fromtPoID) + "-";
+    } else {
+        guessPath = guessPath + getGatheringPost(fromtPoID) + "-";
+        guessPath = guessPath + getGatheringPost(toPoID) + "-";
+    }
     guessPath = guessPath + toPoID;
 
     return guessPath;

@@ -220,8 +220,8 @@ export default function Manager() {
       setCPData(generatedCPData);
     }
   }, [CPost]);
-  console.log(TPData);
-  console.log("CPost", CPData);
+  // console.log(TPData);
+  // console.log("CPost", CPData);
   TABLE_ROWS = isTrade ? TPData : CPData; 
 
   return (

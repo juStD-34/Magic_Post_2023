@@ -479,6 +479,18 @@ app.get('/getAllPackage', (req, res) => {
     }
   })
 })
+
+app.get('/getPostOffice', (req, res) => {
+  const query = 'SELECT * FROM postOffice';
+  db.query(query, (err, rows) => {
+    if (err) {
+      console.error('Error executing query:', err.message);
+      res.status(500).json({ error: 'Internal Server Error' });
+    } else {
+      res.json({ PostOffice: rows });
+    }
+  })
+})
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
