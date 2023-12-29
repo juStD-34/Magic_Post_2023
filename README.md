@@ -24,7 +24,9 @@ npm install
   
 **21020416 Lê Bá Trường:**
 * Xác thực 
-* Chức năng thêm/sửa/xoá Post Office, Tài khoản,
+* Chức năng thêm/sửa/xoá Post Office, Tài khoản Trưởng điểm, nhân viên
+* Phân chia sidebar theo các role đăng nhập
+* Truy vấn hiển thị các điểm giao dịch, tập kết, nhân viên
   
 **21020717 Đỗ Minh Sáng:**
 * Xây dựng Cơ sở dữ liệu
