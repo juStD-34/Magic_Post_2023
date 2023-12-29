@@ -4,13 +4,13 @@
 
 > Dự án web được làm tại môn INT3306 4 - UET, VNU - Kì I 2023-2024
 
-## Install
+## Cài đặt
 
 ```sh
 npm install
 ```
 
-## Author
+## Tác giả
 
 👤 **Phạm Minh Hiếu, Lê Bá Trường, Đỗ Minh Sáng**
 
@@ -37,8 +37,8 @@ npm install
 
   
 
-## About this Project
-Thông tin về dự án có thể được xem tại: [MagicPost](https://itest.com.vn/lects/webappdev/mockproj//magic-post.htm)
+## Về dự án này
+Thông tin chi tiết về dự án có thể được xem tại: [MagicPost](https://itest.com.vn/lects/webappdev/mockproj//magic-post.htm)
 
 ## Chức năng 
 ### Chức năng cho lãnh đạo công ty
@@ -66,9 +66,5 @@ Thông tin về dự án có thể được xem tại: [MagicPost](https://itest
 * Tạo đơn chuyển hàng đến điểm giao dịch đích.<br>
 ### Chức năng cho khách hàng
 * Tra cứu trạng thái và tiến trình chuyển phát của kiện hàng mình gửi.<br>
-
-## Show your support
-
-Give a ⭐️ if this project helped you!
 
 ***
