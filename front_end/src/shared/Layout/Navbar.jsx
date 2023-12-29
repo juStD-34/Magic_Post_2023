@@ -14,6 +14,11 @@ function classNames(...classes) {
 }
 
 function Navbar() {
+  const {setLogin, getLogin} = require('../../Authorization/Auth');
+  const handleSignout = (e) => {
+    setLogin("initialValue");
+    console.log(getLogin());
+  }
   return (
     <Disclosure as="nav">
       {({ open }) => (
@@ -82,6 +87,7 @@ function Navbar() {
                         {({ active }) => (
                           <a
                             href="/login"
+                            onClick={handleSignout}
                             className={classNames(active ? 'bg-blue-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                           >
                             Sign out
