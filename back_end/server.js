@@ -10,12 +10,125 @@ app.use(cors());
 app.use(express.json());
 
 // Kết nối đến SQLite database (đường dẫn đến SQLiteOnline)
-const dbPath = 'C:/Users/HP/Desktop/Magic_Post_2023/back_end/magic_post.db';
+const dbPath = 'C:/Users/HP/Desktop/Magic_Post_2023/back_end/magicpost.db';
 const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
   password: '',
-  database: 'magicPost',
+  database: 'magicpost',
+})
+
+app.post('/registerE', (req, res) => {
+  const username = req.body.Username;
+  const password = req.body.Password;
+  const role = req.body.role;
+  const phone = req.body.Phone;
+  const poWorkID = req.body.poWorkID;
+  const firstName = req.body.FName;
+  const lastName = req.body.LName;
+  db.query("INSERT INTO employees (username, password, role, phone, poWorkID, firstName, lastName) VALUES (?, ?, ?, ?, ?, ?, ?)", [username, password, role, phone, poWorkID, firstName, lastName], 
+      (err, result) => {
+          if(result){
+              res.send(result);
+          }else{
+              res.send({message: "ENTER CORRECT ASKED DETAILS!"})
+          }
+      }
+  )
+})
+
+app.get("/users", (req, res) => {
+  db.query("SELECT * FROM employees", (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+    }
+  });
+});
+
+app.get("/postOffice", (req, res) => {
+  db.query("SELECT * FROM postoffice", (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+    }
+  });
+});
+
+app.post('/registerMP', (req, res) => {
+  const poName = req.body.poName;
+  const managerFName = req.body.managerFName;
+  const managerLName = req.body.managerLName;
+  const managerUsername = req.body.managerUsername;
+  const managerPassword = req.body.managerPassword;
+  const managerPhone = req.body.managerPhone;
+  const type = req.body.type;
+  var role;
+  if (type === 'Centralize Office') {
+    role = 2;
+  } else {
+    role = 3;
+  }
+  const Address = req.body.Address;
+
+  db.query("INSERT INTO employees (username, password, phone, role, firstName, lastName) VALUES (?, ?, ?, ?, ?, ?)", [managerUsername, managerPassword, managerPhone, role, managerFName, managerLName], 
+  (err, userResult) => {
+    if (userResult) {
+      db.query("INSERT INTO postoffice (poName, poAddress, poPhoneNumber, poType) VALUES (?, ?, ?, ?)", [poName, Address, managerPhone, type], 
+          (err, officeResult) => {
+              if (officeResult) {
+                db.query("UPDATE employees SET poWorkID = (SELECT id FROM postOffice ORDER BY id DESC LIMIT 1) WHERE id = (SELECT id FROM employees ORDER BY id DESC LIMIT 1)", (err, updateEmpResult) => {
+                  if (err) {
+                    return db.rollback(() => {
+                      res.send({ message: "EMPLOYEES UPDATE FAILED!" });
+                    });
+                  } else {
+                    db.query("UPDATE postoffice SET managerID = (SELECT id FROM employees ORDER BY id DESC LIMIT 1) WHERE id = (SELECT id FROM postoffice ORDER BY id DESC LIMIT 1)", (err, updateOfficeResult) => {
+                      if (err) {
+                        return db.rollback(() => {
+                          res.send({ message: "POST OFFICE UPDATE FAILED!" });
+                        });
+                      } else {
+                        db.commit((err) => {
+                          if (err) {
+                            return db.rollback(() => {
+                              res.send({ message: "DATABASE COMMIT FAILED!" });
+                            });
+                          }
+                          res.send({ message: "SUCCESSFULLY" });
+                        });
+                      }
+                    });
+                  }
+                });
+              } else {
+                  res.send({message: "ENTER CORRECT ASKED DETAILS!"});
+              }
+          });
+      } else {
+          res.send({message: "ACCOUNT ALREADY EXISTS"});
+      }
+  });
+})
+
+app.post("/login", (req, res) => {
+  const username = req.body.username;
+  const password = req.body.password;
+  db.query("SELECT * FROM employees WHERE username = ? AND password = ?", [username, password], 
+      (err, result) => {
+          if(err){
+              req.setEncoding({err: err});
+          }else{
+              if(result.length > 0){
+                  res.send(result);
+              }else{
+                  res.send({message: "WRONG USERNAME OR PASSWORD!"})
+              }
+          }
+      }
+  )
 })
 
 app.get('/packageInfor', (req, res) => {
@@ -153,12 +266,12 @@ app.get('/getPostByType', (req, res) => {
   // console.log(type);
   const query = `
     SELECT
-      po.id AS postOfficeID,
-      po.poName AS postOfficeName,
-      po.poAddress AS postOfficeAddress,
+      po.id AS id,
+      po.poName AS poName,
+      po.poAddress AS poAddress,
       po.managerID AS managerID,
       CONCAT(e.firstName, ' ', e.lastName) AS managerFullName,
-      e.phoneNumber as managerPhone
+      e.phone as phone
     FROM
       postOffice po
     JOIN
@@ -363,6 +476,18 @@ app.get('/getAllPackage', (req, res) => {
       res.status(500).json({ error: 'Internal Server Error' });
     } else {
       res.json({ Packages: rows });
+    }
+  })
+})
+
+app.get('/getPostOffice', (req, res) => {
+  const query = 'SELECT * FROM postOffice';
+  db.query(query, (err, rows) => {
+    if (err) {
+      console.error('Error executing query:', err.message);
+      res.status(500).json({ error: 'Internal Server Error' });
+    } else {
+      res.json({ PostOffice: rows });
     }
   })
 })

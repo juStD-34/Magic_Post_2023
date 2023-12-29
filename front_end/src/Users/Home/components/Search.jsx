@@ -2,34 +2,6 @@ import React from 'react';
 import Track from './Track';
 import { currentStatusPackage } from '../../../utils/getSearchingPath';
 
-const info = [
-  {
-    date: "27/09/2023",
-    locate: "20-HNI Tu Liem Hub",
-    status: "Đơn hàng đã giao thành công",
-  },
-  {
-    date: "27/09/2023",
-    locate: "20-HNI Tu Liem Hub",
-    status: "Đã tới bưu cục phát",
-  },
-  {
-    date: "26/09/2023",
-    locate: "BN B Mega SOC",
-    status: "Đang được luân chuyển đến [20-HNI Tu Liem LM Hub]",
-  },
-  {
-    date: "26/09/2023",
-    locate: "20-HNI Cau Giay 2 SOC",
-    status: "Đang được luân chuyển đến [BN B Mega SOC]",
-  },
-  {
-    date: "26/09/2023",
-    locate: "20-HNI Cau Giay 2 SOC",
-    status: "Đơn vị vận chuyển đã lấy hàng",
-  },
-];
-
 
 const Search = () => {
   const [track, setTrack] = React.useState(false);
@@ -37,10 +9,10 @@ const Search = () => {
   const [inFo, setInFo] = React.useState([]);
   const handleFindButton = () => {
     currentStatusPackage(packCode)
-    .then((res) => {
-      console.log("SS",res);
-      if (res !== null) setInFo(res);
-    });
+      .then((res) => {
+        console.log("SS", res);
+        if (res !== null) setInFo(res); else setInFo([]);
+      });
     // console.log("RR",currentStatusPackage(packCode));
     // setInFo(currentStatusPackage(packCode));
   }
@@ -61,10 +33,11 @@ const Search = () => {
               placeholder='Ex: 123456789'
               onChange={(e) => setpackCode(e.target.value)}
             />
-            <button onClick={() => {setTrack(true); handleFindButton();}} className='bg-blue-400 text-black rounded-md font-medium w-[200px] ml-4 my-6 px-6 py-3'>
+            <button onClick={() => { setTrack(true); handleFindButton(); }} className='bg-blue-400 text-black rounded-md font-medium w-[200px] ml-4 my-6 px-6 py-3'>
               Find
             </button>
           </div>
+          {track && <Track className={track} inFo={inFo} />}
           <p>
             We care about the protection of your data. Read our{' '}
             <span className='text-blue-400'>Privacy Policy.</span>
@@ -72,7 +45,6 @@ const Search = () => {
         </div>
       </div>
       {/* Info table */}
-      {track && <Track className={track} inFo = {inFo}/>}
     </div>
   );
 };
