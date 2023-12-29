@@ -18,10 +18,12 @@ const TABS = [
 ];
 
 const TABLE_HEAD = [
+  "Office's ID",
   "Office's Name",
-  "Office's Address",
   "Manager's ID",
-  "Manager's Account",
+  "Manager's Name",
+  "Manager's Phone",
+  "Account",
   "Action",
 ];
 
@@ -188,15 +190,13 @@ export default function Manager() {
   useEffect(() => {
     if (TPost) {
       const generatedTPData = TPost.map((post) => {
+        console.log('aaaaaaaaaaaaaaaaa',post)
         return {
           name: post.poName,
           address: post.poAddress,
-          account: {
-            staffId: post.managerID,
-            username: "", // Điền thông tin tài khoản nếu có
-            password: "", // Điền thông tin tài khoản nếu có
-            phone: post.phone,
-          },
+          staffId: post.managerID,
+          managerName: post.managerFullName,
+          phone: post.phone,
         };
       });
   
@@ -210,12 +210,9 @@ export default function Manager() {
         return {
           name: post.poName,
           address: post.poAddress,
-          account: {
-            staffId: post.managerID,
-            username: "post.managerFullName", 
-            password: "xxx",
-            phone: post.phone,
-          },
+          staffId: post.managerID,
+          managerName: post.managerFullName,
+          phone: post.phone,
         };
       });
   
@@ -243,7 +240,7 @@ export default function Manager() {
               setChange={setChange}
             />
             <TBody
-              TABLE_ROWS={data}
+              TABLE_ROWS={TABLE_ROWS}
               type={type}
               TABLE_HEAD={TABLE_HEAD}
               page={page}

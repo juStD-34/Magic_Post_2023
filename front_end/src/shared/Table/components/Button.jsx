@@ -65,6 +65,21 @@ export function account(username, password, phone, change, setChange) {
   );
 }
 
+export function account2(staffID, change, setChange) {
+  // console.log(staffID, change, setChange, "account setChange");
+  console.log(staffID, ":223123");
+  return (
+    <Modal
+      label="Account3"
+      staffID={staffID}
+      change={change}
+      setChange={setChange}
+      icon={<BsPersonCircle className="h-4 w-4 mr-2" />}
+      color="bg-green-400"
+    />
+  );
+}
+
 export const send = (id, isTrade, setChange, change, userId) => (
   <Tooltip content="Send Package">
     <IconButton
@@ -91,7 +106,7 @@ export const cancel = (id, change, setChange, userId) => (
   </Tooltip>
 );
 
-export const action = ({toggleOpen, open, name, address, change, setChange}) => {
+export const action = ({toggleOpen, open, name, address, staffID, change, setChange}) => {
   return (
     <div className="flex">
       <Button
@@ -115,6 +130,7 @@ export const action = ({toggleOpen, open, name, address, change, setChange}) => 
           address={address}
           change={change}
           setChange={setChange}
+          staffID={staffID}
         />
         <Modal
           label="Delete"

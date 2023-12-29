@@ -19,7 +19,6 @@ function Login() {
         setLoginStatus(response.data.message);
       }else{
         setLoginStatus("SUCCESS");
-        console.log(response.data[0].id);
         switch(response.data[0].role){
           case 0:
             setLogin("central/employee");

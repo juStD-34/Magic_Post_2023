@@ -52,7 +52,6 @@ const TradeEmployee = [
 ]
 var sidebar;
 const {getLogin} = require('../../../Authorization/Auth')
-console.log('z',getLogin());
 
 // const res = [
 //   {

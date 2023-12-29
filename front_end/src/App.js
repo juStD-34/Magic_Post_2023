@@ -32,7 +32,7 @@ const App = () => {
         <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
 
-          {/* {role === "central/manager" && <Route path="/central/manager/account" element={<CentralAccount />} />}
+          {role === "central/manager" && <Route path="/central/manager/account" element={<CentralAccount />} />}
           {role === "central/manager" && <Route path="/central/manager/statistic" element={<CentralManager />} />}
           {role === "central/employee" && <Route path="/central/employee" element={<CentralEmployee />} />}
 
@@ -44,21 +44,7 @@ const App = () => {
           {role === "trade/employee" && <Route path="/trade/employee/confirm" element={<Confirm />} />}
 
           {role === "manager" && <Route path="/manager" element={<Manager />} />}
-          {role === "manager" && <Route path="/manager/statistic" element={<CEOStatistic />} />} */}
-          
-          <Route path="/central/manager/account" element={<CentralAccount />} />
-          <Route path="/central/manager/statistic" element={<CentralManager postId={post_officeID}/>} />
-          <Route path="/central/employee" element={<CentralEmployee postId={post_officeID}/>} />
-
-          <Route path="/trade/manager/account" element={<TradeAccount />} />
-          <Route path="/trade/manager/statistic" element={<TradeManager postId={post_officeID} userId={userID}/>} />
-          <Route path="/trade/employee/package" element={<Package postId={post_officeID} userId={userID}/>} />
-          <Route path="/trade/employee/delivery" element={<Delivery postId={post_officeID} userId={userID} />} />
-          <Route path="/trade/employee/statistic" element={<TradeStatistic  postId={post_officeID} userId={userID}/>} />
-          <Route path="/trade/employee/confirm" element={<Confirm postId={post_officeID} userId={userID} />} />
-
-          <Route path="/manager" element={<Manager />} />
-          <Route path="/manager/statistic" element={<CEOStatistic />} />
+          {role === "manager" && <Route path="/manager/statistic" element={<CEOStatistic />} />}
         </Routes>
     </BrowserRouter>
   );

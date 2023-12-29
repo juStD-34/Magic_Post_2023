@@ -13,7 +13,7 @@ const OfficeForm = ({setShowModal, change, setChange}) => {
   const [managerPhone, setManagerPhone] = useState('');
   const [Address, setAddress] = useState('');
   const [SignupStatus, setSignupStatus] = useState("");
-  const [office, setOffice] = useState('Centralize Office');
+  const [office, setOffice] = useState('CP');
 
   const SignUp = (e) => {
     const {getType} = require("../../../Authorization/Info");

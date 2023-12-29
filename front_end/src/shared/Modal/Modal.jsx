@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import OfficeForm from "./Form/OfficeForm";
-import AccountForm2 from "./Form/AccountForm2";
 import AccountForm from "./Form/AccountForm";
+import AccountForm2 from "./Form/AccountForm2";
+import AccountForm3 from "./Form/AccountForm3";
 import EditForm from "./Form/EditForm";
 import StatisticForm from "./Form/StatisticForm";
 import SuccessForm from "./Form/SuccesForm";
@@ -11,8 +12,9 @@ import ConfirmDelete from "./Form/ConfirmDelete";
 import ConfirmDelete2 from "./Form/ConfirmDelete2";
 
 // function Modal(data) {
-function Modal({label, password, icon, color, username, name, address, phone, change, setChange,  inform, tick }) {
+function Modal({label, password, icon, color, username, name, address, staffID, phone, change, setChange,  inform, tick }) {
   const [showModal, setShowModal] = useState(false);
+  console.log(staffID, change, setChange, "staff setChange");
 
   var modal;
   var labeL;
@@ -43,7 +45,18 @@ function Modal({label, password, icon, color, username, name, address, phone, ch
           setChange={setChange}
         />
       );
-      labeL = label;
+      labeL = "Add Employee";
+      break;
+      case "Account3":
+      modal = (
+        <AccountForm3
+          setShowModal={setShowModal}
+          staffID={staffID}
+          change={change}
+          setChange={setChange}
+        />
+      );
+      labeL = 'Account';
       break;
     case "Add Offices":
       modal = (<OfficeForm setShowModal={setShowModal} change={change} setChange={setChange}/>);

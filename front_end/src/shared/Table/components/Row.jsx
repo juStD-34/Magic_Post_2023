@@ -1,6 +1,6 @@
 import React from "react";
 import { Typography } from "@material-tailwind/react";
-import { action, account, deliver, confirm, send, cancel, confirmArrivedUser } from "./Button";
+import { action, account2, account, confirm, send, cancel, confirmArrivedUser } from "./Button";
 import Modal from "../../Modal/Modal";
 import { TiDeleteOutline } from "react-icons/ti";
 
@@ -13,10 +13,12 @@ export function Row({ type, row, isTrade , setChange, change, userId}) {
   const [open, setOpen] = React.useState(false);
   const toggleOpen = () => setOpen((cur) => !cur);
   const id = rowData[0];
+  const staffID = rowData[2];
+
   switch (type) {
     case "ceo":
       // icons = [account(acc.username, acc.password, change, setChange), action({ toggleOpen, open, name: rowData[0], address: rowData[1], change, setChange})];
-      icons = [account(row.username, row.password, row.phone, change, setChange), action({ toggleOpen, open, name: rowData[0], address: rowData[1], change, setChange})];
+      icons = [account2(staffID, change, setChange, ), action({ toggleOpen, open, name: rowData[0], address: rowData[1], change, setChange})];
       break;
     case "employee":
       isTrade

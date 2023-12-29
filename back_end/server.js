@@ -30,6 +30,17 @@ app.post('/editE', (req, res) => {
   });
 });
 
+app.post('/editM', (req, res) => {
+  const staffID = req.body.staffID;
+  const username = req.body.username;
+  const password = req.body.password;
+  const sql = `UPDATE employees SET username = ?, password = ? WHERE ID = ?`;
+  db.query(sql, [username, password, staffID], (error, results, fields) => {
+    if (error) throw error;
+    res.send('User updated successfully');
+  });
+});
+
 app.post('/editOffice', (req, res) => {
   const name = req.body.name;
   const address = req.body.address;

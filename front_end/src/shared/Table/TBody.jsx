@@ -5,7 +5,6 @@ import TablePagination from "@mui/material/TablePagination";
 import { Typography, CardBody } from "@material-tailwind/react";
 
 const TBody = ({ TABLE_HEAD, TABLE_ROWS, type, page, setPage, isTrade, change, setChange, userId}) => {
-  console.log(setChange,"ssss");
 
   const [rowsPerPage, setRowsPerPage] = React.useState(4);
 
