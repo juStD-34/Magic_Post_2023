@@ -5,9 +5,14 @@
 > Dự án web được làm tại môn INT3306 4 - UET, VNU - Kì I 2023-2024
 
 ## Cài đặt
-
+Tại thư mục back_end
+```sh
+node ./server.js
+```
+Tại thư mục front_end
 ```sh
 npm install
+npm start
 ```
 
 ## Tác giả
