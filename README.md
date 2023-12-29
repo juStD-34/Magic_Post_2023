@@ -12,7 +12,7 @@ npm install
 
 ## Author
 
-👤 **Pham Minh Hieu, Le Ba Truong, Do Minh Sang**
+👤 **Phạm Minh Hiếu, Lê Bá Trường, Đỗ Minh Sáng**
 
 * Github: [@PhamH1eu](https://github.com/PhamH1eu)
 * Github: [@21020416LeBaTruong](https://github.com/21020416LeBaTruong)
@@ -21,9 +21,11 @@ npm install
 ## Phân chia công việc
 **21020319 Phạm Minh Hiếu:**
 * Xây dựng toàn bộ frontend của ứng dụng
+  
 **21020416 Lê Bá Trường:**
 * Xác thực 
-* Chức năng thêm/sửa/xoá Post Office, Tài khoản, 
+* Chức năng thêm/sửa/xoá Post Office, Tài khoản,
+  
 **21020717 Đỗ Minh Sáng:**
 * Xây dựng Cơ sở dữ liệu
 * Các chức năng giao dịch cho gói hàng ở điểm giao dịch/tập kết, bao gồm:
