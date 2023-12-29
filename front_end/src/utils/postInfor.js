@@ -9,7 +9,7 @@ export const PostInfo = async (postID) => {
                 postId: postID
             }
         });
-        // console.log(response.data);
+        if (postID === 65) console.log(response.data);
         if (Object.keys(response.data).length === 0) return null;
         return response.data.Post.poName;
     } catch (error) {

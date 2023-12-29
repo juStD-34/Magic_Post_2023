@@ -15,6 +15,7 @@ const TABLE_ROWS = [{ pack: "1231321323", date: "12/12/2021" }];
 const Delivery = ({postId, userId}) => {
   // const postId = 1;
   // const userId = 1;
+  console.log("asdaskdhaklsd",postId);
   const isTrade = false;
   const [page, setPage] = React.useState(0);
   const [change, setChange] = useState(true);
@@ -26,10 +27,16 @@ const Delivery = ({postId, userId}) => {
   useEffect(() => {
     const fetchData = async () => {
       const result = await fetchOutgoingPackages(postId);
-      const filteredDeliPack = result.filter(pack => packageUserSend(pack));
-      let updatedDeliPack = await deliPackInfor(filteredDeliPack);
-      updatedDeliPack = updatedDeliPack.filter(deliPack => deliPack!==null);
-      setPackData(updatedDeliPack);
+      let filteredDeliPack;
+      let updatedDeliPack = [];
+      if (result !== null) {
+        filteredDeliPack = result.filter(pack => packageUserSend(pack));
+        updatedDeliPack = await deliPackInfor(filteredDeliPack);
+        if (!updatedDeliPack == null)
+          updatedDeliPack = updatedDeliPack.filter(deliPack => deliPack!==null);
+        setPackData(updatedDeliPack);
+        
+      }
     };
     fetchData();
   }, [change]);

@@ -49,7 +49,6 @@ export const updatePackage = (myPack, type, change, setChange, userId) => {
             Guess_path,
             current_po_id: type === false ? parseInt(guessPatharray[position + 1]) : parseInt(guessPatharray[position]),
         }
-
         if (type === false) {  // type = false => Pending package is forwarded
             const packStatus = {
                 packageCode: newPack.code,
@@ -68,7 +67,7 @@ export const updatePackage = (myPack, type, change, setChange, userId) => {
                 employeeAssignTimeWentID: null,
                 timeArrived: new Date(),
                 description: null,
-                employeeAssignTimeArrivedID: userId,
+                employeeAssignTimeArrivedID: parseInt(userId),
                 timeWent: null,
             }
             console.log("packStatus", packStatus);

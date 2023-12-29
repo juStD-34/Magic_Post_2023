@@ -18,35 +18,8 @@ const TABS = [
 const packagesCPSendToHead = ["Package's Code", "Name", "Phone", "Address", "Action"];
 const packagesToUserHead = ["Package's Code", "Name", "Phone","Address", "Confirm", "Cancel"];
 
-const res = [
-  {
-    id: "211AJNDI213",
-    address: "Ha noi My DINh Thai",
-    date: "27/01/2023"
-  },
-  {
-    id: "312jk90add",
-    address: "Ha noi My DINh Thai",
-    date: "27/01/2023"
-  },
-  {
-    id: "654adpoak644",
-    address: "Ha noi My DINh Thai",
-    date: "27/01/2023"
-  },
-  {
-    id: "16add4aw8",
-    address: "Ha noi My DINh Thai",
-    date: "27/01/2023"
-  },
-  {
-    id: "68468498adsbd",
-    address: "Ha noi My DINh Thai",
-    date: "27/01/2023"
-  },
-];
 
-let TABLE_ROWS = res;
+
 let TABLE_HEAD = packagesToUserHead;
 
 const Confirm = ({ userId, postId }) => {
@@ -63,13 +36,18 @@ const Confirm = ({ userId, postId }) => {
     const fetchData = async () => {
       const outgoingPackage = await fetchOutgoingPackages(postId);
       const incomingPackage = await fetchIncomingPackages(postId);
+      let filterpackagesToUser=[];
+      let packageSendToUser=[];
+      if (outgoingPackage !== null  && incomingPackage !== null) {
       // console.log("outgoingPackage from fetchOutgoingPackages:", outgoingPackage);
-      const filterpackagesToUser = outgoingPackage.filter(pack => packageSentToUser(pack))
+      filterpackagesToUser = outgoingPackage.filter(pack => packageSentToUser(pack)) //not function
         .map(pack => ({ code: pack.code, name: pack.receiverName, phone: pack.receiverPhone ,address: pack.receiverAddress}));
-      const packageCPSendTo = incomingPackage.map(pack => ({code: pack.code, name: pack.senderName, phone: pack.senderPhone, address: pack.senderAddress}));
-      // console.log(filterpackagesToUser);
+        packageSendToUser = incomingPackage.map(pack => ({code: pack.code, name: pack.senderName, phone: pack.senderPhone, address: pack.senderAddress}));
+        // console.log(filterpackagesToUser);
+      }
+      console.log(filterpackagesToUser, packageSentToUser, "asdadsadaaaaaaaaaaaaaaaaa"); 
       setPackagesToUser(filterpackagesToUser);
-      setPackageCPSendTo(packageCPSendTo);
+      setPackageCPSendTo(packageSendToUser);
     };
 
     fetchData();
@@ -82,7 +60,7 @@ const Confirm = ({ userId, postId }) => {
       setTABLE_ROWS(packagesToUser);
     }
   }, [changeRow, packageCPSendTo, packagesToUser, isTrade]);
-  console.log("packagesToUser", TABLE_ROWS);
+  console.log("packagesToUser", TABLE_ROWS, packagesToUser, packageCPSendTo);
   if (isTrade) {
     // TABLE_ROWS = packageCPSendTo;
     TABLE_HEAD = packagesCPSendToHead;

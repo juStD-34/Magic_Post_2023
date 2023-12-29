@@ -33,18 +33,19 @@ const App = () => {
           <Route path="/login" element={<Login />} />
 
           {role === "central/manager" && <Route path="/central/manager/account" element={<CentralAccount />} />}
-          {role === "central/manager" && <Route path="/central/manager/statistic" element={<CentralManager />} />}
-          {role === "central/employee" && <Route path="/central/employee" element={<CentralEmployee />} />}
+          {role === "central/manager" && <Route path="/central/manager/statistic" element={<CentralManager  postId={post_officeID}/>} />}
+          {role === "central/employee" && <Route path="/central/employee" element={<CentralEmployee postId={post_officeID} userId={userID}/>} />}
 
           {role === "trade/manager" && <Route path="/trade/manager/account" element={<TradeAccount />} />}
-          {role === "trade/manager" && <Route path="/trade/manager/statistic" element={<TradeManager />} />}
-          {role === "trade/employee" && <Route path="/trade/employee/package" element={<Package />} />}
-          {role === "trade/employee" && <Route path="/trade/employee/delivery" element={<Delivery />} />}
-          {role === "trade/employee" && <Route path="/trade/employee/statistic" element={<TradeStatistic />} />}
-          {role === "trade/employee" && <Route path="/trade/employee/confirm" element={<Confirm />} />}
+          {role === "trade/manager" && <Route path="/trade/manager/statistic" element={<TradeManager postId={post_officeID} userId={userID}/>} />}
+          {role === "trade/employee" && <Route path="/trade/employee/package" element={<Package postId={post_officeID} userId={userID}/>} />}
+          {role === "trade/employee" && <Route path="/trade/employee/delivery" element={<Delivery postId={post_officeID} userId={userID}/>} />}
+          {role === "trade/employee" && <Route path="/trade/employee/statistic" element={<TradeStatistic postId={post_officeID} userId={userID}/>} />}
+          {role === "trade/employee" && <Route path="/trade/employee/confirm" element={<Confirm postId={post_officeID} userId={userID}/>} />}
 
           {role === "manager" && <Route path="/manager" element={<Manager />} />}
           {role === "manager" && <Route path="/manager/statistic" element={<CEOStatistic />} />}
+        
         </Routes>
     </BrowserRouter>
   );

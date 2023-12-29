@@ -299,6 +299,7 @@ app.get('/postInfo', (req, res) => {
       console.error('Error executing query:', err.message);
       res.status(500).json({ error: 'Internal Server Error' });
     } else {
+      if (postId === 65) {console.error(JSON.stringify(rows))};
       res.json({ Post: rows[0] });
     }
   });
@@ -356,6 +357,7 @@ app.post('/packageStatus', (req, res) => {
     status.employeeAssignTimeArrivedID,
     status.timeWent,
   ];
+  console.error(status.packageCode);
   const query = `
   INSERT INTO packagestatus(packageCode, current_po_id, employeeAssignTimeWentID, timeArrived, description, employeeAssignTimeArrivedID, timeWent) 
   VALUES (?, ?, IFNULL(?, NULL), IFNULL(?, NULL), IFNULL(?, NULL), IFNULL(?, NULL), IFNULL(?, NULL));
